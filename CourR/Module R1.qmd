@@ -1,6 +1,6 @@
 ---
 title: "**Module 1: Introduction à la programmation R**"
-format: html
+format: pdf
 toc: true
 ---
 
