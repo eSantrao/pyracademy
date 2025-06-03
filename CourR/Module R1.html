@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.552">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Module 1: Introduction à la programmation R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Module R1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Module R1_files/libs/quarto-html/quarto.js"></script>
+<script src="Module R1_files/libs/quarto-html/popper.min.js"></script>
+<script src="Module R1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Module R1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Module R1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Module R1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Module R1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Module R1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Module R1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#objectif-du-module" id="toc-objectif-du-module" class="nav-link active" data-scroll-target="#objectif-du-module"><strong>Objectif du module</strong></a></li>
+  <li><a href="#introduction-à-r-et-rstudio" id="toc-introduction-à-r-et-rstudio" class="nav-link" data-scroll-target="#introduction-à-r-et-rstudio"><strong>1. Introduction à R et RStudio</strong></a>
+  <ul class="collapse">
+  <li><a href="#présentation-du-langage-r-historique-et-applications" id="toc-présentation-du-langage-r-historique-et-applications" class="nav-link" data-scroll-target="#présentation-du-langage-r-historique-et-applications"><strong>Présentation du langage R : historique et applications</strong></a>
+  <ul class="collapse">
+  <li><a href="#origine-et-évolution" id="toc-origine-et-évolution" class="nav-link" data-scroll-target="#origine-et-évolution">Origine et évolution</a></li>
+  <li><a href="#un-logiciel-libre-et-multiplateforme" id="toc-un-logiciel-libre-et-multiplateforme" class="nav-link" data-scroll-target="#un-logiciel-libre-et-multiplateforme">Un logiciel libre et multiplateforme</a></li>
+  <li><a href="#applications-et-domaines-dutilisation" id="toc-applications-et-domaines-dutilisation" class="nav-link" data-scroll-target="#applications-et-domaines-dutilisation">Applications et domaines d’utilisation</a></li>
+  <li><a href="#une-communauté-dynamique" id="toc-une-communauté-dynamique" class="nav-link" data-scroll-target="#une-communauté-dynamique">Une communauté dynamique</a></li>
+  </ul></li>
+  <li><a href="#installation-de-r-et-rstudio" id="toc-installation-de-r-et-rstudio" class="nav-link" data-scroll-target="#installation-de-r-et-rstudio"><strong>Installation de R et RStudio</strong></a>
+  <ul class="collapse">
+  <li><a href="#installer-r" id="toc-installer-r" class="nav-link" data-scroll-target="#installer-r"><strong>Installer R</strong></a></li>
+  <li><a href="#installer-rstudio" id="toc-installer-rstudio" class="nav-link" data-scroll-target="#installer-rstudio"><strong>Installer RStudio</strong></a></li>
+  </ul></li>
+  <li><a href="#tester-linstallation" id="toc-tester-linstallation" class="nav-link" data-scroll-target="#tester-linstallation"><strong>Tester l’installation</strong></a>
+  <ul class="collapse">
+  <li><a href="#installation-de-packages-essentiels" id="toc-installation-de-packages-essentiels" class="nav-link" data-scroll-target="#installation-de-packages-essentiels"><strong>Installation de packages essentiels</strong></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#bases-de-la-programmation-en-r" id="toc-bases-de-la-programmation-en-r" class="nav-link" data-scroll-target="#bases-de-la-programmation-en-r"><strong>2. Bases de la programmation en R</strong></a>
+  <ul class="collapse">
+  <li><a href="#les-variables-et-affectations--" id="toc-les-variables-et-affectations--" class="nav-link" data-scroll-target="#les-variables-et-affectations--"><strong>Les variables et affectations (<code>&lt;-</code>)</strong></a></li>
+  <li><a href="#règles-pour-choisir-un-nom-de-variable-dans-r" id="toc-règles-pour-choisir-un-nom-de-variable-dans-r" class="nav-link" data-scroll-target="#règles-pour-choisir-un-nom-de-variable-dans-r"><strong>Règles pour choisir un nom de variable dans R</strong></a></li>
+  <li><a href="#prise-en-main-de-r" id="toc-prise-en-main-de-r" class="nav-link" data-scroll-target="#prise-en-main-de-r"><strong>Prise en main de R</strong>:</a>
+  <ul class="collapse">
+  <li><a href="#exercice-1" id="toc-exercice-1" class="nav-link" data-scroll-target="#exercice-1">Exercice 1</a></li>
+  <li><a href="#exercice-2" id="toc-exercice-2" class="nav-link" data-scroll-target="#exercice-2">Exercice 2:</a></li>
+  </ul></li>
+  <li><a href="#utilisation-des-fonctions-dans-r" id="toc-utilisation-des-fonctions-dans-r" class="nav-link" data-scroll-target="#utilisation-des-fonctions-dans-r"><strong>Utilisation des fonctions dans R</strong></a>
+  <ul class="collapse">
+  <li><a href="#appel-de-fonctions-et-manipulation-des-paramètres-dans-r" id="toc-appel-de-fonctions-et-manipulation-des-paramètres-dans-r" class="nav-link" data-scroll-target="#appel-de-fonctions-et-manipulation-des-paramètres-dans-r">Appel de fonctions et manipulation des paramètres dans R</a></li>
+  <li><a href="#création-de-fonctions-personnalisées" id="toc-création-de-fonctions-personnalisées" class="nav-link" data-scroll-target="#création-de-fonctions-personnalisées">Création de fonctions personnalisées</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#types-de-données-dans-r" id="toc-types-de-données-dans-r" class="nav-link" data-scroll-target="#types-de-données-dans-r"><strong>3. Types de données dans R</strong></a>
+  <ul class="collapse">
+  <li><a href="#gestion-des-types-de-données" id="toc-gestion-des-types-de-données" class="nav-link" data-scroll-target="#gestion-des-types-de-données"><strong>Gestion des types de données</strong></a></li>
+  <li><a href="#type-booléen-logical" id="toc-type-booléen-logical" class="nav-link" data-scroll-target="#type-booléen-logical"><strong>Type booléen (<code>logical</code>)</strong></a></li>
+  <li><a href="#données-manquantes-na" id="toc-données-manquantes-na" class="nav-link" data-scroll-target="#données-manquantes-na"><strong>Données manquantes (<code>NA</code>)</strong></a></li>
+  <li><a href="#type-chaîne-de-caractères-character" id="toc-type-chaîne-de-caractères-character" class="nav-link" data-scroll-target="#type-chaîne-de-caractères-character"><strong>Type chaîne de caractères (<code>character</code>)</strong></a></li>
+  <li><a href="#données-brutes-raw-dans-r" id="toc-données-brutes-raw-dans-r" class="nav-link" data-scroll-target="#données-brutes-raw-dans-r"><strong>Données brutes (raw) dans R</strong></a></li>
+  </ul></li>
+  <li><a href="#structures-de-données-de-base" id="toc-structures-de-données-de-base" class="nav-link" data-scroll-target="#structures-de-données-de-base"><strong>4. Structures de données de base :</strong></a>
+  <ul class="collapse">
+  <li><a href="#les-vecteurs-vector" id="toc-les-vecteurs-vector" class="nav-link" data-scroll-target="#les-vecteurs-vector"><strong>Les vecteurs (<code>vector</code>)</strong></a></li>
+  <li><a href="#les-matrices-matrix-et-les-tableaux-array" id="toc-les-matrices-matrix-et-les-tableaux-array" class="nav-link" data-scroll-target="#les-matrices-matrix-et-les-tableaux-array"><strong>Les matrices (<code>matrix</code>) et les tableaux (<code>array</code>)</strong></a>
+  <ul class="collapse">
+  <li><a href="#création-de-matrices" id="toc-création-de-matrices" class="nav-link" data-scroll-target="#création-de-matrices">Création de matrices</a></li>
+  <li><a href="#création-de-tableaux-multidimensionnels-array" id="toc-création-de-tableaux-multidimensionnels-array" class="nav-link" data-scroll-target="#création-de-tableaux-multidimensionnels-array">Création de tableaux multidimensionnels (<code>array</code>)</a></li>
+  </ul></li>
+  <li><a href="#les-listes-list" id="toc-les-listes-list" class="nav-link" data-scroll-target="#les-listes-list"><strong>Les listes (<code>list</code>)</strong></a>
+  <ul class="collapse">
+  <li><a href="#nommer-les-éléments-dune-liste" id="toc-nommer-les-éléments-dune-liste" class="nav-link" data-scroll-target="#nommer-les-éléments-dune-liste">Nommer les éléments d’une liste</a></li>
+  <li><a href="#listes-imbriquées" id="toc-listes-imbriquées" class="nav-link" data-scroll-target="#listes-imbriquées">Listes imbriquées</a></li>
+  </ul></li>
+  <li><a href="#le-tableau-individus-variables-data.frame" id="toc-le-tableau-individus-variables-data.frame" class="nav-link" data-scroll-target="#le-tableau-individus-variables-data.frame"><strong>Le tableau individus × variables (<code>data.frame</code>)</strong></a>
+  <ul class="collapse">
+  <li><a href="#création-dun-data.frame" id="toc-création-dun-data.frame" class="nav-link" data-scroll-target="#création-dun-data.frame">Création d’un <code>data.frame</code></a></li>
+  <li><a href="#vérification-du-type-et-de-la-structure-du-data.frame" id="toc-vérification-du-type-et-de-la-structure-du-data.frame" class="nav-link" data-scroll-target="#vérification-du-type-et-de-la-structure-du-data.frame">Vérification du type et de la structure du <code>data.frame</code></a></li>
+  </ul></li>
+  <li><a href="#les-facteurs-factor-et-les-variables-ordinales-ordered" id="toc-les-facteurs-factor-et-les-variables-ordinales-ordered" class="nav-link" data-scroll-target="#les-facteurs-factor-et-les-variables-ordinales-ordered"><strong>Les facteurs (<code>factor</code>) et les variables ordinales (<code>ordered</code>)</strong></a>
+  <ul class="collapse">
+  <li><a href="#création-dun-facteur" id="toc-création-dun-facteur" class="nav-link" data-scroll-target="#création-dun-facteur">Création d’un facteur</a></li>
+  <li><a href="#recodage-dune-variable-continue-en-facteur" id="toc-recodage-dune-variable-continue-en-facteur" class="nav-link" data-scroll-target="#recodage-dune-variable-continue-en-facteur">Recodage d’une variable continue en facteur</a></li>
+  <li><a href="#facteurs-et-data.frame" id="toc-facteurs-et-data.frame" class="nav-link" data-scroll-target="#facteurs-et-data.frame">Facteurs et <code>data.frame</code></a></li>
+  <li><a href="#variables-ordinales-avec-ordered" id="toc-variables-ordinales-avec-ordered" class="nav-link" data-scroll-target="#variables-ordinales-avec-ordered">Variables ordinales avec <code>ordered()</code></a></li>
+  <li><a href="#création-rapide-de-facteurs-avec-gl" id="toc-création-rapide-de-facteurs-avec-gl" class="nav-link" data-scroll-target="#création-rapide-de-facteurs-avec-gl">Création rapide de facteurs avec <code>gl()</code></a></li>
+  </ul></li>
+  <li><a href="#les-dates-en-r" id="toc-les-dates-en-r" class="nav-link" data-scroll-target="#les-dates-en-r"><strong>Les dates en R</strong></a>
+  <ul class="collapse">
+  <li><a href="#conversion-de-chaînes-de-caractères-en-dates" id="toc-conversion-de-chaînes-de-caractères-en-dates" class="nav-link" data-scroll-target="#conversion-de-chaînes-de-caractères-en-dates">Conversion de chaînes de caractères en dates</a></li>
+  </ul></li>
+  <li><a href="#les-séries-temporelles-en-r" id="toc-les-séries-temporelles-en-r" class="nav-link" data-scroll-target="#les-séries-temporelles-en-r"><strong>Les séries temporelles en R</strong></a>
+  <ul class="collapse">
+  <li><a href="#création-dune-série-temporelle-avec-ts" id="toc-création-dune-série-temporelle-avec-ts" class="nav-link" data-scroll-target="#création-dune-série-temporelle-avec-ts">Création d’une série temporelle avec <code>ts()</code></a></li>
+  <li><a href="#explication-des-paramètres" id="toc-explication-des-paramètres" class="nav-link" data-scroll-target="#explication-des-paramètres">Explication des paramètres</a></li>
+  <li><a href="#applications-des-séries-temporelles" id="toc-applications-des-séries-temporelles" class="nav-link" data-scroll-target="#applications-des-séries-temporelles">Applications des séries temporelles</a></li>
+  </ul></li>
+  <li><a href="#termes-à-retenir" id="toc-termes-à-retenir" class="nav-link" data-scroll-target="#termes-à-retenir"><strong>Termes à retenir</strong></a></li>
+  </ul></li>
+  <li><a href="#exercices-travaux-pratiques" id="toc-exercices-travaux-pratiques" class="nav-link" data-scroll-target="#exercices-travaux-pratiques"><strong>5. EXERCICES &amp; TRAVAUX PRATIQUES</strong></a>
+  <ul class="collapse">
+  <li><a href="#exercice" id="toc-exercice" class="nav-link" data-scroll-target="#exercice"><strong>EXERCICE:</strong></a></li>
+  <li><a href="#tp" id="toc-tp" class="nav-link" data-scroll-target="#tp"><strong>TP</strong></a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><strong>Module 1: Introduction à la programmation R</strong></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objectif-du-module" class="level1">
+<h1><strong>Objectif du module</strong></h1>
+<p>Ce module vise à initier les apprenants aux bases du langage R, en couvrant les concepts fondamentaux, l’environnement de travail, et les manipulations de données simples.</p>
+</section>
+<section id="introduction-à-r-et-rstudio" class="level1">
+<h1><strong>1. Introduction à R et RStudio</strong></h1>
+<section id="présentation-du-langage-r-historique-et-applications" class="level2">
+<h2 class="anchored" data-anchor-id="présentation-du-langage-r-historique-et-applications"><strong>Présentation du langage R : historique et applications</strong></h2>
+<p>R est un <strong>langage de programmation</strong> et un <strong>logiciel de statistique</strong> développé par <strong>Ross Ihaka</strong> et <strong>Robert Gentleman</strong> dans les années 1990. Il constitue à la fois un <strong>environnement interactif</strong> permettant la manipulation de données et un langage de programmation conçu pour <strong>l’analyse statistique avancée</strong>. Les commandes y sont exécutées sous forme de scripts clairs et intuitifs, avec une gestion efficace des résultats sous forme de <strong>tableaux, graphiques et rapports détaillés</strong>.</p>
+<section id="origine-et-évolution" class="level3">
+<h3 class="anchored" data-anchor-id="origine-et-évolution">Origine et évolution</h3>
+<p>R est issu du langage <strong>S</strong>, développé par <strong>AT&amp;T Bell Laboratories</strong> en 1976 et rendu disponible sous la version commerciale <strong>S-Plus</strong> en 1988. Sa création visait à offrir un environnement puissant pour les analyses statistiques et les simulations complexes. Grâce à son architecture open-source, R a rapidement gagné en popularité et est devenu l’un des outils incontournables dans de nombreux <strong>domaines scientifiques et industriels</strong>.</p>
+</section>
+<section id="un-logiciel-libre-et-multiplateforme" class="level3">
+<h3 class="anchored" data-anchor-id="un-logiciel-libre-et-multiplateforme">Un logiciel libre et multiplateforme</h3>
+<p>L’un des atouts majeurs de R est qu’il est <strong>gratuit</strong> et disponible sous <strong>licence libre</strong> (<em>open-source</em>). Il fonctionne sur <strong>UNIX/Linux, Microsoft Windows et MacOS</strong>, ce qui lui confère une large accessibilité. Sa nature open-source permet aux utilisateurs de développer leurs propres extensions, d’améliorer les fonctionnalités et de partager leurs contributions au sein d’une communauté mondiale dynamique.</p>
+</section>
+<section id="applications-et-domaines-dutilisation" class="level3">
+<h3 class="anchored" data-anchor-id="applications-et-domaines-dutilisation">Applications et domaines d’utilisation</h3>
+<p>R est aujourd’hui utilisé dans <strong>divers secteurs</strong>, notamment :<br>
+- <strong>Statistique et recherche scientifique</strong> : Analyse de données, modélisation statistique et tests d’hypothèses.<br>
+- <strong>Finance et économie</strong> : Prévisions financières, analyse des risques et optimisation des portefeuilles.<br>
+- <strong>Biostatistique et médecine</strong> : Études cliniques, analyses génétiques et traitement des données biomédicales.<br>
+- <strong>Data science et intelligence artificielle</strong> : Apprentissage automatique, traitement du big data et visualisation avancée.<br>
+- <strong>Géographie et environnement</strong> : Modélisation climatique, analyse spatiale et cartographie des données.</p>
+<p>Grâce à ses bibliothèques spécialisées, R permet de traiter des volumes de données considérables et de produire des analyses précises et fiables. Son interface graphique avancée en fait un outil puissant pour la visualisation et la présentation des résultats sous forme de graphiques interactifs et tableaux dynamiques.</p>
+</section>
+<section id="une-communauté-dynamique" class="level3">
+<h3 class="anchored" data-anchor-id="une-communauté-dynamique">Une communauté dynamique</h3>
+<p>Développé dans l’esprit du <strong>logiciel libre</strong>, R bénéficie du soutien d’une communauté mondiale <strong>active et engagée</strong>. Des milliers de bénévoles contribuent en permanence à son amélioration, en proposant de nouvelles méthodes d’analyse, des packages innovants et des outils intégrés facilitant son usage. Cette évolution rapide assure à R une place de choix parmi les <strong>meilleurs langages pour l’analyse statistique et le traitement des données</strong>.<br>
+Avec son évolutivité et son adaptabilité, R continue d’être un <strong>pilier incontournable</strong> pour les scientifiques, analystes et ingénieurs à travers le monde.</p>
+</section>
+</section>
+<section id="installation-de-r-et-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="installation-de-r-et-rstudio"><strong>Installation de R et RStudio</strong></h2>
+<section id="installer-r" class="level3">
+<h3 class="anchored" data-anchor-id="installer-r"><strong>Installer R</strong></h3>
+<ul>
+<li><p>Rendez-vous sur le site officiel de R : <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a>.</p></li>
+<li><p>Choisis le système d’exploitation correspondant (<strong>Windows</strong>, <strong>MacOS</strong>, ou <strong>Linux</strong>).</p></li>
+<li><p>Télécharge la dernière version disponible.</p></li>
+<li><p>Une fois le fichier téléchargé, ouvre-le et suis les instructions d’installation.</p></li>
+<li><p>Choisis les options par défaut, sauf si tu as des besoins spécifiques.</p></li>
+<li><p>Une fois installé, vérifie en lançant <strong>R GUI</strong> (l’interface native de R).</p></li>
+</ul>
+</section>
+<section id="installer-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="installer-rstudio"><strong>Installer RStudio</strong></h3>
+<p>RStudio est un environnement de développement interactif qui facilite l’utilisation de R. Pour l’installer :</p>
+<ul>
+<li><p>Accède au site officiel : <a href="https://posit.co/download/rstudio-desktop" class="uri">https://posit.co/download/rstudio-desktop</a>.</p></li>
+<li><p>Sélectionne la version adaptée à ton système d’exploitation (<strong>Windows</strong>, <strong>MacOS</strong>, ou <strong>Linux</strong>).</p></li>
+<li><p>Ouvre le fichier d’installation téléchargé et suis les étapes.</p></li>
+<li><p>Lance <strong>RStudio</strong> et vérifie que R est bien détecté (si tout est correct, la console affichera <code>[R version x.x.x]</code>).</p></li>
+</ul>
+</section>
+</section>
+<section id="tester-linstallation" class="level2">
+<h2 class="anchored" data-anchor-id="tester-linstallation"><strong>Tester l’installation</strong></h2>
+<p>Ouvrir RStudio et repérer la console</p>
+<p>Exécuter une commande simple dans la console, par exemple :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">"R est mon ami !"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "R est mon ami !"</code></pre>
+</div>
+</div>
+<p>Si la phrase s’affiche, tout est bien installé et fonctionnel !</p>
+<section id="installation-de-packages-essentiels" class="level3">
+<h3 class="anchored" data-anchor-id="installation-de-packages-essentiels"><strong>Installation de packages essentiels</strong></h3>
+<p>RStudio propose des fonctionnalités enrichies grâce aux <strong>packages</strong>. Installe quelques indispensables avec ce code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)  <span class="co"># Pour la manipulation de données </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)    <span class="co"># Pour la visualisation graphique </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)      <span class="co"># Pour le traitement des données </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Une fois ces étapes terminées, tu es prêt(e) à explorer <strong>R</strong> et <strong>RStudio</strong> !</p>
+</section>
+</section>
+</section>
+<section id="bases-de-la-programmation-en-r" class="level1">
+<h1><strong>2. Bases de la programmation en R</strong></h1>
+<p>R, comme beaucoup d’autres langages de ce type, remplace aisément les fonctionnalités d’une calculatrice (très sophistiquée !). Sa grande force réside également dans sa capacité à effectuer des calculs sur des vecteurs. Voici quelques exemples très simples :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">*</span> (<span class="fl">3.2</span>)  <span class="co"># Attention, le séparateur décimal doit être un point (.)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">*</span> (<span class="sc">-</span><span class="dv">3</span>,<span class="dv">2</span>)  <span class="co"># Sinon, l'erreur suivante est générée : </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in parse(text = input): &lt;text&gt;:1:8: unexpected ','
+1: 5 * (-3,
+           ^</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">^</span><span class="dv">2</span>  <span class="co"># Identique à 5**2.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(<span class="dv">2</span> <span class="sc">*</span> pi <span class="sc">/</span> <span class="dv">3</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8660254</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">4</span>)  <span class="co"># Racine carrée de 4.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)  <span class="co"># Crée un vecteur contenant les cinq premiers entiers.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3 4 5</code></pre>
+</div>
+</div>
+<section id="les-variables-et-affectations--" class="level2">
+<h2 class="anchored" data-anchor-id="les-variables-et-affectations--"><strong>Les variables et affectations (<code>&lt;-</code>)</strong></h2>
+<p>Comme vous l’avez sans doute remarqué, R répond à vos requêtes en affichant le résultat obtenu après évaluation. Ce résultat est affiché puis perdu. Lors d’une première utilisation, cela peut sembler pratique, mais dans un usage plus avancé, il devient plus intéressant de rediriger la sortie de votre requête en la stockant dans une variable. Cette opération s’appelle l’affectation du résultat dans une variable. Une affectation évalue ainsi une expression, mais n’affiche pas le résultat qui est en réalité stocké dans un objet. Pour afficher ce résultat, il suffit de taper le nom de cet objet, suivi de la touche Entrée. Affectation d’une variable Pour réaliser cette opération, on utilise la flèche d’affectation &lt;-. Elle s’obtient en tapant le signe inférieur &lt; suivi du signe moins -. La syntaxe pour créer un objet dans R est la suivante : Nom_objet_a_creer &lt;- instructions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Nom_objet_a_creer <span class="ot">&lt;-</span> <span class="st">"instructions"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">6</span>  <span class="co"># Affectation</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>x       <span class="co"># Affichage</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>On dit alors que x vaut 6, ou que l’on affecte 6 à x, ou encore que l’on stocke la valeur 6 dans x ### Affectation dans l’autre sens: Notez que l’on peut aussi utiliser l’opération d’affectation dans l’autre sens -&gt; de la manière suivante :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span> <span class="ot">-&gt;</span> y</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+</section>
+<section id="règles-pour-choisir-un-nom-de-variable-dans-r" class="level2">
+<h2 class="anchored" data-anchor-id="règles-pour-choisir-un-nom-de-variable-dans-r"><strong>Règles pour choisir un nom de variable dans R</strong></h2>
+<p>Dans R, un nom de variable doit respecter les conventions suivantes : Caractères autorisés : Un nom de variable ne peut être constitué que de caractères alphanumériques (a-z, A-Z, 0-9) ainsi que du point (.). Sensible à la casse : R distingue les majuscules des minuscules (maVariable et mavariable sont considérés comme différents). <strong>Interdictions :</strong> Un nom de variable ne peut pas contenir d’espaces. Il ne peut pas commencer par un chiffre, sauf s’il est encadré de guillemets (““). Exemples de noms valides et invalides</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valides</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ma_variable <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>MaVariable <span class="ot">&lt;-</span> <span class="st">"texte"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>var2 <span class="ot">&lt;-</span> <span class="fl">5.6</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>taux.de.croissance <span class="ot">&lt;-</span> <span class="fl">0.03</span>  <span class="co"># Utilisation du point</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  Invalides</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>variable <span class="ot">&lt;-</span> <span class="st">"erreur"</span>  <span class="co"># Commence par un chiffre</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>ma variable <span class="ot">&lt;-</span> <span class="dv">100</span>      <span class="co"># Contient un espace</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>mavariable<span class="sc">!</span> <span class="er">&lt;</span><span class="sc">-</span> <span class="cn">TRUE</span>     <span class="co"># Contient un caractère spécial</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="prise-en-main-de-r" class="level2">
+<h2 class="anchored" data-anchor-id="prise-en-main-de-r"><strong>Prise en main de R</strong>:</h2>
+<section id="exercice-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercice-1">Exercice 1</h3>
+<p>Commencez par créer un dossier nommé TravauxR dans votre compte. Ensuite, tapez et enregistrez dans un script R les instructions précédentes. Le fichier contenant le script R sera nommé monscript.R et placé dans TravauxR. Maintenant, fermez puis rouvrez R. Enfin, modifiez votre répertoire de travail courant pour qu’il pointe vers TravauxR. exécuter dans la console la commande: source(“monscript.R”) Notez que la fonction source() permet d’exécuter votre script. Vous aurez peut-être aussi remarqué que les calculs qui n’ont pas été redirigés dans des variables ne sont pas affichés dans la console. Ainsi, leur résultat est perdu. Modifiez votre script et ajoutez-y, à la fin, les instructions suivantes :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="dv">2</span><span class="sc">*</span><span class="dv">3</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sauvegarder-le, puis sourcez-le de nouveau. Que s’est-il passé ?</p>
+<p>Prenez l’habitude d’utiliser le système d’aide en ligne de R aussi souvent que possible. Cette aide, très complète (mais uniquement disponible en anglais), est accessible via la fonction help(). Par exemple, vous pouvez taper :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(source)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cela vous permettra d’obtenir des informations détaillées sur la fonction source().</p>
+</section>
+<section id="exercice-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercice-2">Exercice 2:</h3>
+<p>L’Indice de Masse Corporelle (IMC) permet de déterminer la corpulence d’une personne. Il se calcule à l’aide de la formule suivante : ** <code>IMC = Poids (kg)/Taille^2</code> ** Calculons notre IMC Pour effectuer ce calcul, il suffit de taper les lignes suivantes dans votre fenêtre de script :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Il est possible d’écrire plusieurs instructions sur la même ligne grâce au signe ";"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Mon.Poids <span class="ot">&lt;-</span> <span class="dv">63</span> ; Ma.Taille <span class="ot">&lt;-</span> <span class="fl">1.70</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Mon.IMC <span class="ot">&lt;-</span> Mon.Poids <span class="sc">/</span> Ma.Taille<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>Mon.IMC  <span class="co"># Affichage du résultat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21.79931</code></pre>
+</div>
+</div>
+<p>Lancez ce script en suivant la stratégie de travail vue précédemment. Vous pouvez ensuite modifier ce script pour calculer votre propre IMC en adaptant les valeurs de <code>Mon.Poids</code> et <code>Ma.Taille</code></p>
+</section>
+</section>
+<section id="utilisation-des-fonctions-dans-r" class="level2">
+<h2 class="anchored" data-anchor-id="utilisation-des-fonctions-dans-r"><strong>Utilisation des fonctions dans R</strong></h2>
+<p>R propose de nombreuses fonctions intégrées, comme sin(), sqrt(), exp() et log(), et permet d’en ajouter des milliers d’autres via des packages ou en créant ses propres fonctions. #### Définition et appel de fonction Une fonction est caractérisée par son nom et une liste de paramètres. La plupart des fonctions renvoient une valeur pouvant être un nombre, un vecteur, une matrice, etc. L’utilisation d’une fonction se fait en tapant son nom, suivi d’une paire de parenthèses contenant les paramètres. Les paramètres sont séparés par des virgules, et peuvent être précisés avec = pour leur attribuer une valeur :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nomfonction</span>(<span class="at">par1 =</span> valeur1, <span class="at">par2 =</span> valeur2, <span class="at">par3 =</span> valeur3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Cependant, il est possible d’appeler une fonction sans nommer explicitement les paramètres, tant que leur ordre est respecté. # Paramètres obligatoires et facultatifs Dans R, certaines fonctions nécessitent des paramètres obligatoires, tandis que d’autres acceptent des valeurs par défaut. À noter que R utilise le terme argument pour désigner ce que l’on appelle ici paramètre.</p>
+<section id="appel-de-fonctions-et-manipulation-des-paramètres-dans-r" class="level3">
+<h3 class="anchored" data-anchor-id="appel-de-fonctions-et-manipulation-des-paramètres-dans-r">Appel de fonctions et manipulation des paramètres dans R</h3>
+<p>Dans R, une même fonction peut être appelée de différentes façons, en jouant sur l’ordre et la définition explicite des paramètres. Cette flexibilité rend l’utilisation de R très intuitive. Exemple : Calcul du logarithme népérien de 3 Les expressions suivantes sont équivalentes et permettent d’obtenir log(3), qui correspond au logarithme népérien de 3 :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">3</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">x =</span> <span class="dv">3</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="at">base =</span> <span class="fu">exp</span>(<span class="dv">1</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">x =</span> <span class="dv">3</span>, <span class="fu">exp</span>(<span class="dv">1</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">3</span>, <span class="at">base =</span> <span class="fu">exp</span>(<span class="dv">1</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">3</span>, <span class="fu">exp</span>(<span class="dv">1</span>))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="fu">exp</span>(<span class="dv">1</span>), <span class="dv">3</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="at">base =</span> <span class="fu">exp</span>(<span class="dv">1</span>), <span class="at">x =</span> <span class="dv">3</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.098612</code></pre>
+</div>
+</div>
+<p>Cependant, l’expression suivante modifie la base du logarithme, ce qui change le résultat :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fu">exp</span>(<span class="dv">1</span>), <span class="dv">3</span>)  <span class="co"># Logarithme de exp(1) en base 3.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9102392</code></pre>
+</div>
+</div>
+</section>
+<section id="création-de-fonctions-personnalisées" class="level3">
+<h3 class="anchored" data-anchor-id="création-de-fonctions-personnalisées">Création de fonctions personnalisées</h3>
+<p>R permet aussi de définir ses propres fonctions très facilement. Par exemple, la fonction factorial() est définie ainsi dans R :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>factorial <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">gamma</span>(x <span class="sc">+</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Un exemple de fonction personnalisée pour calcUler l’IMC :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>MyIMC <span class="ot">&lt;-</span> <span class="cf">function</span>(Poids, Taille) {</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  Poids <span class="sc">/</span> (Taille)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">MyIMC</span>(<span class="dv">80</span>,<span class="fl">1.65</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 29.38476</code></pre>
+</div>
+</div>
+<p>La capacité de R à gérer les paramètres de plusieurs manières et à permettre la création de fonctions personnalisées le rend très puissant et modulable pour tout type d’analyse.</p>
+</section>
+</section>
+</section>
+<section id="types-de-données-dans-r" class="level1">
+<h1><strong>3. Types de données dans R</strong></h1>
+<p>R reconnaît automatiquement le type des données saisies et permet de les organiser de manière structurée, ce qui est essentiel pour les analyses statistiques.</p>
+<section id="gestion-des-types-de-données" class="level3">
+<h3 class="anchored" data-anchor-id="gestion-des-types-de-données"><strong>Gestion des types de données</strong></h3>
+<ul>
+<li><code>typeof()</code> : Détermine le <strong>type</strong> d’un objet.<br>
+</li>
+<li><code>mode()</code> : Fonction similaire à <code>typeof()</code>, avec quelques subtilités.<br>
+</li>
+<li><code>class()</code> : Plus générale, elle permet de gérer le <strong>type et la structure</strong> des données. ### <strong>Types numériques (<code>numeric</code>)</strong> R distingue deux sous-types :<br>
+</li>
+<li><strong>Entiers (<code>integer</code>)</strong> : Moins gourmands en mémoire.<br>
+</li>
+<li><strong>Réels (<code>double</code>)</strong> : Par défaut, toutes les valeurs numériques sont considérées comme des <code>double</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">3.4</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(a)  <span class="co"># Conversion en entier</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(c)  <span class="co"># Renvoie "integer"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+</div>
+<section id="types-complexes-complex" class="level4">
+<h4 class="anchored" data-anchor-id="types-complexes-complex"><strong>Types complexes (<code>complex</code>)</strong></h4>
+<p>Les nombres complexes sont créés avec la lettre <strong>i</strong>. <strong>Fonctions utiles :</strong><br>
+- <code>Re(x)</code> : Partie réelle.<br>
+- <code>Im(x)</code> : Partie imaginaire.<br>
+- <code>Mod(x)</code> : Module.<br>
+- <code>Arg(x)</code> : Argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>i</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Re</span>(z)  <span class="co"># Partie réelle → [1] 1</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Im</span>(z)  <span class="co"># Partie imaginaire → [1] 2</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Mod</span>(z) <span class="co"># Module → [1] 2.236</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Arg</span>(z) <span class="co"># Argument → [1] 1.107</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">typeof</span>(z)</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.complex</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="type-booléen-logical" class="level3">
+<h3 class="anchored" data-anchor-id="type-booléen-logical"><strong>Type booléen (<code>logical</code>)</strong></h3>
+<p>Résultat d’une condition logique, il prend les valeurs <code>TRUE</code> ou <code>FALSE</code>.<br>
+- Vérifier le type : <code>is.logical(x)</code> - Comparaisons logiques :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a> a <span class="ot">&lt;-</span> <span class="dv">1</span>; b <span class="ot">&lt;-</span> <span class="fl">3.4</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">&lt;</span> b  <span class="co"># [1] TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">==</span> b <span class="co"># [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<ul>
+<li><p><strong>Attention</strong> : <code>TRUE</code> = 1, <code>FALSE</code> = 0</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">+</span> <span class="cn">FALSE</span>  <span class="co"># [1] 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div></li>
+</ul>
+</section>
+<section id="données-manquantes-na" class="level3">
+<h3 class="anchored" data-anchor-id="données-manquantes-na"><strong>Données manquantes (<code>NA</code>)</strong></h3>
+<p>Les valeurs manquantes sont représentées par <strong>NA</strong>. - Vérifier si une donnée est manquante : <code>is.na(x)</code> - Calculer en ignorant les <code>NA</code> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">6</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(x, <span class="at">na.rm=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.5</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Différence entre <code>NA</code>, <code>NaN</code> et <code>Inf</code></strong> :</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a> <span class="dv">0</span><span class="sc">/</span><span class="dv">0</span>  <span class="co"># NaN (Not a Number)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NaN</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>  <span class="dv">3</span><span class="sc">/</span><span class="dv">0</span>  <span class="co"># Inf (Infini)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Inf</code></pre>
+</div>
+</div>
+</section>
+<section id="type-chaîne-de-caractères-character" class="level3">
+<h3 class="anchored" data-anchor-id="type-chaîne-de-caractères-character"><strong>Type chaîne de caractères (<code>character</code>)</strong></h3>
+<p>Toute valeur entre <strong>guillemets</strong> (<code>" "</code> ou <code>' '</code>) est une chaîne de caractères.<br>
+- Vérifier le type : <code>is.character(a)</code> - Convertir entre types :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>(<span class="fl">2.3</span>)  <span class="co"># "2.3"</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">as.numeric</span>(<span class="st">"2.3"</span>)  <span class="co"># 2.3</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">as.integer</span>(<span class="st">"3.4"</span>)  <span class="co"># 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="données-brutes-raw-dans-r" class="level3">
+<h3 class="anchored" data-anchor-id="données-brutes-raw-dans-r"><strong>Données brutes (raw) dans R</strong></h3>
+<p>R permet de manipuler directement des octets, affichés sous forme hexadécimale. Cette fonctionnalité est particulièrement utile pour lire et traiter des fichiers au format binaire.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.raw</span>(<span class="dv">15</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>x  <span class="co"># Affichage en hexadécimal → [1] 0f</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0f</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mode</span>(x)  <span class="co"># Vérification du type → [1] "raw"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "raw"</code></pre>
+</div>
+</div>
+<p>Ce type de données est moins courant mais essentiel pour certaines opérations avancées. En somme, R offre une grande flexibilité pour manipuler et convertir les données, ce qui est essentiel pour le traitement statistique. ## <strong>Récapitulatif</strong></p>
+<section id="les-differents-types-de-données-en-r" class="level4">
+<h4 class="anchored" data-anchor-id="les-differents-types-de-données-en-r">Les differents types de données en R</h4>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Type de donées</th>
+<th>Type sous R</th>
+<th>Présentation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>réel (entier ou non)</strong></td>
+<td>numeric</td>
+<td>5.7</td>
+</tr>
+<tr class="even">
+<td><strong>complexe</strong></td>
+<td>complex</td>
+<td>7+2i</td>
+</tr>
+<tr class="odd">
+<td><strong>logique (vrai/faux)</strong></td>
+<td>logical</td>
+<td>TRUE ou FALSE</td>
+</tr>
+<tr class="even">
+<td><strong>manquant</strong></td>
+<td>logical</td>
+<td>NA</td>
+</tr>
+<tr class="odd">
+<td><strong>texte (Chaine de caractères)</strong></td>
+<td>character</td>
+<td>“texte”</td>
+</tr>
+<tr class="even">
+<td><strong>binaires</strong></td>
+<td>raw</td>
+<td>1c</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="structures-de-données-de-base" class="level1">
+<h1><strong>4. Structures de données de base :</strong></h1>
+<p>R offre la possibilité d’organiser et de structurer les différents types de données définis précédemment. La fonction <code>class()</code> permet de manipuler ces structures. Nous présentons ici les plus utiles.</p>
+<section id="les-vecteurs-vector" class="level2">
+<h2 class="anchored" data-anchor-id="les-vecteurs-vector"><strong>Les vecteurs (<code>vector</code>)</strong></h2>
+<p>Le vecteur est la structure de données la plus simple. Il représente une suite de données de même type. La fonction <code>c()</code> (pour collection ou concaténation) permet de créer des vecteurs.<br>
+D’autres fonctions comme <code>seq()</code> ou l’utilisation des deux points (<code>:</code>) permettent également de générer des vecteurs. À noter que lors de la création d’un vecteur, il est possible de mélanger des données de différents types. Dans ce cas, R effectue une conversion implicite vers le type le plus fréquent, comme illustré ci-dessous :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création de vecteurs</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">7</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vec1)  <span class="co"># Affichage du vecteur</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 1 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mélange de types : R effectue une conversion implicite</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>vec2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="cn">TRUE</span>, <span class="dv">7</span>)  <span class="co"># TRUE est converti en 1</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vec2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3 1 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>vec3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, T, <span class="st">"7"</span>)  <span class="co"># Tous les éléments sont convertis en caractères</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vec3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "3"    "TRUE" "7"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Génération de séquences numériques</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>seq1 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(seq1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>seq2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">20</span>, <span class="at">length.out =</span> <span class="dv">5</span>)  <span class="co"># Utilisation de length.out pour garantir le bon fonctionnement</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(seq2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0  5 10 15 20</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un vecteur avec l'opérateur `:`</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">36</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vec)  <span class="co"># Affichage du vecteur</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+[26] 27 28 29 30 31 32 33 34 35 36</code></pre>
+</div>
+</div>
+<p>Il est également possible de <strong>nommer</strong> les éléments d’un vecteur grâce à la fonction <code>names()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">names</span>(vec) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>] <span class="co"># Attribution des 9 premières lettres de l’alphabet.</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>a b c d e f g h i 
+1 3 6 2 7 4 8 1 0 </code></pre>
+</div>
+</div>
+<p><strong>Attention</strong><br>
+Les indications <code>[1]</code> et <code>[26]</code> affichées dans la console correspondent à l’index du premier élément de chaque ligne dans le vecteur.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification si vec est un vecteur</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">36</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">is.vector</span>(vec))  <span class="co"># Affiche TRUE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparaison entre integer et numeric</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>  <span class="co"># Stocké comme integer</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)  <span class="co"># Stocké comme numeric</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage du type de chaque variable</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(x))  <span class="co"># Affiche "integer"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(y))  <span class="co"># Affiche "numeric"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Bien que l’on puisse s’attendre à voir <strong>“vector of doubles”</strong> ou <strong>“vector of integers”</strong> affiché en sortie, R utilise plutôt les termes <strong>“numeric”</strong> et <strong>“integer”</strong> pour désigner ces types.</p>
+<p>Les instructions <code>c()</code> et <code>:</code> produisent un affichage identique, mais en interne, <code>x</code> et <code>y</code> sont stockés différemment. Le type <strong>integer</strong> est plus économe en mémoire que le type <strong>numeric</strong>.</p>
+</section>
+<section id="les-matrices-matrix-et-les-tableaux-array" class="level2">
+<h2 class="anchored" data-anchor-id="les-matrices-matrix-et-les-tableaux-array"><strong>Les matrices (<code>matrix</code>) et les tableaux (<code>array</code>)</strong></h2>
+<p>Les matrices et les tableaux généralisent la notion de vecteur. Une <strong>matrice</strong> représente une structure de données à <strong>deux indices</strong> (lignes et colonnes), tandis qu’un <strong>tableau</strong> peut avoir plusieurs indices (dimensions). Comme pour les vecteurs, tous les éléments doivent être du <strong>même type</strong>, sinon R effectue des conversions implicites.</p>
+<section id="création-de-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="création-de-matrices">Création de matrices</h3>
+<p>La fonction <code>matrix()</code> permet de créer une matrice. L’exemple suivant génère une matrice <strong>remplie ligne par ligne</strong> (<code>byrow = TRUE</code>) avec les valeurs de <code>1:12</code> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+[4,]   10   11   12</code></pre>
+</div>
+</div>
+<p>La matrice <code>X</code> contient <strong>4 lignes</strong> et <strong>3 colonnes</strong>, remplies <strong>ligne par ligne</strong>.</p>
+<p>De la même manière, il est possible de <strong>remplir une matrice colonne par colonne</strong> (<code>byrow = FALSE</code>) :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    5    9
+[2,]    2    6   10
+[3,]    3    7   11
+[4,]    4    8   12</code></pre>
+</div>
+</div>
+<p>La matrice <code>Y</code> est remplie <strong>colonne par colonne</strong>.</p>
+<p>Pour vérifier le type de <code>Y</code>, on utilise :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(Y))  <span class="co"># Affiche "matrix"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "matrix" "array" </code></pre>
+</div>
+</div>
+</section>
+<section id="création-de-tableaux-multidimensionnels-array" class="level3">
+<h3 class="anchored" data-anchor-id="création-de-tableaux-multidimensionnels-array">Création de tableaux multidimensionnels (<code>array</code>)</h3>
+<p>Les tableaux multidimensionnels permettent de <strong>ajouter des dimensions supplémentaires</strong>. La fonction <code>array()</code> permet de créer des structures à <strong>plus de deux dimensions</strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , 1
+
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+, , 2
+
+     [,1] [,2]
+[1,]    5    7
+[2,]    6    8
+
+, , 3
+
+     [,1] [,2]
+[1,]    9   11
+[2,]   10   12</code></pre>
+</div>
+</div>
+<p>La variable <code>X</code> contient <strong>3 matrices (couches)</strong> de <strong>2 lignes et 2 colonnes</strong> chacune.</p>
+<p>Pour vérifier le type de <code>X</code> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(X))  <span class="co"># Affiche "array"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "array"</code></pre>
+</div>
+</div>
+<section id="attention" class="level4">
+<h4 class="anchored" data-anchor-id="attention">Attention</h4>
+<p>Il est possible de créer des <strong>tableaux à plus de trois dimensions</strong> grâce au <strong>paramètre <code>dim</code></strong>, qui peut prendre <strong>plus de trois valeurs</strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>multi_array <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">24</span>, <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))  <span class="co"># Tableau avec 4 dimensions</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(multi_array)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>, , 1
+
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+
+, , 2
+
+     [,1] [,2] [,3]
+[1,]    7    9   11
+[2,]    8   10   12
+
+, , 3
+
+     [,1] [,2] [,3]
+[1,]   13   15   17
+[2,]   14   16   18
+
+, , 4
+
+     [,1] [,2] [,3]
+[1,]   19   21   23
+[2,]   20   22   24</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="les-listes-list" class="level2">
+<h2 class="anchored" data-anchor-id="les-listes-list"><strong>Les listes (<code>list</code>)</strong></h2>
+<p>La structure <strong>la plus souple</strong> et <strong>la plus riche</strong> du langage R est celle des <strong>listes</strong>. Contrairement aux structures précédentes, les listes permettent de <strong>regrouper dans une même structure</strong> des données <strong>de types différents</strong> sans les altérer.<br>
+Chaque élément d’une liste peut être <strong>un vecteur, une matrice, un tableau (<code>array</code>) ou même une autre liste</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span>,</span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>),</span>
+<span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>i, <span class="dv">3</span>),</span>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Une chaîne de caractères"</span></span>
+<span id="cb103-7"><a href="#cb103-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb103-8"><a href="#cb103-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] TRUE
+
+[[2]]
+[1] -1  0  1  2  3
+
+[[3]]
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+[[4]]
+[1] 1+2i 3+0i
+
+[[5]]
+[1] "Une chaîne de caractères"</code></pre>
+</div>
+</div>
+<p>On peut vérifier le type de l’objet <code>A</code> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(A))  <span class="co"># Affiche "list"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+</div>
+<section id="nommer-les-éléments-dune-liste" class="level3">
+<h3 class="anchored" data-anchor-id="nommer-les-éléments-dune-liste">Nommer les éléments d’une liste</h3>
+<p>Les listes sont <strong>hétérogènes</strong> en types de données, et l’ordre des éléments peut être <strong>arbitraire</strong>. C’est pourquoi il est possible de <strong>nommer explicitement</strong> chaque élément afin d’améliorer la lisibilité des sorties. Un exemple de liste avec des <strong>noms explicites</strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">une.matrice =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>),</span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">des.complexes =</span> <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span>i, <span class="dv">3</span>)</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$une.matrice
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+
+$des.complexes
+[1] 1+2i 3+0i</code></pre>
+</div>
+</div>
+</section>
+<section id="listes-imbriquées" class="level3">
+<h3 class="anchored" data-anchor-id="listes-imbriquées">Listes imbriquées</h3>
+<p>Une liste peut <strong>elle-même contenir d’autres listes</strong>, ce qui permet de créer <strong>des structures complexes et organisées</strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>liste1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">complexe =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span>i, <span class="at">logique =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>liste2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">chaine =</span> <span class="st">"J’apprends R"</span>, <span class="at">vecteur =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb109-5"><a href="#cb109-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ma première liste"</span> <span class="ot">=</span> liste1,</span>
+<span id="cb109-6"><a href="#cb109-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ma.seconde.liste =</span> liste2</span>
+<span id="cb109-7"><a href="#cb109-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb109-8"><a href="#cb109-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(C)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`Ma première liste`
+$`Ma première liste`$complexe
+[1] 1+1i
+
+$`Ma première liste`$logique
+[1] FALSE
+
+
+$Ma.seconde.liste
+$Ma.seconde.liste$chaine
+[1] "J’apprends R"
+
+$Ma.seconde.liste$vecteur
+[1] 1 2</code></pre>
+</div>
+</div>
+<p>Nommer les éléments permet de <strong>faciliter leur extraction</strong>.</p>
+</section>
+</section>
+<section id="le-tableau-individus-variables-data.frame" class="level2">
+<h2 class="anchored" data-anchor-id="le-tableau-individus-variables-data.frame"><strong>Le tableau individus × variables (<code>data.frame</code>)</strong></h2>
+<p>Le tableau <strong>individus × variables</strong> est la structure <strong>fondamentale en statistique</strong>. Dans R, cette notion est représentée par le <strong><code>data.frame</code></strong>, qui fonctionne comme une <strong>matrice</strong>, où :<br>
+- <strong>Les lignes</strong> correspondent aux <strong>individus</strong><br>
+- <strong>Les colonnes</strong> correspondent aux <strong>variables</strong> mesurées Chaque colonne représente <strong>une variable unique</strong> et tous ses éléments doivent être <strong>du même type</strong>. Les colonnes peuvent être <strong>nommées</strong> pour une meilleure lisibilité.</p>
+<section id="création-dun-data.frame" class="level3">
+<h3 class="anchored" data-anchor-id="création-dun-data.frame">Création d’un <code>data.frame</code></h3>
+<p>Voici un exemple de création d’un <code>data.frame</code> avec les informations de taille et poids selon le sexe :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>IMC <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sexe =</span> <span class="fu">c</span>(<span class="st">"H"</span>, <span class="st">"F"</span>, <span class="st">"H"</span>, <span class="st">"F"</span>, <span class="st">"H"</span>, <span class="st">"F"</span>),</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Taille =</span> <span class="fu">c</span>(<span class="fl">1.83</span>, <span class="fl">1.76</span>, <span class="fl">1.82</span>, <span class="fl">1.60</span>, <span class="fl">1.90</span>, <span class="fl">1.66</span>),</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Poids =</span> <span class="fu">c</span>(<span class="dv">67</span>, <span class="dv">58</span>, <span class="dv">66</span>, <span class="dv">48</span>, <span class="dv">75</span>, <span class="dv">55</span>),</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"Rémy"</span>, <span class="st">"Lol"</span>, <span class="st">"Pierre"</span>, <span class="st">"Domi"</span>, <span class="st">"Ben"</span>, <span class="st">"Cécile"</span>)</span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-8"><a href="#cb111-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(IMC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Sexe Taille Poids
+Rémy      H   1.83    67
+Lol       F   1.76    58
+Pierre    H   1.82    66
+Domi      F   1.60    48
+Ben       H   1.90    75
+Cécile    F   1.66    55</code></pre>
+</div>
+</div>
+</section>
+<section id="vérification-du-type-et-de-la-structure-du-data.frame" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-du-type-et-de-la-structure-du-data.frame">Vérification du type et de la structure du <code>data.frame</code></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">is.data.frame</span>(IMC))  <span class="co"># Vérifie si IMC est bien un data.frame (TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(IMC))          <span class="co"># Affiche "data.frame"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">str</span>(IMC))            <span class="co"># Affiche la structure détaillée du data.frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   6 obs. of  3 variables:
+ $ Sexe  : chr  "H" "F" "H" "F" ...
+ $ Taille: num  1.83 1.76 1.82 1.6 1.9 1.66
+ $ Poids : num  67 58 66 48 75 55
+NULL</code></pre>
+</div>
+</div>
+<p>La fonction <code>str()</code> permet <strong>d’afficher la structure</strong> des colonnes du <code>data.frame</code>, y compris les <strong>types de données</strong> et <strong>leurs niveaux</strong>.<br>
+Un <code>data.frame</code> peut être <strong>vu comme une liste</strong> de <strong>vecteurs de même longueur</strong>. En effet, R <strong>structure ses <code>data.frame</code> de cette façon</strong> en interne :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">is.list</span>(IMC))  <span class="co"># Vérifie si IMC est une liste (TRUE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>Cela signifie que chaque colonne d’un <code>data.frame</code> est en réalité <strong>un vecteur</strong> que l’on peut manipuler individuellement.</p>
+</section>
+</section>
+<section id="les-facteurs-factor-et-les-variables-ordinales-ordered" class="level2">
+<h2 class="anchored" data-anchor-id="les-facteurs-factor-et-les-variables-ordinales-ordered"><strong>Les facteurs (<code>factor</code>) et les variables ordinales (<code>ordered</code>)</strong></h2>
+<p>R permet d’organiser les <strong>chaînes de caractères</strong> de manière plus efficace grâce à la fonction <code>factor()</code>.</p>
+<section id="création-dun-facteur" class="level3">
+<h3 class="anchored" data-anchor-id="création-dun-facteur">Création d’un facteur</h3>
+<p>L’exemple suivant crée un facteur (<code>factor</code>) contenant des couleurs :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"bleu"</span>, <span class="st">"vert"</span>, <span class="st">"bleu"</span>, <span class="st">"rouge"</span>, <span class="st">"bleu"</span>, <span class="st">"vert"</span>, <span class="st">"vert"</span>))</span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] bleu  vert  bleu  rouge bleu  vert  vert 
+Levels: bleu rouge vert</code></pre>
+</div>
+</div>
+<p>Pour connaître les <strong>niveaux (<code>levels</code>)</strong> du facteur :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">levels</span>(x))  <span class="co"># Affiche : "bleu" "rouge" "vert"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "bleu"  "rouge" "vert" </code></pre>
+</div>
+</div>
+<p>Pour vérifier le type de l’objet <code>x</code> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(x))  <span class="co"># Affiche "factor"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+</div>
+</section>
+<section id="recodage-dune-variable-continue-en-facteur" class="level3">
+<h3 class="anchored" data-anchor-id="recodage-dune-variable-continue-en-facteur">Recodage d’une variable continue en facteur</h3>
+<p>La fonction <code>cut()</code> permet de <strong>transformer une variable continue</strong> en <strong>facteurs</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>Poids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">63</span>, <span class="dv">83</span>, <span class="dv">57</span>, <span class="dv">75</span>, <span class="dv">90</span>, <span class="dv">73</span>, <span class="dv">67</span>, <span class="dv">58</span>, <span class="dv">84</span>, <span class="dv">87</span>, <span class="dv">79</span>, <span class="dv">48</span>, <span class="dv">52</span>)</span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>Poids_categorise <span class="ot">&lt;-</span> <span class="fu">cut</span>(Poids, <span class="dv">3</span>)</span>
+<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Poids_categorise)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] (48,62] (62,76] (76,90] (48,62] (62,76] (76,90] (62,76] (62,76] (48,62]
+[10] (76,90] (76,90] (76,90] (48,62] (48,62]
+Levels: (48,62] (62,76] (76,90]</code></pre>
+</div>
+</div>
+<p>R regroupe les valeurs de <code>Poids</code> en <strong>trois intervalles</strong>, facilitant l’analyse statistique.</p>
+</section>
+<section id="facteurs-et-data.frame" class="level3">
+<h3 class="anchored" data-anchor-id="facteurs-et-data.frame">Facteurs et <code>data.frame</code></h3>
+<p>Il est possible d’inclure des <strong>facteurs</strong> dans un <code>data.frame</code>. R indique automatiquement les <strong>différents niveaux (<code>levels</code>)</strong> de la variable qualitative.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a>IMC <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sexe =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"H"</span>, <span class="st">"F"</span>, <span class="st">"H"</span>, <span class="st">"F"</span>, <span class="st">"H"</span>, <span class="st">"F"</span>)),</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Taille =</span> <span class="fu">c</span>(<span class="fl">1.83</span>, <span class="fl">1.76</span>, <span class="fl">1.82</span>, <span class="fl">1.60</span>, <span class="fl">1.90</span>, <span class="fl">1.66</span>),</span>
+<span id="cb129-4"><a href="#cb129-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Poids =</span> <span class="fu">c</span>(<span class="dv">67</span>, <span class="dv">58</span>, <span class="dv">66</span>, <span class="dv">48</span>, <span class="dv">75</span>, <span class="dv">55</span>)</span>
+<span id="cb129-5"><a href="#cb129-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb129-6"><a href="#cb129-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(IMC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sexe Taille Poids
+1    H   1.83    67
+2    F   1.76    58
+3    H   1.82    66
+4    F   1.60    48
+5    H   1.90    75
+6    F   1.66    55</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">str</span>(IMC))  <span class="co"># Affiche la structure du data.frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   6 obs. of  3 variables:
+ $ Sexe  : Factor w/ 2 levels "F","H": 2 1 2 1 2 1
+ $ Taille: num  1.83 1.76 1.82 1.6 1.9 1.66
+ $ Poids : num  67 58 66 48 75 55
+NULL</code></pre>
+</div>
+</div>
+</section>
+<section id="variables-ordinales-avec-ordered" class="level3">
+<h3 class="anchored" data-anchor-id="variables-ordinales-avec-ordered">Variables ordinales avec <code>ordered()</code></h3>
+<p>Les variables <strong>ordinales</strong> ont un <strong>ordre défini</strong> entre leurs catégories. Il est recommandé d’utiliser <code>ordered()</code> pour ces variables :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">ordered</span>(</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Petit"</span>, <span class="st">"Grand"</span>, <span class="st">"Moyen"</span>, <span class="st">"Grand"</span>, <span class="st">"Moyen"</span>, <span class="st">"Petit"</span>, <span class="st">"Petit"</span>),</span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Petit"</span>, <span class="st">"Moyen"</span>, <span class="st">"Grand"</span>)</span>
+<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb133-5"><a href="#cb133-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(z))  <span class="co"># Affiche "ordered" "factor"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "ordered" "factor" </code></pre>
+</div>
+</div>
+<p>L’option <code>levels</code> permet de <strong>spécifier l’ordre</strong> des modalités de la variable.</p>
+</section>
+<section id="création-rapide-de-facteurs-avec-gl" class="level3">
+<h3 class="anchored" data-anchor-id="création-rapide-de-facteurs-avec-gl">Création rapide de facteurs avec <code>gl()</code></h3>
+<p>La fonction <code>gl()</code> permet de <strong>générer des facteurs</strong> en spécifiant le <strong>nombre de niveaux</strong> et <strong>le nombre de répétitions</strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>facteur_exemple <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="at">n =</span> <span class="dv">2</span>, <span class="at">k =</span> <span class="dv">8</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Treat"</span>))</span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(facteur_exemple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] Control Control Control Control Control Control Control Control Treat  
+[10] Treat   Treat   Treat   Treat   Treat   Treat   Treat  
+Levels: Control Treat</code></pre>
+</div>
+</div>
+<p>Dans <code>gl(n = 2, k = 8, labels = c("Control", "Treat"))</code> :<br>
+- <code>n = 2</code> → Nombre de <strong>niveaux</strong> (ici, <strong>“Control” et “Treat”</strong>)<br>
+- <code>k = 8</code> → Nombre de <strong>répétitions</strong> pour chaque niveau<br>
+R <strong>optimise la mémoire</strong> en codant les facteurs sous la forme <strong>d’entiers</strong>, réduisant l’espace utilisé lorsque les valeurs se répètent fréquemment.</p>
+</section>
+</section>
+<section id="les-dates-en-r" class="level2">
+<h2 class="anchored" data-anchor-id="les-dates-en-r"><strong>Les dates en R</strong></h2>
+<p>R permet de manipuler les <strong>données temporelles</strong> grâce à la fonction <code>as.Date()</code>, qui convertit une <strong>chaîne de caractères</strong> en <strong>objet Date</strong>.</p>
+<section id="conversion-de-chaînes-de-caractères-en-dates" class="level3">
+<h3 class="anchored" data-anchor-id="conversion-de-chaînes-de-caractères-en-dates">Conversion de chaînes de caractères en dates</h3>
+<p>L’exemple suivant illustre la conversion d’un vecteur de dates au format <code>"jour/mois/année"</code> en <strong>format Date</strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vecteur de dates sous forme de chaînes de caractères</span></span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"27/02/92"</span>, <span class="st">"27/02/92"</span>, <span class="st">"14/01/92"</span>, <span class="st">"28/02/92"</span>, <span class="st">"01/02/92"</span>)</span>
+<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversion en format Date avec as.Date()</span></span>
+<span id="cb137-5"><a href="#cb137-5" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dates, <span class="at">format =</span> <span class="st">"%d/%m/%y"</span>)</span>
+<span id="cb137-6"><a href="#cb137-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-7"><a href="#cb137-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage des dates converties</span></span>
+<span id="cb137-8"><a href="#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dates)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1992-02-27" "1992-02-27" "1992-01-14" "1992-02-28" "1992-02-01"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification du type de l'objet</span></span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">class</span>(dates))  <span class="co"># Affiche "Date"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date"</code></pre>
+</div>
+</div>
+<p>R a correctement interprété les dates et les a converties en <strong>format standard ISO (<code>YYYY-MM-DD</code>)</strong>, facilitant leur manipulation dans des analyses temporelles.</p>
+<section id="explication-du-format-dmy" class="level4">
+<h4 class="anchored" data-anchor-id="explication-du-format-dmy">Explication du format <code>"%d/%m/%y"</code></h4>
+<p>Dans <code>as.Date(dates, format = "%d/%m/%y")</code> :<br>
+- <strong><code>%d</code></strong> → Jour (exemple : <code>"27"</code>)<br>
+- <strong><code>%m</code></strong> → Mois (exemple : <code>"02"</code>)<br>
+- <strong><code>%y</code></strong> → Année à <strong>deux chiffres</strong> (<code>92</code> devient <code>1992</code>) Si l’année avait <strong>quatre chiffres</strong>, on utiliserait <strong><code>%Y</code></strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>dates_complet <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"27/02/1992"</span>, <span class="at">format =</span> <span class="st">"%d/%m/%Y"</span>)</span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dates_complet)  <span class="co"># Affiche "1992-02-27"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1992-02-27"</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="les-séries-temporelles-en-r" class="level2">
+<h2 class="anchored" data-anchor-id="les-séries-temporelles-en-r"><strong>Les séries temporelles en R</strong></h2>
+<p>Lorsque les données sont indexées par le <strong>temps</strong>, il peut être utile de les organiser dans une structure qui reflète cet aspect temporel. R offre la fonction <strong><code>ts()</code></strong> pour créer des <strong>séries temporelles</strong>, facilitant l’analyse et la modélisation des données chronologiques.</p>
+<section id="création-dune-série-temporelle-avec-ts" class="level3">
+<h3 class="anchored" data-anchor-id="création-dune-série-temporelle-avec-ts">Création d’une série temporelle avec <code>ts()</code></h3>
+<p>L’exemple suivant montre comment <strong>générer une série temporelle</strong> avec une fréquence de <strong>4 observations par an</strong> (trimestres) et un point de départ <strong>au deuxième trimestre de 1959</strong> :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>serie_temporelle <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">frequency =</span> <span class="dv">4</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1959</span>, <span class="dv">2</span>))</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(serie_temporelle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Qtr1 Qtr2 Qtr3 Qtr4
+1959         1    2    3
+1960    4    5    6    7
+1961    8    9   10     </code></pre>
+</div>
+</div>
+</section>
+<section id="explication-des-paramètres" class="level3">
+<h3 class="anchored" data-anchor-id="explication-des-paramètres">Explication des paramètres</h3>
+<p>Dans <code>ts(1:10, frequency = 4, start = c(1959, 2))</code> :<br>
+- <strong><code>1:10</code></strong> : Données de la série temporelle<br>
+- <strong><code>frequency = 4</code></strong> : Indique <strong>4 périodes par an</strong> (trimestres)<br>
+- <strong><code>start = c(1959, 2)</code></strong> : Démarre la série <strong>au deuxième trimestre de 1959</strong><br>
+Si les données étaient <strong>mensuelles</strong>, on utiliserait <strong><code>frequency = 12</code></strong> (12 mois par an) :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>serie_mensuelle <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">24</span>, <span class="at">frequency =</span> <span class="dv">12</span>, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">1</span>))</span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(serie_mensuelle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+2000   1   2   3   4   5   6   7   8   9  10  11  12
+2001  13  14  15  16  17  18  19  20  21  22  23  24</code></pre>
+</div>
+</div>
+</section>
+<section id="applications-des-séries-temporelles" class="level3">
+<h3 class="anchored" data-anchor-id="applications-des-séries-temporelles">Applications des séries temporelles</h3>
+<p>Les <strong>séries temporelles</strong> sont largement utilisées en :<br>
+- Analyse économique et financière<br>
+- Prédiction des tendances climatiques<br>
+- Études de consommation et de comportement</p>
+</section>
+</section>
+<section id="termes-à-retenir" class="level2">
+<h2 class="anchored" data-anchor-id="termes-à-retenir"><strong>Termes à retenir</strong></h2>
+<p>🔹 <strong>Affectation des variables</strong><br>
+- <code>&lt;-</code>, <code>-&gt;</code> : Flèches d’affectation permettant d’assigner une valeur à une variable</p>
+<p>🔹 <strong>Types d’objets et structures de données</strong><br>
+- <code>mode()</code>, <code>typeof()</code> : Identifie <strong>la nature d’un objet</strong><br>
+- <code>is.numeric()</code> : Vérifie si un objet est <strong>numérique</strong><br>
+- <code>TRUE</code>, <code>FALSE</code>, <code>is.logical()</code> : Valeurs <strong>booléennes</strong> et test logique<br>
+- <code>is.character()</code> : Vérifie si un objet est <strong>une chaîne de caractères</strong><br>
+- <code>NA</code>, <code>is.na()</code> : <strong>Valeur manquante</strong>, et test de présence de <strong>valeurs manquantes</strong><br>
+- <code>class()</code> : Détermine <strong>la structure d’un objet</strong></p>
+<p>🔹 <strong>Création de structures de données</strong><br>
+- <code>c()</code> : Crée un <strong>vecteur</strong> (suite d’éléments de même type)<br>
+- <code>matrix()</code>, <code>array()</code> : Génère une <strong>matrice</strong> ou un <strong>tableau multidimensionnel</strong><br>
+- <code>list()</code> : Crée une <strong>liste</strong>, permettant de contenir des <strong>éléments de types différents</strong><br>
+- <code>data.frame()</code> : Crée un <strong>tableau individus × variables</strong> (structure centrale en <strong>statistique</strong>)<br>
+- <code>factor()</code> : Génère un <strong>facteur</strong>, utile pour stocker <strong>des variables qualitatives</strong></p>
+<hr>
+</section>
+</section>
+<section id="exercices-travaux-pratiques" class="level1">
+<h1><strong>5. EXERCICES &amp; TRAVAUX PRATIQUES</strong></h1>
+<section id="exercice" class="level2">
+<h2 class="anchored" data-anchor-id="exercice"><strong>EXERCICE:</strong></h2>
+<section id="que-renvoie-cette-instruction" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction">1.1 - Que renvoie cette instruction:</h4>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span><span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-1" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-1">1.2 - Que renvoie cette instruction/</h4>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-2" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-2">1.3 - Que renvoie cette instruction :</h4>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>var <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a>Var <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-3" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-3">1.4 -Que renvoie cette instruction:</h4>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>x <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-4" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-4">1.5 - Que renvoie cette instruction :</h4>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>racine.de.quatre <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>racine.de.quatre</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-5" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-5">1.6 - Que renvoie cette instruction :</h4>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>x <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-6" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-6">1.7 - Que renvoie cette instruction ?</h4>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>Un chiffre pair <span class="ot">&lt;-</span> <span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-7" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-7">1.8 - Que renvoie cette instruction:</h4>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Un chiffre pair"</span> <span class="ot">&lt;-</span> <span class="dv">16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-8" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-8">1.9 - Que renvoie cette instruction :</h4>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="st">"2x"</span> <span class="ot">&lt;-</span> <span class="dv">14</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="que-renvoie-cette-instruction-9" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-9">1.10 - Que renvoie cette instruction ?</h4>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>Un chiffre pair</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="complétez-cette-sortie-où-deux-symboles-ont-été-omis" class="level4">
+<h4 class="anchored" data-anchor-id="complétez-cette-sortie-où-deux-symboles-ont-été-omis">1.11 - Complétez cette sortie où deux symboles ont été omis :</h4>
+<pre><code>&gt; 2
++ 
+[1] 6</code></pre>
+</section>
+<section id="que-renvoie-cette-instruction-10" class="level4">
+<h4 class="anchored" data-anchor-id="que-renvoie-cette-instruction-10">1.12 - Que renvoie cette instruction :</h4>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">+</span> T <span class="sc">+</span> <span class="cn">FALSE</span> <span class="sc">*</span> F <span class="sc">+</span> T <span class="sc">*</span> <span class="cn">FALSE</span> <span class="sc">+</span> F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="quels-sont-les-cinq-types-de-données-en-r" class="level4">
+<h4 class="anchored" data-anchor-id="quels-sont-les-cinq-types-de-données-en-r">1.13 - Quels sont les cinq types de données en R ?</h4>
+</section>
+<section id="écrivez-linstruction-r-permettant-dobtenir-cet-affichage" class="level4">
+<h4 class="anchored" data-anchor-id="écrivez-linstruction-r-permettant-dobtenir-cet-affichage">1.14 - Écrivez l’instruction R permettant d’obtenir cet affichage :</h4>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    5    9
+[2,]    2    6   10
+[3,]    3    7   11
+[4,]    4    8   12</code></pre>
+</section>
+<section id="quelles-sont-les-structures-classes-de-données-disponibles-en-r" class="level4">
+<h4 class="anchored" data-anchor-id="quelles-sont-les-structures-classes-de-données-disponibles-en-r">1.15 - Quelles sont les structures (<code>classes</code>) de données disponibles en R ?</h4>
+<hr>
+</section>
+</section>
+<section id="tp" class="level2">
+<h2 class="anchored" data-anchor-id="tp"><strong>TP</strong></h2>
+<section id="étude-sur-lindice-de-masse-corporelle" class="level4">
+<h4 class="anchored" data-anchor-id="étude-sur-lindice-de-masse-corporelle"><strong>Étude sur l’indice de masse corporelle</strong></h4>
+<p>Un échantillon de dossiers d’enfants a été collecté. Il concerne des enfants examinés lors d’une visite en première section de maternelle au cours de l’année 1996-1997 dans des écoles de Bordeaux, en Gironde, France.<br>
+L’échantillon présenté ici est composé de dix enfants âgés de trois ou quatre ans.<br>
+Données disponibles pour chaque enfant<br>
+- Sexe : F pour fille et G pour garçon<br>
+- École en ZEP (zone d’éducation prioritaire) : O pour oui et N pour non<br>
+- Âge : deux variables distinctes, une pour le nombre d’années et une pour le nombre de mois<br>
+- Poids : exprimé en kilogrammes, arrondi à 100 grammes près<br>
+- Taille : exprimée en centimètres, arrondie à 0,5 centimètre près</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Prénom</th>
+<th>Sexe</th>
+<th>ZEP</th>
+<th>Poids (kg)</th>
+<th>Âge (ans)</th>
+<th>Mois</th>
+<th>Taille (cm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Erika</td>
+<td>F</td>
+<td>O</td>
+<td>16.0</td>
+<td>3</td>
+<td>5</td>
+<td>100.0</td>
+</tr>
+<tr class="even">
+<td>Célia</td>
+<td>F</td>
+<td>O</td>
+<td>14.0</td>
+<td>3</td>
+<td>10</td>
+<td>97.0</td>
+</tr>
+<tr class="odd">
+<td>Eric</td>
+<td>G</td>
+<td>O</td>
+<td>13.5</td>
+<td>3</td>
+<td>5</td>
+<td>95.5</td>
+</tr>
+<tr class="even">
+<td>Eve</td>
+<td>F</td>
+<td>O</td>
+<td>15.4</td>
+<td>4</td>
+<td>0</td>
+<td>101.0</td>
+</tr>
+<tr class="odd">
+<td>Paul</td>
+<td>G</td>
+<td>N</td>
+<td>16.5</td>
+<td>3</td>
+<td>8</td>
+<td>100.0</td>
+</tr>
+<tr class="even">
+<td>Jean</td>
+<td>G</td>
+<td>O</td>
+<td>16.0</td>
+<td>4</td>
+<td>0</td>
+<td>98.5</td>
+</tr>
+<tr class="odd">
+<td>Adam</td>
+<td>G</td>
+<td>N</td>
+<td>17.0</td>
+<td>3</td>
+<td>11</td>
+<td>103.0</td>
+</tr>
+<tr class="even">
+<td>Louis</td>
+<td>G</td>
+<td>O</td>
+<td>14.8</td>
+<td>3</td>
+<td>9</td>
+<td>98.0</td>
+</tr>
+<tr class="odd">
+<td>Jules</td>
+<td>G</td>
+<td>O</td>
+<td>17.0</td>
+<td>4</td>
+<td>1</td>
+<td>101.5</td>
+</tr>
+<tr class="even">
+<td>Léo</td>
+<td>G</td>
+<td>O</td>
+<td>16.7</td>
+<td>3</td>
+<td>3</td>
+<td>100.0</td>
+</tr>
+</tbody>
+</table>
+<p>En statistique, il est essentiel de connaître le type des variables étudiées, qu’elles soient qualitatives, ordinales ou quantitatives. R permet de spécifier explicitement ces types grâce aux fonctions de structure abordées dans ce chapitre.&nbsp; Voici quelques manipulations à effectuer avec R. Assurez-vous d’utiliser la stratégie de travail introduite en début de chapitre.</p>
+<p>1.1- Choisissez la fonction R appropriée pour enregistrer les données de chacune des variables précédentes dans des vecteurs nommés Individus, Poids, Taille et Sexe.<br>
+1.2- Calculez la moyenne des variables pour lesquelles cela est possible.<br>
+1.3- Calculez l’IMC des individus et regroupez les valeurs obtenues dans un vecteur nommé IMC, en veillant aux unités.<br>
+1.4- Regroupez ces variables dans la structure R qui vous semble la plus adaptée.<br>
+1.5- Consultez l’aide en ligne de R afin d’obtenir des informations sur la fonction plot().<br>
+1.6- Tracez le nuage de points du Poids en fonction de la Taille. Pensez à ajouter un titre à votre graphique et à annoter les axes.</p>
+<hr>
+</section>
+<section id="manipulation-de-données" class="level4">
+<h4 class="anchored" data-anchor-id="manipulation-de-données"><strong>3. Manipulation de données</strong></h4>
+<ul>
+<li>Importation et exportation de données (<code>read.csv()</code>, <code>write.csv()</code>)<br>
+</li>
+<li>Fonctions de base pour manipuler les tableaux (<code>head()</code>, <code>tail()</code>, <code>summary()</code>)<br>
+</li>
+<li>Indexation et filtrage des données</li>
+</ul>
+</section>
+<section id="introduction-aux-fonctions-et-opérations" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-aux-fonctions-et-opérations"><strong>4. Introduction aux fonctions et opérations</strong></h4>
+<ul>
+<li>Création et utilisation de fonctions (<code>function()</code>)<br>
+</li>
+<li>Opérations mathématiques et logiques<br>
+</li>
+<li>Structures conditionnelles (<code>if</code>, <code>else</code>) et boucles (<code>for</code>, <code>while</code>)</li>
+</ul>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
