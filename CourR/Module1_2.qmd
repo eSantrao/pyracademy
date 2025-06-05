@@ -396,9 +396,209 @@ X <- as.data.frame(de(""))
 ```
 **Astuce** : Modifiez les noms de variables et les types (`numeric`, `character`) en cliquant sur la **première ligne du tableau**.
 
-
 ## **Résumé**
 **Exportation** : `write.table()` pour **texte ASCII**, `write_xlsx()` pour **Excel**  
 **Création** : `c()`, `seq()`, `rep()` pour **vecteurs et suites**  
 **Données aléatoires** : `runif()` pour valeurs uniformes, `rnorm()` pour loi normale  
 **Saisie manuelle** : `scan()` et `data.entry()` pour entrer des valeurs 
+
+
+### **Communication entre R et SQLite : Principales opérations**
+
+R peut interagir avec la plupart des **Systèmes de Gestion de Bases de Données (SGBD)**, y compris **SQLite**, qui est une **base de données légère et intégrée** ne nécessitant pas de serveur externe. Cette section présente les opérations courantes permettant d'utiliser **SQLite avec R**.
+
+
+
+## **1. Installation et chargement du package SQLite**
+Pour communiquer avec SQLite, on utilise le package **`RSQLite`**. Si ce n'est pas encore fait, installez-le :
+
+```r
+install.packages("RSQLite")
+library(RSQLite)
+```
+
+
+## **2. Création d'une base de données SQLite**
+La première étape consiste à **créer** une base de données SQLite ou à se connecter à une base existante.
+
+```r
+# Connexion à une base de données SQLite (création si elle n'existe pas)
+con <- dbConnect(SQLite(), dbname = "ma_base.sqlite")
+```
+
+ **Explication** :
+- `dbConnect(SQLite(), dbname = "ma_base.sqlite")` → Crée ou ouvre un fichier **SQLite** nommé `ma_base.sqlite`.
+
+
+## **3. Création d'une table**
+On peut maintenant **créer une table** dans cette base de données :
+
+```r
+dbExecute(con, "
+    CREATE TABLE clients (
+        id INTEGER PRIMARY KEY,
+        nom TEXT,
+        age INTEGER,
+        ville TEXT
+    )
+")
+```
+
+ **Explication** :
+- La table `clients` contient **4 colonnes** (`id`, `nom`, `age`, `ville`).
+- La colonne `id` est une **clé primaire**.
+
+
+
+## **4. Insérer des données dans SQLite**
+On peut insérer des données avec **SQL** directement :
+
+```r
+dbExecute(con, "
+    INSERT INTO clients (nom, age, ville) VALUES
+    ('Alice', 28, 'Paris'),
+    ('Bob', 35, 'Lyon'),
+    ('Charlie', 40, 'Marseille')
+")
+```
+
+
+ **Alternative avec un `data.frame`**
+```r
+# Création d'un data.frame
+clients_df <- data.frame(
+    nom = c("David", "Emma"),
+    age = c(22, 29),
+    ville = c("Nice", "Toulouse")
+)
+
+# Ajout des données dans SQLite
+dbWriteTable(con, "clients", clients_df, append = TRUE, row.names = FALSE)
+```
+
+
+
+## **5. Lecture des données depuis SQLite**
+Pour **récupérer** les données stockées dans la base de données :
+
+```r
+res <- dbGetQuery(con, "SELECT * FROM clients")
+print(res)  # Affichage des données récupérées
+```
+
+ **Explication** :
+- `dbGetQuery()` exécute une requête **SELECT** et retourne un **data.frame** en R.
+
+
+## **6. Suppression et mise à jour des données**
+### **🔹 Mettre à jour une entrée**
+```r
+dbExecute(con, "UPDATE clients SET age = 30 WHERE nom = 'Alice'")
+```
+
+### **🔹 Supprimer un enregistrement**
+```r
+dbExecute(con, "DELETE FROM clients WHERE nom = 'Bob'")
+```
+
+
+
+## **7. Fermeture de la connexion**
+Une fois les opérations terminées, il est **important de fermer la connexion** :
+
+```r
+dbDisconnect(con)
+```
+
+
+### **Procédure générale pour se connecter aux SGBD externes (MySQL, PostgreSQL, SQL Server) avec R**  
+
+R peut interagir avec plusieurs **Systèmes de Gestion de Bases de Données (SGBD)** via des **drivers spécialisés**. Voici une procédure **générale** applicable à **MySQL, PostgreSQL et SQL Server**.
+
+
+## **1. Installer le package adapté**
+Selon le SGBD utilisé, installez le package correspondant :  
+
+🔹 **MySQL** → `RMySQL`  
+🔹 **PostgreSQL** → `RPostgreSQL`  
+🔹 **SQL Server** → `odbc`  
+
+ **Installation du package** :
+```r
+install.packages("RMySQL")  # Pour MySQL
+install.packages("RPostgreSQL")  # Pour PostgreSQL
+install.packages("odbc")  # Pour SQL Server
+```
+Puis, **chargez le package** :
+```r
+library(RMySQL)  # Exemple pour MySQL
+```
+
+
+## **2. Établir la connexion à la base de données**
+La connexion varie légèrement selon le SGBD, mais suit la structure générale :
+
+### **🔹 Connexion à MySQL**
+```r
+con <- dbConnect(RMySQL::MySQL(),
+                 dbname = "nom_base",
+                 host = "localhost",
+                 user = "nom_utilisateur",
+                 password = "mot_de_passe")
+```
+
+### **🔹 Connexion à PostgreSQL**
+```r
+con <- dbConnect(RPostgreSQL::PostgreSQL(),
+                 dbname = "nom_base",
+                 host = "localhost",
+                 user = "nom_utilisateur",
+                 password = "mot_de_passe")
+```
+
+### **🔹 Connexion à SQL Server via ODBC**
+```r
+con <- dbConnect(odbc::odbc(),
+                 Driver = "SQL Server",
+                 Server = "nom_du_serveur",
+                 Database = "nom_base",
+                 UID = "nom_utilisateur",
+                 PWD = "mot_de_passe")
+```
+
+💡 **Note** : Pour **SQL Server**, vous devez installer le **driver ODBC** correspondant à votre version.
+
+
+## **3. Exécuter une requête SQL**
+Une fois connecté, vous pouvez envoyer des requêtes **SQL** depuis R :
+
+```r
+# Récupérer toutes les lignes d'une table
+result <- dbGetQuery(con, "SELECT * FROM clients")
+print(result)
+```
+
+
+## **4. Insérer des données dans la base**
+Ajoutez des données directement avec SQL :
+
+```r
+dbExecute(con, "INSERT INTO clients (nom, age, ville) VALUES ('Alice', 30, 'Paris')")
+```
+
+Ou utilisez un **data.frame** :
+```r
+clients_df <- data.frame(nom = c("David", "Emma"),
+                         age = c(22, 29),
+                         ville = c("Nice", "Toulouse"))
+
+dbWriteTable(con, "clients", clients_df, append = TRUE, row.names = FALSE)
+```
+
+
+## **5. Fermer la connexion**
+Une fois les opérations terminées, **fermez la connexion** pour libérer les ressources :
+
+```r
+dbDisconnect(con)
+```

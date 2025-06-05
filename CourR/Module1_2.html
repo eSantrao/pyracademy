@@ -519,6 +519,149 @@ Si vous utilisez <strong>Windows</strong>, le package <code>writexl</code> perme
 <strong>Création</strong> : <code>c()</code>, <code>seq()</code>, <code>rep()</code> pour <strong>vecteurs et suites</strong><br>
 <strong>Données aléatoires</strong> : <code>runif()</code> pour valeurs uniformes, <code>rnorm()</code> pour loi normale<br>
 <strong>Saisie manuelle</strong> : <code>scan()</code> et <code>data.entry()</code> pour entrer des valeurs</p>
+<section id="communication-entre-r-et-sqlite-principales-opérations" class="level3">
+<h3 class="anchored" data-anchor-id="communication-entre-r-et-sqlite-principales-opérations"><strong>Communication entre R et SQLite : Principales opérations</strong></h3>
+<p>R peut interagir avec la plupart des <strong>Systèmes de Gestion de Bases de Données (SGBD)</strong>, y compris <strong>SQLite</strong>, qui est une <strong>base de données légère et intégrée</strong> ne nécessitant pas de serveur externe. Cette section présente les opérations courantes permettant d’utiliser <strong>SQLite avec R</strong>.</p>
+</section>
+</section>
+<section id="installation-et-chargement-du-package-sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="installation-et-chargement-du-package-sqlite"><strong>1. Installation et chargement du package SQLite</strong></h2>
+<p>Pour communiquer avec SQLite, on utilise le package <strong><code>RSQLite</code></strong>. Si ce n’est pas encore fait, installez-le :</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RSQLite"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="création-dune-base-de-données-sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="création-dune-base-de-données-sqlite"><strong>2. Création d’une base de données SQLite</strong></h2>
+<p>La première étape consiste à <strong>créer</strong> une base de données SQLite ou à se connecter à une base existante.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Connexion à une base de données SQLite (création si elle n'existe pas)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">"ma_base.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication</strong> : - <code>dbConnect(SQLite(), dbname = "ma_base.sqlite")</code> → Crée ou ouvre un fichier <strong>SQLite</strong> nommé <code>ma_base.sqlite</code>.</p>
+</section>
+<section id="création-dune-table" class="level2">
+<h2 class="anchored" data-anchor-id="création-dune-table"><strong>3. Création d’une table</strong></h2>
+<p>On peut maintenant <strong>créer une table</strong> dans cette base de données :</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">    CREATE TABLE clients (</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">        id INTEGER PRIMARY KEY,</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="st">        nom TEXT,</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="st">        age INTEGER,</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">        ville TEXT</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="st">    )</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication</strong> : - La table <code>clients</code> contient <strong>4 colonnes</strong> (<code>id</code>, <code>nom</code>, <code>age</code>, <code>ville</code>). - La colonne <code>id</code> est une <strong>clé primaire</strong>.</p>
+</section>
+<section id="insérer-des-données-dans-sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="insérer-des-données-dans-sqlite"><strong>4. Insérer des données dans SQLite</strong></h2>
+<p>On peut insérer des données avec <strong>SQL</strong> directement :</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">    INSERT INTO clients (nom, age, ville) VALUES</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Alice', 28, 'Paris'),</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Bob', 35, 'Lyon'),</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Charlie', 40, 'Marseille')</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Alternative avec un <code>data.frame</code></strong></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un data.frame</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>clients_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nom =</span> <span class="fu">c</span>(<span class="st">"David"</span>, <span class="st">"Emma"</span>),</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">29</span>),</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ville =</span> <span class="fu">c</span>(<span class="st">"Nice"</span>, <span class="st">"Toulouse"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajout des données dans SQLite</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"clients"</span>, clients_df, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="lecture-des-données-depuis-sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="lecture-des-données-depuis-sqlite"><strong>5. Lecture des données depuis SQLite</strong></h2>
+<p>Pour <strong>récupérer</strong> les données stockées dans la base de données :</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM clients"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)  <span class="co"># Affichage des données récupérées</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication</strong> : - <code>dbGetQuery()</code> exécute une requête <strong>SELECT</strong> et retourne un <strong>data.frame</strong> en R.</p>
+</section>
+<section id="suppression-et-mise-à-jour-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="suppression-et-mise-à-jour-des-données"><strong>6. Suppression et mise à jour des données</strong></h2>
+<section id="mettre-à-jour-une-entrée" class="level3">
+<h3 class="anchored" data-anchor-id="mettre-à-jour-une-entrée"><strong>🔹 Mettre à jour une entrée</strong></h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"UPDATE clients SET age = 30 WHERE nom = 'Alice'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="supprimer-un-enregistrement" class="level3">
+<h3 class="anchored" data-anchor-id="supprimer-un-enregistrement"><strong>🔹 Supprimer un enregistrement</strong></h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"DELETE FROM clients WHERE nom = 'Bob'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="fermeture-de-la-connexion" class="level2">
+<h2 class="anchored" data-anchor-id="fermeture-de-la-connexion"><strong>7. Fermeture de la connexion</strong></h2>
+<p>Une fois les opérations terminées, il est <strong>important de fermer la connexion</strong> :</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r" class="level3">
+<h3 class="anchored" data-anchor-id="procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r"><strong>Procédure générale pour se connecter aux SGBD externes (MySQL, PostgreSQL, SQL Server) avec R</strong></h3>
+<p>R peut interagir avec plusieurs <strong>Systèmes de Gestion de Bases de Données (SGBD)</strong> via des <strong>drivers spécialisés</strong>. Voici une procédure <strong>générale</strong> applicable à <strong>MySQL, PostgreSQL et SQL Server</strong>.</p>
+</section>
+</section>
+<section id="installer-le-package-adapté" class="level2">
+<h2 class="anchored" data-anchor-id="installer-le-package-adapté"><strong>1. Installer le package adapté</strong></h2>
+<p>Selon le SGBD utilisé, installez le package correspondant :</p>
+<p>🔹 <strong>MySQL</strong> → <code>RMySQL</code><br>
+🔹 <strong>PostgreSQL</strong> → <code>RPostgreSQL</code><br>
+🔹 <strong>SQL Server</strong> → <code>odbc</code></p>
+<p><strong>Installation du package</strong> :</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RMySQL"</span>)  <span class="co"># Pour MySQL</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RPostgreSQL"</span>)  <span class="co"># Pour PostgreSQL</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"odbc"</span>)  <span class="co"># Pour SQL Server</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Puis, <strong>chargez le package</strong> :</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMySQL)  <span class="co"># Exemple pour MySQL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="établir-la-connexion-à-la-base-de-données" class="level2">
+<h2 class="anchored" data-anchor-id="établir-la-connexion-à-la-base-de-données"><strong>2. Établir la connexion à la base de données</strong></h2>
+<p>La connexion varie légèrement selon le SGBD, mais suit la structure générale :</p>
+<section id="connexion-à-mysql" class="level3">
+<h3 class="anchored" data-anchor-id="connexion-à-mysql"><strong>🔹 Connexion à MySQL</strong></h3>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RMySQL<span class="sc">::</span><span class="fu">MySQL</span>(),</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">"nom_base"</span>,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">"nom_utilisateur"</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="connexion-à-postgresql" class="level3">
+<h3 class="anchored" data-anchor-id="connexion-à-postgresql"><strong>🔹 Connexion à PostgreSQL</strong></h3>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RPostgreSQL<span class="sc">::</span><span class="fu">PostgreSQL</span>(),</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">"nom_base"</span>,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">"nom_utilisateur"</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="connexion-à-sql-server-via-odbc" class="level3">
+<h3 class="anchored" data-anchor-id="connexion-à-sql-server-via-odbc"><strong>🔹 Connexion à SQL Server via ODBC</strong></h3>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(odbc<span class="sc">::</span><span class="fu">odbc</span>(),</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Driver =</span> <span class="st">"SQL Server"</span>,</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Server =</span> <span class="st">"nom_du_serveur"</span>,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Database =</span> <span class="st">"nom_base"</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">UID =</span> <span class="st">"nom_utilisateur"</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">PWD =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>💡 <strong>Note</strong> : Pour <strong>SQL Server</strong>, vous devez installer le <strong>driver ODBC</strong> correspondant à votre version.</p>
+</section>
+</section>
+<section id="exécuter-une-requête-sql" class="level2">
+<h2 class="anchored" data-anchor-id="exécuter-une-requête-sql"><strong>3. Exécuter une requête SQL</strong></h2>
+<p>Une fois connecté, vous pouvez envoyer des requêtes <strong>SQL</strong> depuis R :</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Récupérer toutes les lignes d'une table</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM clients"</span>)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="insérer-des-données-dans-la-base" class="level2">
+<h2 class="anchored" data-anchor-id="insérer-des-données-dans-la-base"><strong>4. Insérer des données dans la base</strong></h2>
+<p>Ajoutez des données directement avec SQL :</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"INSERT INTO clients (nom, age, ville) VALUES ('Alice', 30, 'Paris')"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Ou utilisez un <strong>data.frame</strong> :</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>clients_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nom =</span> <span class="fu">c</span>(<span class="st">"David"</span>, <span class="st">"Emma"</span>),</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">29</span>),</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ville =</span> <span class="fu">c</span>(<span class="st">"Nice"</span>, <span class="st">"Toulouse"</span>))</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"clients"</span>, clients_df, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="fermer-la-connexion" class="level2">
+<h2 class="anchored" data-anchor-id="fermer-la-connexion"><strong>5. Fermer la connexion</strong></h2>
+<p>Une fois les opérations terminées, <strong>fermez la connexion</strong> pour libérer les ressources :</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 
