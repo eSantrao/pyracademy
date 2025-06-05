@@ -1,0 +1,404 @@
+---
+title: "Untitled"
+format: html
+---
+
+# **Manipulation de données**
+-   Importation et exportation de données 
+
+## **Importer des données depuis un fichier texte ASCII**
+
+Si vous avez un fichier texte au format **ASCII** contenant vos données, voici comment les importer dans **R**.
+
+### **1. Préparer le fichier**
+Si vous ne disposez pas d'un fichier texte au format ASCII qui contient vos données, vous pouvez créer un fichier texte avec **Wordpad** sous **Windows** ou **Emacs** sous **Linux**. Si votre fichier contient un grand nombre de données, **préférez un tableur** pour la gestion avant l'importation.
+
+### **2. Méthodes d'importation dans R**
+R propose plusieurs fonctions pour lire des fichiers **texte** :
+
+| Fonction        | Description |
+|----------------|------------|
+| `read.table()` | Idéale pour importer des tableaux de données structurés. |
+| `read.ftable()` | Permet de lire des tableaux de contingence. |
+| `scan()` | Plus flexible et puissante pour lire divers types de fichiers. |
+
+
+### **3. Lecture d’un fichier texte avec `read.table()`**
+Voici un script permettant de **charger un fichier texte** sous R et de le stocker sous forme de `data.frame` :
+
+```r
+# Sélection du fichier via une fenêtre de dialogue
+donnees <- read.table(file = file.choose(), header = TRUE, sep = "\t", dec = ".", row.names = 1)
+```
+
+#### **Paramètres principaux de `read.table()`**
+| Paramètre | Description |
+|-----------|------------|
+| `file` | Emplacement et nom du fichier à lire. |
+| `header = TRUE` | Indique si la première ligne contient les noms des colonnes. |
+| `sep = "\t"` | Délimiteur de colonnes (`"\t"` pour tabulation, `","` pour virgule, `" "` pour espace, etc.). |
+| `dec = "."` | Séparateur décimal (`"."` ou `","` selon le format du fichier). |
+| `row.names = 1` | Si la première colonne contient les identifiants des lignes. |
+
+
+### **4. Chargement manuel du fichier**
+Vous pouvez spécifier directement le chemin du fichier :
+
+```r
+donnees <- read.table(file = "C:/MonDossier/mesdonnees.txt", header = TRUE, sep = "\t", dec = ".", row.names = 1)
+```
+**Attention** : Sous **Windows**, utilisez `/` ou `\\` au lieu de `\` dans le chemin du fichier.
+
+### **5. Définir le répertoire de travail**
+Plutôt que de spécifier le chemin complet, vous pouvez **définir un répertoire par défaut** :
+
+```r
+setwd("C:/MonDossier")
+mon.fichier <- "mesdonnees.txt"
+donnees <- read.table(file = mon.fichier, header = TRUE, sep = "\t", dec = ".", row.names = 1)
+```
+### **6. Vérification des données**
+Une fois les données importées, vous pouvez les **visualiser rapidement** :
+
+```r
+head(donnees)   # Afficher les premières lignes
+tail(donnees)   # Afficher les dernières lignes
+```
+
+**Astuce** : Pour accéder directement aux colonnes du `data.frame`, utilisez la commande :
+
+```r
+attach(donnees)
+```
+
+Si votre fichier contient des **lignes vides** ou **incomplètes**, ajoutez ces paramètres pour éviter les erreurs :
+
+```r
+donnees <- read.table(file = "C:/MonDossier/mesdonnees.txt", fill = TRUE, blank.lines.skip = FALSE)
+```
+
+## **Importer des données depuis un fichier texte ASCII**
+
+Lors de l'analyse de données, il est courant d'utiliser des fichiers **texte ASCII** pour stocker et importer des informations dans **R**. Voici comment procéder efficacement.
+
+### **1. Préparation du fichier**
+- Créez un dossier nommé **DossierData** pour organiser vos fichiers.
+- Téléchargez le fichier **Intima_Media.txt** à partir du lien suivant : 
+- Enregistrez ce fichier dans **DossierData**.
+
+---
+
+### **2. Exploration du fichier**
+Avant de l'importer, il est utile de **visualiser son contenu** pour comprendre sa structure.
+
+```r
+setwd("chemin/vers/DossierData/")  # Remplacez "chemin/vers" par votre chemin réel
+readLines("Intima_Media.txt", n = 5)  # Afficher les 5 premières lignes du fichier
+```
+
+Vous verrez une sortie similaire :
+```
+[1] "SEXE AGE taille poids tabac paqan SPORT mesure alcool"
+[2] "1 33 170 70 1 1 0 0,52 1"
+[3] "2 33 177 67 2 20 0 0,42 1"
+
+```
+🔹 **Observations** :
+- La première ligne contient les **noms des variables**.
+- Les valeurs sont **séparées par des espaces**.
+- Le séparateur **décimal est une virgule**.
+---
+
+### **3. Importation avec `read.table()`**
+En tenant compte de la structure du fichier, voici le code d'importation :
+
+```r
+mesdonnees <- read.table("Intima_Media.txt", sep = " ", header = TRUE, dec = ",")
+```
+**Paramètres utilisés** :
+- `sep = " "` → Les valeurs sont séparées par des **espaces**.
+- `header = TRUE` → La première ligne contient les **noms des colonnes**.
+- `dec = ","` → Les nombres utilisent une **virgule** comme séparateur décimal.
+
+---
+
+### **4. Vérification des données**
+Une fois importées, vérifions la structure du fichier :
+
+```r
+head(mesdonnees)  # Afficher les premières lignes
+class(mesdonnees) # Vérifier la structure de l'objet
+str(mesdonnees)   # Détails sur les types de colonnes
+```
+
+Si certaines valeurs sont absentes, elles seront marquées par `NA`. 
+
+---
+
+### **5. Accéder aux variables plus facilement**
+Plutôt que d'écrire `mesdonnees$AGE` à chaque fois, utilisez `attach()` :
+
+```r
+attach(mesdonnees)
+mean(AGE)    # Moyenne de l'âge
+var(taille)  # Variance des tailles
+```
+⚠️ **Attention** : `attach()` doit être utilisé avec précaution, car il peut créer des conflits entre objets portant le même nom.
+
+---
+
+### **6. Importation avec d'autres fonctions**
+R propose plusieurs alternatives adaptées à différents formats :
+```r
+read.csv("mon_fichier.csv")      # Séparé par des virgules
+read.csv2("mon_fichier.csv")     # Séparé par des points-virgules
+read.delim("mon_fichier.txt")    # Séparé par des tabulations
+```
+
+---
+
+### **8. Importation avancée avec `scan()`**
+Lorsque les données **ne sont pas sous forme de tableau**, `scan()` est plus adapté :
+```r
+nom.variable <- scan("Intima_Media2.txt", skip = 5, nlines = 1, what = "")
+donnee <- scan("Intima_Media2.txt", skip = 9, dec = ",")
+matable <- as.data.frame(matrix(donnee, ncol = 9, byrow = TRUE))
+colnames(matable) <- nom.variable
+```
+
+**Utilisation typique** :
+- `skip=5` → Ignore les premières **lignes descriptives** du fichier.
+- `dec=","` → Utilise la **virgule comme séparateur décimal**.
+**Astuce** : `scan()` permet une **lecture rapide**, idéale pour les gros fichiers !
+
+### **. Utiliser des packages spécialisés**  
+- `readxl` : **Lit les fichiers `.xls/.xlsx`** sans dépendances externes  
+- `gdata` : **Lit `.xls`** mais requiert **Perl**  
+- `foreign` : **Lit des fichiers `.sav`, `.mtp`, `.xpt` et `.mat`**  
+
+
+### **3. Importation depuis d'autres logiciels**  
+
+| **Logiciel** | **Package**  | **Fonction**       | **Extension** | **Format** |
+|-------------|-------------|--------------------|--------------|------------|
+| **SPSS**    | `foreign`   | `read.spss()`     | `.sav`       | `list`     |
+| **Minitab** | `foreign`   | `read.mtp()`      | `.mtp`       | `list`     |
+| **SAS**     | `foreign`   | `read.xport()`    | `.xpt`       | `data.frame` |
+| **Matlab**  | `R.matlab`  | `readMat()`       | `.mat`       | `list`     |
+
+
+🔹 **4. Gestion des gros fichiers**  
+- Définir les types de colonnes (`colClasses`) pour optimiser la lecture  
+- Stocker dans une base de données SQL en cas de **limite RAM**  
+
+🔹 **5. Lecture de fichiers binaires**  
+```r
+data <- readBin("mon_fichier.bin", what = "double", n = 1000)
+``` 
+
+## **Exporter des données dans R**
+
+Avant d'exporter, il faut disposer d'un data.frame en R :
+
+```{r}
+# Création d'un exemple de jeu de données
+X <- data.frame(
+  Nom = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 35),
+  Taille = c(160, 175, 180)
+)
+```
+### **1. Exporter vers un fichier texte ASCII**
+Utilisez la fonction **`write.table()`** pour enregistrer un **data.frame** dans un fichier texte.
+
+```r
+write.table(donnees, file = "mon-fichier.txt", sep = "\t", row.names = FALSE)
+```
+ **Explication des paramètres :**  
+- `file = "mon-fichier.txt"` → Nom du fichier de sortie.  
+- `sep = "\t"` → Séparateur de colonnes (ici, tabulation).  
+- `row.names = FALSE` → Ne pas enregistrer les noms des lignes.  
+
+ **Autre méthode** : La fonction `write()` permet d’exporter **vecteurs et matrices**, en précisant le nombre de colonnes :
+
+```r
+write(matrix(1:12, nrow=3), file = "data.txt", ncolumns = 4)
+```
+---
+### **Exporter des données vers Excel avec `write.csv()` dans R**
+
+Une méthode simple consiste à **copier les données dans le presse-papiers** et à les coller dans un tableur :
+
+```r
+X <- data.frame(Poids = c(80, 90, 75), Taille = c(182, 190, 160))
+write.table(X, file = "clipboard", sep = "\t", dec = ",", row.names = FALSE)
+```
+
+Collez ensuite les données dans Excel ou LibreOffice avec **CTRL + V**.
+L'exportation de données vers **Excel** peut être réalisée efficacement à l'aide de la fonction **`write.csv()`**, qui permet de générer un fichier **CSV** compatible avec Excel et d'autres tableurs.
+
+
+### **2. Utiliser `write.csv()` pour exporter**
+La fonction **`write.csv()`** permet de **sauvegarder les données dans un fichier CSV** :
+
+```r
+write.csv(X, file = "mes_donnees.csv", row.names = FALSE)
+```
+
+ **Explication des paramètres :**  
+- `file = "mes_donnees.csv"` → Nom du fichier à enregistrer.  
+- `row.names = FALSE` → Supprime l'ajout automatique des numéros de ligne.  
+
+ **Par défaut**, `write.csv()` utilise **`,`** comme séparateur de colonnes et **`.`** pour les décimales.
+
+### **3. Spécifier un séparateur de colonnes**
+Si vous souhaitez **un séparateur différent**, par exemple **";"**, utilisez `write.csv2()` :
+
+```r
+write.csv2(X, file = "mes_donnees.csv", row.names = FALSE)
+```
+#### **Différences entre `write.csv()` et `write.csv2()`** :
+| Fonction       | Séparateur de colonnes | Séparateur décimal |
+|---------------|-----------------------|-------------------|
+| `write.csv()`  | `,` (virgule)         | `.` (point)       |
+| `write.csv2()` | `;` (point-virgule)   | `,` (virgule)     |
+
+ **Utilisez `write.csv2()`** si votre version d'Excel **s'attend à des séparateurs de type `;` (français/européen)**.
+
+
+
+### **4. Sauvegarde avec encodage UTF-8 (pour éviter les problèmes de caractères)**
+Si votre fichier contient des accents ou caractères spéciaux, utilisez **`fileEncoding`** :
+
+```r
+write.csv(X, file = "mes_donnees.csv", row.names = FALSE, fileEncoding = "UTF-8")
+```
+
+### **5. Ouvrir le fichier CSV avec Excel**
+Une fois votre fichier créé, ouvrez **Excel**, puis :
+1. Allez dans **Fichier** , **Ouvrir**.
+2. Sélectionnez **"mes_donnees.csv"**.
+3. Si les colonnes ne sont pas bien séparées, utilisez l’Assistant d'importation :
+Sélectionnez **Délimité**.
+Choisissez le séparateur correct (**`,`** ou **`;`**).
+Vérifiez l'encodage UTF-8 si des caractères sont corrompus.
+
+
+
+### **6. Exportation vers Excel avec le package `writexl` (alternative sans CSV)**
+Si vous préférez **enregistrer directement en `.xlsx`**, utilisez le package `writexl` :
+
+```r
+install.packages("writexl")
+library(writexl)
+# Exportation directe vers Excel
+write_xlsx(X, "mes_donnees.xlsx")
+```
+### **En résumé**
+ `write.csv()` → Exportation standard en **CSV** avec `,` comme séparateur  
+ `write.csv2()` → Format européen avec `;` comme séparateur  
+ `fileEncoding = "UTF-8"` → Évite les problèmes de caractères spéciaux  
+ `writexl` → Exportation directe en `.xlsx` sans passer par CSV  
+
+## **Exporter des données dans R**
+
+### **1. Exporter vers un fichier texte ASCII**
+Utilisez la fonction **`write.table()`** pour enregistrer un **data.frame** dans un fichier texte.
+
+```r
+write.table(donnees, file = "mon-fichier.txt", sep = "\t", row.names = FALSE)
+```
+ **Explication des paramètres :**  
+- `file = "mon-fichier.txt"` → Nom du fichier de sortie.  
+- `sep = "\t"` → Séparateur de colonnes (ici, tabulation).  
+- `row.names = FALSE` → Ne pas enregistrer les noms des lignes.  
+
+ **Autre méthode** : La fonction `write()` permet d’exporter **vecteurs et matrices**, en précisant le nombre de colonnes :
+
+```r
+write(matrix(1:12, nrow=3), file = "data.txt", ncolumns = 4)
+```
+
+
+### **2. Exporter vers Excel ou OpenOffice Calc**
+
+Une méthode simple consiste à **copier les données dans le presse-papiers** et à les coller dans un tableur :
+
+```r
+X <- data.frame(Poids = c(80, 90, 75), Taille = c(182, 190, 160))
+write.table(X, file = "clipboard", sep = "\t", dec = ",", row.names = FALSE)
+```
+**Collez ensuite les données** dans Excel ou LibreOffice avec **CTRL + V**.
+**Alternative avec un package** :  
+Si vous utilisez **Windows**, le package `writexl` permet une exportation directe vers **Excel** :
+
+```r
+install.packages("writexl")
+library(writexl)
+write_xlsx(X, "export.xlsx")
+```
+
+## **Créer des données dans R**
+### **1. Générer des données simples**
+#### **Vecteurs avec `c()`**
+```r
+vec <- c(1, 5, 8, 2.3)
+```
+
+#### **Suites de valeurs avec `seq()`**
+```r
+seq(from = 4, to = 5, by = 0.1)  # Pas de 0.1
+seq(from = 4, to = 5, length = 8) # 8 valeurs réparties
+```
+
+#### **Séquence d'entiers avec `:`**
+```r
+1:12  # Génère 1, 2, ..., 12
+```
+
+### **2. Générer des données pseudo-aléatoires**
+#### **Valeurs uniformes avec `runif()`**
+```r
+runif(5, min = 2, max = 7)  # 5 valeurs entre 2 et 7
+```
+
+#### **Valeurs normales avec `rnorm()`**
+```r
+rnorm(5, mean = 2, sd = 3)  # Moyenne 2, écart-type 3
+```
+#### **Tirage aléatoire avec `sample()`**
+```r
+urne <- 0:9
+sample(urne, 20, replace = TRUE)  # Tirage avec remise
+```
+
+### **3. Entrer des données manuellement**
+#### **Avec `scan()`**
+```r
+z <- scan()  # Entrée interactive
+```
+Tapez vos nombres et **appuyez sur "Entrée"** pour valider. Cloturer la saisie par **Entrée**.
+
+#### ** Avec `data.entry()` (éditeur graphique)**
+```r
+rm(list = ls())  # Effacer les objets existants
+data.entry("")
+```
+Les données saisies dans `data.entry("")` sont automatiquement stockées dans l’environnement R, mais elles ne sont pas sauvegardées sur le disque.
+
+
+
+### **4. Manipuler un tableau interactif**
+Si vous souhaitez entrer des **données directement dans un mini-tableur**, utilisez :
+
+```r
+X <- as.data.frame(de(""))
+```
+**Astuce** : Modifiez les noms de variables et les types (`numeric`, `character`) en cliquant sur la **première ligne du tableau**.
+
+
+## **Résumé**
+**Exportation** : `write.table()` pour **texte ASCII**, `write_xlsx()` pour **Excel**  
+**Création** : `c()`, `seq()`, `rep()` pour **vecteurs et suites**  
+**Données aléatoires** : `runif()` pour valeurs uniformes, `rnorm()` pour loi normale  
+**Saisie manuelle** : `scan()` et `data.entry()` pour entrer des valeurs 

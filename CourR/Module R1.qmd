@@ -1,6 +1,6 @@
 ---
 title: "**Module 1: Introduction à la programmation R**"
-format: pdf
+format: html
 toc: true
 ---
 
@@ -771,9 +771,8 @@ Voici quelques manipulations à effectuer avec R. Assurez-vous d'utiliser la str
 
 ---
 
-#### **3. Manipulation de données**
 
--   Importation et exportation de données (`read.csv()`, `write.csv()`)\
+
 -   Fonctions de base pour manipuler les tableaux (`head()`, `tail()`, `summary()`)\
 -   Indexation et filtrage des données
 
@@ -782,3 +781,12 @@ Voici quelques manipulations à effectuer avec R. Assurez-vous d'utiliser la str
 -   Création et utilisation de fonctions (`function()`)\
 -   Opérations mathématiques et logiques\
 -   Structures conditionnelles (`if`, `else`) et boucles (`for`, `while`)
+
+
+
+
+
+
+
+
+

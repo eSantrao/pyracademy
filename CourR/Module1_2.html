@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.552">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Untitled</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Module1_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Module1_2_files/libs/quarto-html/quarto.js"></script>
+<script src="Module1_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="Module1_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Module1_2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Module1_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Module1_2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Module1_2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Module1_2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Module1_2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Untitled</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="manipulation-de-données" class="level1">
+<h1><strong>Manipulation de données</strong></h1>
+<ul>
+<li>Importation et exportation de données</li>
+</ul>
+<section id="importer-des-données-depuis-un-fichier-texte-ascii" class="level2">
+<h2 class="anchored" data-anchor-id="importer-des-données-depuis-un-fichier-texte-ascii"><strong>Importer des données depuis un fichier texte ASCII</strong></h2>
+<p>Si vous avez un fichier texte au format <strong>ASCII</strong> contenant vos données, voici comment les importer dans <strong>R</strong>.</p>
+<section id="préparer-le-fichier" class="level3">
+<h3 class="anchored" data-anchor-id="préparer-le-fichier"><strong>1. Préparer le fichier</strong></h3>
+<p>Si vous ne disposez pas d’un fichier texte au format ASCII qui contient vos données, vous pouvez créer un fichier texte avec <strong>Wordpad</strong> sous <strong>Windows</strong> ou <strong>Emacs</strong> sous <strong>Linux</strong>. Si votre fichier contient un grand nombre de données, <strong>préférez un tableur</strong> pour la gestion avant l’importation.</p>
+</section>
+<section id="méthodes-dimportation-dans-r" class="level3">
+<h3 class="anchored" data-anchor-id="méthodes-dimportation-dans-r"><strong>2. Méthodes d’importation dans R</strong></h3>
+<p>R propose plusieurs fonctions pour lire des fichiers <strong>texte</strong> :</p>
+<table class="table">
+<colgroup>
+<col style="width: 57%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>read.table()</code></td>
+<td>Idéale pour importer des tableaux de données structurés.</td>
+</tr>
+<tr class="even">
+<td><code>read.ftable()</code></td>
+<td>Permet de lire des tableaux de contingence.</td>
+</tr>
+<tr class="odd">
+<td><code>scan()</code></td>
+<td>Plus flexible et puissante pour lire divers types de fichiers.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lecture-dun-fichier-texte-avec-read.table" class="level3">
+<h3 class="anchored" data-anchor-id="lecture-dun-fichier-texte-avec-read.table"><strong>3. Lecture d’un fichier texte avec <code>read.table()</code></strong></h3>
+<p>Voici un script permettant de <strong>charger un fichier texte</strong> sous R et de le stocker sous forme de <code>data.frame</code> :</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection du fichier via une fenêtre de dialogue</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="paramètres-principaux-de-read.table" class="level4">
+<h4 class="anchored" data-anchor-id="paramètres-principaux-de-read.table"><strong>Paramètres principaux de <code>read.table()</code></strong></h4>
+<table class="table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paramètre</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>file</code></td>
+<td>Emplacement et nom du fichier à lire.</td>
+</tr>
+<tr class="even">
+<td><code>header = TRUE</code></td>
+<td>Indique si la première ligne contient les noms des colonnes.</td>
+</tr>
+<tr class="odd">
+<td><code>sep = "\t"</code></td>
+<td>Délimiteur de colonnes (<code>"\t"</code> pour tabulation, <code>","</code> pour virgule, <code>" "</code> pour espace, etc.).</td>
+</tr>
+<tr class="even">
+<td><code>dec = "."</code></td>
+<td>Séparateur décimal (<code>"."</code> ou <code>","</code> selon le format du fichier).</td>
+</tr>
+<tr class="odd">
+<td><code>row.names = 1</code></td>
+<td>Si la première colonne contient les identifiants des lignes.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="chargement-manuel-du-fichier" class="level3">
+<h3 class="anchored" data-anchor-id="chargement-manuel-du-fichier"><strong>4. Chargement manuel du fichier</strong></h3>
+<p>Vous pouvez spécifier directement le chemin du fichier :</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"C:/MonDossier/mesdonnees.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Attention</strong> : Sous <strong>Windows</strong>, utilisez <code>/</code> ou <code>\\</code> au lieu de <code>\</code> dans le chemin du fichier.</p>
+</section>
+<section id="définir-le-répertoire-de-travail" class="level3">
+<h3 class="anchored" data-anchor-id="définir-le-répertoire-de-travail"><strong>5. Définir le répertoire de travail</strong></h3>
+<p>Plutôt que de spécifier le chemin complet, vous pouvez <strong>définir un répertoire par défaut</strong> :</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/MonDossier"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mon.fichier <span class="ot">&lt;-</span> <span class="st">"mesdonnees.txt"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> mon.fichier, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="vérification-des-données" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-des-données"><strong>6. Vérification des données</strong></h3>
+<p>Une fois les données importées, vous pouvez les <strong>visualiser rapidement</strong> :</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(donnees)   <span class="co"># Afficher les premières lignes</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(donnees)   <span class="co"># Afficher les dernières lignes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Astuce</strong> : Pour accéder directement aux colonnes du <code>data.frame</code>, utilisez la commande :</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(donnees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Si votre fichier contient des <strong>lignes vides</strong> ou <strong>incomplètes</strong>, ajoutez ces paramètres pour éviter les erreurs :</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"C:/MonDossier/mesdonnees.txt"</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">blank.lines.skip =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="importer-des-données-depuis-un-fichier-texte-ascii-1" class="level2">
+<h2 class="anchored" data-anchor-id="importer-des-données-depuis-un-fichier-texte-ascii-1"><strong>Importer des données depuis un fichier texte ASCII</strong></h2>
+<p>Lors de l’analyse de données, il est courant d’utiliser des fichiers <strong>texte ASCII</strong> pour stocker et importer des informations dans <strong>R</strong>. Voici comment procéder efficacement.</p>
+<section id="préparation-du-fichier" class="level3">
+<h3 class="anchored" data-anchor-id="préparation-du-fichier"><strong>1. Préparation du fichier</strong></h3>
+<ul>
+<li>Créez un dossier nommé <strong>DossierData</strong> pour organiser vos fichiers.</li>
+<li>Téléchargez le fichier <strong>Intima_Media.txt</strong> à partir du lien suivant :</li>
+<li>Enregistrez ce fichier dans <strong>DossierData</strong>.</li>
+</ul>
+<hr>
+</section>
+<section id="exploration-du-fichier" class="level3">
+<h3 class="anchored" data-anchor-id="exploration-du-fichier"><strong>2. Exploration du fichier</strong></h3>
+<p>Avant de l’importer, il est utile de <strong>visualiser son contenu</strong> pour comprendre sa structure.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"chemin/vers/DossierData/"</span>)  <span class="co"># Remplacez "chemin/vers" par votre chemin réel</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">readLines</span>(<span class="st">"Intima_Media.txt"</span>, <span class="at">n =</span> <span class="dv">5</span>)  <span class="co"># Afficher les 5 premières lignes du fichier</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Vous verrez une sortie similaire :</p>
+<pre><code>[1] "SEXE AGE taille poids tabac paqan SPORT mesure alcool"
+[2] "1 33 170 70 1 1 0 0,52 1"
+[3] "2 33 177 67 2 20 0 0,42 1"
+</code></pre>
+<p>🔹 <strong>Observations</strong> : - La première ligne contient les <strong>noms des variables</strong>. - Les valeurs sont <strong>séparées par des espaces</strong>. - Le séparateur <strong>décimal est une virgule</strong>.</p>
+<hr>
+</section>
+<section id="importation-avec-read.table" class="level3">
+<h3 class="anchored" data-anchor-id="importation-avec-read.table"><strong>3. Importation avec <code>read.table()</code></strong></h3>
+<p>En tenant compte de la structure du fichier, voici le code d’importation :</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mesdonnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Intima_Media.txt"</span>, <span class="at">sep =</span> <span class="st">" "</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">dec =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Paramètres utilisés</strong> : - <code>sep = " "</code> → Les valeurs sont séparées par des <strong>espaces</strong>. - <code>header = TRUE</code> → La première ligne contient les <strong>noms des colonnes</strong>. - <code>dec = ","</code> → Les nombres utilisent une <strong>virgule</strong> comme séparateur décimal.</p>
+<hr>
+</section>
+<section id="vérification-des-données-1" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-des-données-1"><strong>4. Vérification des données</strong></h3>
+<p>Une fois importées, vérifions la structure du fichier :</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mesdonnees)  <span class="co"># Afficher les premières lignes</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mesdonnees) <span class="co"># Vérifier la structure de l'objet</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mesdonnees)   <span class="co"># Détails sur les types de colonnes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Si certaines valeurs sont absentes, elles seront marquées par <code>NA</code>.</p>
+<hr>
+</section>
+<section id="accéder-aux-variables-plus-facilement" class="level3">
+<h3 class="anchored" data-anchor-id="accéder-aux-variables-plus-facilement"><strong>5. Accéder aux variables plus facilement</strong></h3>
+<p>Plutôt que d’écrire <code>mesdonnees$AGE</code> à chaque fois, utilisez <code>attach()</code> :</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(mesdonnees)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(AGE)    <span class="co"># Moyenne de l'âge</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(taille)  <span class="co"># Variance des tailles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>⚠️ <strong>Attention</strong> : <code>attach()</code> doit être utilisé avec précaution, car il peut créer des conflits entre objets portant le même nom.</p>
+<hr>
+</section>
+<section id="importation-avec-dautres-fonctions" class="level3">
+<h3 class="anchored" data-anchor-id="importation-avec-dautres-fonctions"><strong>6. Importation avec d’autres fonctions</strong></h3>
+<p>R propose plusieurs alternatives adaptées à différents formats :</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"mon_fichier.csv"</span>)      <span class="co"># Séparé par des virgules</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv2</span>(<span class="st">"mon_fichier.csv"</span>)     <span class="co"># Séparé par des points-virgules</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read.delim</span>(<span class="st">"mon_fichier.txt"</span>)    <span class="co"># Séparé par des tabulations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="importation-avancée-avec-scan" class="level3">
+<h3 class="anchored" data-anchor-id="importation-avancée-avec-scan"><strong>8. Importation avancée avec <code>scan()</code></strong></h3>
+<p>Lorsque les données <strong>ne sont pas sous forme de tableau</strong>, <code>scan()</code> est plus adapté :</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nom.variable <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"Intima_Media2.txt"</span>, <span class="at">skip =</span> <span class="dv">5</span>, <span class="at">nlines =</span> <span class="dv">1</span>, <span class="at">what =</span> <span class="st">""</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>donnee <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"Intima_Media2.txt"</span>, <span class="at">skip =</span> <span class="dv">9</span>, <span class="at">dec =</span> <span class="st">","</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>matable <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(donnee, <span class="at">ncol =</span> <span class="dv">9</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matable) <span class="ot">&lt;-</span> nom.variable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Utilisation typique</strong> : - <code>skip=5</code> → Ignore les premières <strong>lignes descriptives</strong> du fichier. - <code>dec=","</code> → Utilise la <strong>virgule comme séparateur décimal</strong>. <strong>Astuce</strong> : <code>scan()</code> permet une <strong>lecture rapide</strong>, idéale pour les gros fichiers !</p>
+</section>
+<section id="utiliser-des-packages-spécialisés" class="level3">
+<h3 class="anchored" data-anchor-id="utiliser-des-packages-spécialisés"><strong>. Utiliser des packages spécialisés</strong></h3>
+<ul>
+<li><code>readxl</code> : <strong>Lit les fichiers <code>.xls/.xlsx</code></strong> sans dépendances externes<br>
+</li>
+<li><code>gdata</code> : <strong>Lit <code>.xls</code></strong> mais requiert <strong>Perl</strong><br>
+</li>
+<li><code>foreign</code> : <strong>Lit des fichiers <code>.sav</code>, <code>.mtp</code>, <code>.xpt</code> et <code>.mat</code></strong></li>
+</ul>
+</section>
+<section id="importation-depuis-dautres-logiciels" class="level3">
+<h3 class="anchored" data-anchor-id="importation-depuis-dautres-logiciels"><strong>3. Importation depuis d’autres logiciels</strong></h3>
+<table class="table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 27%">
+<col style="width: 19%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Logiciel</strong></th>
+<th><strong>Package</strong></th>
+<th><strong>Fonction</strong></th>
+<th><strong>Extension</strong></th>
+<th><strong>Format</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>SPSS</strong></td>
+<td><code>foreign</code></td>
+<td><code>read.spss()</code></td>
+<td><code>.sav</code></td>
+<td><code>list</code></td>
+</tr>
+<tr class="even">
+<td><strong>Minitab</strong></td>
+<td><code>foreign</code></td>
+<td><code>read.mtp()</code></td>
+<td><code>.mtp</code></td>
+<td><code>list</code></td>
+</tr>
+<tr class="odd">
+<td><strong>SAS</strong></td>
+<td><code>foreign</code></td>
+<td><code>read.xport()</code></td>
+<td><code>.xpt</code></td>
+<td><code>data.frame</code></td>
+</tr>
+<tr class="even">
+<td><strong>Matlab</strong></td>
+<td><code>R.matlab</code></td>
+<td><code>readMat()</code></td>
+<td><code>.mat</code></td>
+<td><code>list</code></td>
+</tr>
+</tbody>
+</table>
+<p>🔹 <strong>4. Gestion des gros fichiers</strong><br>
+- Définir les types de colonnes (<code>colClasses</code>) pour optimiser la lecture<br>
+- Stocker dans une base de données SQL en cas de <strong>limite RAM</strong></p>
+<p>🔹 <strong>5. Lecture de fichiers binaires</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readBin</span>(<span class="st">"mon_fichier.bin"</span>, <span class="at">what =</span> <span class="st">"double"</span>, <span class="at">n =</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="exporter-des-données-dans-r" class="level2">
+<h2 class="anchored" data-anchor-id="exporter-des-données-dans-r"><strong>Exporter des données dans R</strong></h2>
+<p>Avant d’exporter, il faut disposer d’un data.frame en R :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un exemple de jeu de données</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nom =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">175</span>, <span class="dv">180</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exporter-vers-un-fichier-texte-ascii" class="level3">
+<h3 class="anchored" data-anchor-id="exporter-vers-un-fichier-texte-ascii"><strong>1. Exporter vers un fichier texte ASCII</strong></h3>
+<p>Utilisez la fonction <strong><code>write.table()</code></strong> pour enregistrer un <strong>data.frame</strong> dans un fichier texte.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(donnees, <span class="at">file =</span> <span class="st">"mon-fichier.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication des paramètres :</strong><br>
+- <code>file = "mon-fichier.txt"</code> → Nom du fichier de sortie.<br>
+- <code>sep = "\t"</code> → Séparateur de colonnes (ici, tabulation).<br>
+- <code>row.names = FALSE</code> → Ne pas enregistrer les noms des lignes.</p>
+<p><strong>Autre méthode</strong> : La fonction <code>write()</code> permet d’exporter <strong>vecteurs et matrices</strong>, en précisant le nombre de colonnes :</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">file =</span> <span class="st">"data.txt"</span>, <span class="at">ncolumns =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+<section id="exporter-des-données-vers-excel-avec-write.csv-dans-r" class="level3">
+<h3 class="anchored" data-anchor-id="exporter-des-données-vers-excel-avec-write.csv-dans-r"><strong>Exporter des données vers Excel avec <code>write.csv()</code> dans R</strong></h3>
+<p>Une méthode simple consiste à <strong>copier les données dans le presse-papiers</strong> et à les coller dans un tableur :</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Poids =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">75</span>), <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">182</span>, <span class="dv">190</span>, <span class="dv">160</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(X, <span class="at">file =</span> <span class="st">"clipboard"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">","</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Collez ensuite les données dans Excel ou LibreOffice avec <strong>CTRL + V</strong>. L’exportation de données vers <strong>Excel</strong> peut être réalisée efficacement à l’aide de la fonction <strong><code>write.csv()</code></strong>, qui permet de générer un fichier <strong>CSV</strong> compatible avec Excel et d’autres tableurs.</p>
+</section>
+<section id="utiliser-write.csv-pour-exporter" class="level3">
+<h3 class="anchored" data-anchor-id="utiliser-write.csv-pour-exporter"><strong>2. Utiliser <code>write.csv()</code> pour exporter</strong></h3>
+<p>La fonction <strong><code>write.csv()</code></strong> permet de <strong>sauvegarder les données dans un fichier CSV</strong> :</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication des paramètres :</strong><br>
+- <code>file = "mes_donnees.csv"</code> → Nom du fichier à enregistrer.<br>
+- <code>row.names = FALSE</code> → Supprime l’ajout automatique des numéros de ligne.</p>
+<p><strong>Par défaut</strong>, <code>write.csv()</code> utilise <strong><code>,</code></strong> comme séparateur de colonnes et <strong><code>.</code></strong> pour les décimales.</p>
+</section>
+<section id="spécifier-un-séparateur-de-colonnes" class="level3">
+<h3 class="anchored" data-anchor-id="spécifier-un-séparateur-de-colonnes"><strong>3. Spécifier un séparateur de colonnes</strong></h3>
+<p>Si vous souhaitez <strong>un séparateur différent</strong>, par exemple <strong>“;”</strong>, utilisez <code>write.csv2()</code> :</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv2</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="différences-entre-write.csv-et-write.csv2" class="level4">
+<h4 class="anchored" data-anchor-id="différences-entre-write.csv-et-write.csv2"><strong>Différences entre <code>write.csv()</code> et <code>write.csv2()</code></strong> :</h4>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Fonction</th>
+<th>Séparateur de colonnes</th>
+<th>Séparateur décimal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>write.csv()</code></td>
+<td><code>,</code> (virgule)</td>
+<td><code>.</code> (point)</td>
+</tr>
+<tr class="even">
+<td><code>write.csv2()</code></td>
+<td><code>;</code> (point-virgule)</td>
+<td><code>,</code> (virgule)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Utilisez <code>write.csv2()</code></strong> si votre version d’Excel <strong>s’attend à des séparateurs de type <code>;</code> (français/européen)</strong>.</p>
+</section>
+</section>
+<section id="sauvegarde-avec-encodage-utf-8-pour-éviter-les-problèmes-de-caractères" class="level3">
+<h3 class="anchored" data-anchor-id="sauvegarde-avec-encodage-utf-8-pour-éviter-les-problèmes-de-caractères"><strong>4. Sauvegarde avec encodage UTF-8 (pour éviter les problèmes de caractères)</strong></h3>
+<p>Si votre fichier contient des accents ou caractères spéciaux, utilisez <strong><code>fileEncoding</code></strong> :</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">fileEncoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="ouvrir-le-fichier-csv-avec-excel" class="level3">
+<h3 class="anchored" data-anchor-id="ouvrir-le-fichier-csv-avec-excel"><strong>5. Ouvrir le fichier CSV avec Excel</strong></h3>
+<p>Une fois votre fichier créé, ouvrez <strong>Excel</strong>, puis : 1. Allez dans <strong>Fichier</strong> , <strong>Ouvrir</strong>. 2. Sélectionnez <strong>“mes_donnees.csv”</strong>. 3. Si les colonnes ne sont pas bien séparées, utilisez l’Assistant d’importation : Sélectionnez <strong>Délimité</strong>. Choisissez le séparateur correct (<strong><code>,</code></strong> ou <strong><code>;</code></strong>). Vérifiez l’encodage UTF-8 si des caractères sont corrompus.</p>
+</section>
+<section id="exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv" class="level3">
+<h3 class="anchored" data-anchor-id="exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv"><strong>6. Exportation vers Excel avec le package <code>writexl</code> (alternative sans CSV)</strong></h3>
+<p>Si vous préférez <strong>enregistrer directement en <code>.xlsx</code></strong>, utilisez le package <code>writexl</code> :</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"writexl"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Exportation directe vers Excel</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(X, <span class="st">"mes_donnees.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="en-résumé" class="level3">
+<h3 class="anchored" data-anchor-id="en-résumé"><strong>En résumé</strong></h3>
+<p><code>write.csv()</code> → Exportation standard en <strong>CSV</strong> avec <code>,</code> comme séparateur<br>
+<code>write.csv2()</code> → Format européen avec <code>;</code> comme séparateur<br>
+<code>fileEncoding = "UTF-8"</code> → Évite les problèmes de caractères spéciaux<br>
+<code>writexl</code> → Exportation directe en <code>.xlsx</code> sans passer par CSV</p>
+</section>
+</section>
+<section id="exporter-des-données-dans-r-1" class="level2">
+<h2 class="anchored" data-anchor-id="exporter-des-données-dans-r-1"><strong>Exporter des données dans R</strong></h2>
+<section id="exporter-vers-un-fichier-texte-ascii-1" class="level3">
+<h3 class="anchored" data-anchor-id="exporter-vers-un-fichier-texte-ascii-1"><strong>1. Exporter vers un fichier texte ASCII</strong></h3>
+<p>Utilisez la fonction <strong><code>write.table()</code></strong> pour enregistrer un <strong>data.frame</strong> dans un fichier texte.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(donnees, <span class="at">file =</span> <span class="st">"mon-fichier.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication des paramètres :</strong><br>
+- <code>file = "mon-fichier.txt"</code> → Nom du fichier de sortie.<br>
+- <code>sep = "\t"</code> → Séparateur de colonnes (ici, tabulation).<br>
+- <code>row.names = FALSE</code> → Ne pas enregistrer les noms des lignes.</p>
+<p><strong>Autre méthode</strong> : La fonction <code>write()</code> permet d’exporter <strong>vecteurs et matrices</strong>, en précisant le nombre de colonnes :</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">file =</span> <span class="st">"data.txt"</span>, <span class="at">ncolumns =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exporter-vers-excel-ou-openoffice-calc" class="level3">
+<h3 class="anchored" data-anchor-id="exporter-vers-excel-ou-openoffice-calc"><strong>2. Exporter vers Excel ou OpenOffice Calc</strong></h3>
+<p>Une méthode simple consiste à <strong>copier les données dans le presse-papiers</strong> et à les coller dans un tableur :</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Poids =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">75</span>), <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">182</span>, <span class="dv">190</span>, <span class="dv">160</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(X, <span class="at">file =</span> <span class="st">"clipboard"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">","</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Collez ensuite les données</strong> dans Excel ou LibreOffice avec <strong>CTRL + V</strong>. <strong>Alternative avec un package</strong> :<br>
+Si vous utilisez <strong>Windows</strong>, le package <code>writexl</code> permet une exportation directe vers <strong>Excel</strong> :</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"writexl"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(X, <span class="st">"export.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="créer-des-données-dans-r" class="level2">
+<h2 class="anchored" data-anchor-id="créer-des-données-dans-r"><strong>Créer des données dans R</strong></h2>
+<section id="générer-des-données-simples" class="level3">
+<h3 class="anchored" data-anchor-id="générer-des-données-simples"><strong>1. Générer des données simples</strong></h3>
+<section id="vecteurs-avec-c" class="level4">
+<h4 class="anchored" data-anchor-id="vecteurs-avec-c"><strong>Vecteurs avec <code>c()</code></strong></h4>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="fl">2.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="suites-de-valeurs-avec-seq" class="level4">
+<h4 class="anchored" data-anchor-id="suites-de-valeurs-avec-seq"><strong>Suites de valeurs avec <code>seq()</code></strong></h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.1</span>)  <span class="co"># Pas de 0.1</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">length =</span> <span class="dv">8</span>) <span class="co"># 8 valeurs réparties</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="séquence-dentiers-avec" class="level4">
+<h4 class="anchored" data-anchor-id="séquence-dentiers-avec"><strong>Séquence d’entiers avec <code>:</code></strong></h4>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>  <span class="co"># Génère 1, 2, ..., 12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="générer-des-données-pseudo-aléatoires" class="level3">
+<h3 class="anchored" data-anchor-id="générer-des-données-pseudo-aléatoires"><strong>2. Générer des données pseudo-aléatoires</strong></h3>
+<section id="valeurs-uniformes-avec-runif" class="level4">
+<h4 class="anchored" data-anchor-id="valeurs-uniformes-avec-runif"><strong>Valeurs uniformes avec <code>runif()</code></strong></h4>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>, <span class="at">min =</span> <span class="dv">2</span>, <span class="at">max =</span> <span class="dv">7</span>)  <span class="co"># 5 valeurs entre 2 et 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="valeurs-normales-avec-rnorm" class="level4">
+<h4 class="anchored" data-anchor-id="valeurs-normales-avec-rnorm"><strong>Valeurs normales avec <code>rnorm()</code></strong></h4>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>)  <span class="co"># Moyenne 2, écart-type 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="tirage-aléatoire-avec-sample" class="level4">
+<h4 class="anchored" data-anchor-id="tirage-aléatoire-avec-sample"><strong>Tirage aléatoire avec <code>sample()</code></strong></h4>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>urne <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(urne, <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># Tirage avec remise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="entrer-des-données-manuellement" class="level3">
+<h3 class="anchored" data-anchor-id="entrer-des-données-manuellement"><strong>3. Entrer des données manuellement</strong></h3>
+<section id="avec-scan" class="level4">
+<h4 class="anchored" data-anchor-id="avec-scan"><strong>Avec <code>scan()</code></strong></h4>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">scan</span>()  <span class="co"># Entrée interactive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Tapez vos nombres et <strong>appuyez sur “Entrée”</strong> pour valider. Cloturer la saisie par <strong>Entrée</strong>.</p>
+</section>
+<section id="avec-data.entry-éditeur-graphique" class="level4">
+<h4 class="anchored" data-anchor-id="avec-data.entry-éditeur-graphique">** Avec <code>data.entry()</code> (éditeur graphique)**</h4>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())  <span class="co"># Effacer les objets existants</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.entry</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Les données saisies dans <code>data.entry("")</code> sont automatiquement stockées dans l’environnement R, mais elles ne sont pas sauvegardées sur le disque.</p>
+</section>
+</section>
+<section id="manipuler-un-tableau-interactif" class="level3">
+<h3 class="anchored" data-anchor-id="manipuler-un-tableau-interactif"><strong>4. Manipuler un tableau interactif</strong></h3>
+<p>Si vous souhaitez entrer des <strong>données directement dans un mini-tableur</strong>, utilisez :</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">de</span>(<span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Astuce</strong> : Modifiez les noms de variables et les types (<code>numeric</code>, <code>character</code>) en cliquant sur la <strong>première ligne du tableau</strong>.</p>
+</section>
+</section>
+<section id="résumé" class="level2">
+<h2 class="anchored" data-anchor-id="résumé"><strong>Résumé</strong></h2>
+<p><strong>Exportation</strong> : <code>write.table()</code> pour <strong>texte ASCII</strong>, <code>write_xlsx()</code> pour <strong>Excel</strong><br>
+<strong>Création</strong> : <code>c()</code>, <code>seq()</code>, <code>rep()</code> pour <strong>vecteurs et suites</strong><br>
+<strong>Données aléatoires</strong> : <code>runif()</code> pour valeurs uniformes, <code>rnorm()</code> pour loi normale<br>
+<strong>Saisie manuelle</strong> : <code>scan()</code> et <code>data.entry()</code> pour entrer des valeurs</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
