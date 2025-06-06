@@ -1,5 +1,5 @@
 ---
-title: "**Module 1.1: \n Introduction à la programmation R**"
+title: "**Introduction à la programmation R**"
 format: pdf
 toc: true
 author: "Togo Posit community"
@@ -256,6 +256,7 @@ R reconnaît automatiquement le type des données saisies et permet de les organ
 -   `typeof()` : Détermine le **type** d’un objet.\
 -   `mode()` : Fonction similaire à `typeof()`, avec quelques subtilités.\
 -   `class()` : Plus générale, elle permet de gérer le **type et la structure** des données.
+
 ### **Types numériques (`numeric`)**
 R distingue deux sous-types :\
 - **Entiers (`integer`)** : Moins gourmands en mémoire.\
@@ -560,7 +561,7 @@ IMC <- data.frame(
   Poids = c(67, 58, 66, 48, 75, 55)
 )
 print(IMC)
-print(str(IMC))  # Affiche la structure du data.frame
+str(IMC) # Affiche la structure du data.frame
 ```
 ### Variables ordinales avec `ordered()`  
 Les variables **ordinales** ont un **ordre défini** entre leurs catégories. Il est recommandé d’utiliser `ordered()` pour ces variables :  
@@ -772,20 +773,6 @@ Voici quelques manipulations à effectuer avec R. Assurez-vous d'utiliser la str
 1.4- Regroupez ces variables dans la structure R qui vous semble la plus adaptée.  
 1.5- Consultez l'aide en ligne de R afin d'obtenir des informations sur la fonction plot().  
 1.6- Tracez le nuage de points du Poids en fonction de la Taille. Pensez à ajouter un titre à votre graphique et à annoter les axes.  
-
----
-
-
-
--   Fonctions de base pour manipuler les tableaux (`head()`, `tail()`, `summary()`)\
--   Indexation et filtrage des données
-
-#### **4. Introduction aux fonctions et opérations**
-
--   Création et utilisation de fonctions (`function()`)\
--   Opérations mathématiques et logiques\
--   Structures conditionnelles (`if`, `else`) et boucles (`for`, `while`)
-
 
 
 

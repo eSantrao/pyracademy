@@ -1,5 +1,5 @@
 ---
-title: "Module 1.2: Importation-exportation et production de données"
+title: "**Importation-exportation et production de données**"
 format: pdf
 toc: true
 author: "Togo Posit community"
@@ -58,7 +58,8 @@ Plutôt que de spécifier le chemin complet, vous pouvez **définir un répertoi
 ```r
 setwd("C:/MonDossier")
 mon.fichier <- "mesdonnees.txt"
-donnees <- read.table(file = mon.fichier, header = TRUE, sep = "\t", dec = ".", row.names = 1)
+donnees <- read.table(file = mon.fichier, header = TRUE, sep = "\t", dec = ".",
+                         row.names = 1)
 ```
 ### **1.1.4. Vérification des données**
 Une fois les données importées, vous pouvez les **visualiser rapidement** :
@@ -71,7 +72,8 @@ tail(donnees)   # Afficher les dernières lignes
 Si votre fichier contient des **lignes vides** ou **incomplètes**, ajoutez ces paramètres pour éviter les erreurs :
 
 ```r
-donnees <- read.table(file = "C:/MonDossier/mesdonnees.txt", fill = TRUE, blank.lines.skip = FALSE)
+donnees <- read.table(file = "C:/MonDossier/mesdonnees.txt", fill = TRUE, 
+                            blank.lines.skip = FALSE)
 ```
 
 ## **1.2. Importation avec d'autres fonctions**
@@ -620,3 +622,8 @@ Dans la pratique d'un Data scientist, il arrive souvent que l’on rencontre des
 2. **Importez le fichier `Infarct.xls`** dans un `data.frame`, en vous assurant de bien traiter les valeurs manquantes.  
 3. **Importez le fichier `nutriage.txt`**, qui contient **treize variables mesurées sur 226 individus**, dans un `data.frame`. _(Indice : utilisez entre autres les fonctions `as.data.frame()` et `t()`)._  
 4. **Importez le fichier `Poids naissance.txt`**, qui contient **dix variables mesurées sur 189 individus**, dans un `data.frame`. Celui-ci devra contenir **le nom des variables et le nom des individus** (correspondant à la colonne **Id**). Pensez à utiliser l'aide en ligne pour vous guider.  
+
+
+**Astuce:**
+Utiliser à chaque importation les fonctions de base : (`str()`,`head()`, `tail()`, `summary()`), pour avoir un aperçu des données.
+
