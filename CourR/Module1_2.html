@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Untitled</title>
+<title>Importation-exportation et production de données</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,15 +71,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#importation-des-données" id="toc-importation-des-données" class="nav-link active" data-scroll-target="#importation-des-données"><strong>1. Importation des données</strong></a>
+  <ul class="collapse">
+  <li><a href="#importer-des-données-depuis-un-fichier-texte-ascii" id="toc-importer-des-données-depuis-un-fichier-texte-ascii" class="nav-link" data-scroll-target="#importer-des-données-depuis-un-fichier-texte-ascii"><strong>1.1 Importer des données depuis un fichier texte ASCII</strong></a>
+  <ul class="collapse">
+  <li><a href="#préparer-le-fichier" id="toc-préparer-le-fichier" class="nav-link" data-scroll-target="#préparer-le-fichier"><strong>1.1.1. Préparer le fichier</strong></a></li>
+  <li><a href="#méthodes-dimportation-dans-r" id="toc-méthodes-dimportation-dans-r" class="nav-link" data-scroll-target="#méthodes-dimportation-dans-r"><strong>1.1.2. Méthodes d’importation dans R</strong></a></li>
+  <li><a href="#lecture-dun-fichier-texte-avec-read.table" id="toc-lecture-dun-fichier-texte-avec-read.table" class="nav-link" data-scroll-target="#lecture-dun-fichier-texte-avec-read.table"><strong>1.1.3. Lecture d’un fichier texte avec <code>read.table()</code></strong></a></li>
+  <li><a href="#vérification-des-données" id="toc-vérification-des-données" class="nav-link" data-scroll-target="#vérification-des-données"><strong>1.1.4. Vérification des données</strong></a></li>
+  </ul></li>
+  <li><a href="#importation-avec-dautres-fonctions" id="toc-importation-avec-dautres-fonctions" class="nav-link" data-scroll-target="#importation-avec-dautres-fonctions"><strong>1.2. Importation avec d’autres fonctions</strong></a></li>
+  <li><a href="#importation-avancée" id="toc-importation-avancée" class="nav-link" data-scroll-target="#importation-avancée"><strong>1.3. Importation avancée</strong></a></li>
+  <li><a href="#importation-depuis-dautres-logiciels" id="toc-importation-depuis-dautres-logiciels" class="nav-link" data-scroll-target="#importation-depuis-dautres-logiciels"><strong>1.4. Importation depuis d’autres logiciels</strong></a></li>
+  <li><a href="#gestion-des-gros-fichiers" id="toc-gestion-des-gros-fichiers" class="nav-link" data-scroll-target="#gestion-des-gros-fichiers"><strong>1.5. Gestion des gros fichiers</strong></a></li>
+  </ul></li>
+  <li><a href="#exportation-des-données-dans-r" id="toc-exportation-des-données-dans-r" class="nav-link" data-scroll-target="#exportation-des-données-dans-r"><strong>2. Exportation des données dans R</strong></a>
+  <ul class="collapse">
+  <li><a href="#exporter-vers-un-fichier-texte-ascii" id="toc-exporter-vers-un-fichier-texte-ascii" class="nav-link" data-scroll-target="#exporter-vers-un-fichier-texte-ascii"><strong>2.1. Exporter vers un fichier texte ASCII</strong></a></li>
+  <li><a href="#exporter-des-données-vers-excel-avec-write.csv-dans-r" id="toc-exporter-des-données-vers-excel-avec-write.csv-dans-r" class="nav-link" data-scroll-target="#exporter-des-données-vers-excel-avec-write.csv-dans-r"><strong>2.2. Exporter des données vers Excel avec <code>write.csv()</code> dans R</strong></a>
+  <ul class="collapse">
+  <li><a href="#exportation-dans-excel-par-copie-coller" id="toc-exportation-dans-excel-par-copie-coller" class="nav-link" data-scroll-target="#exportation-dans-excel-par-copie-coller"><strong>2.2.1. Exportation dans excel par copie coller</strong></a></li>
+  <li><a href="#exportation-dans-un-fichier-csv" id="toc-exportation-dans-un-fichier-csv" class="nav-link" data-scroll-target="#exportation-dans-un-fichier-csv"><strong>2.2.2. Exportation dans un fichier CSV</strong></a></li>
+  </ul></li>
+  <li><a href="#exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv" id="toc-exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv" class="nav-link" data-scroll-target="#exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv"><strong>2.3. Exportation vers Excel avec le package <code>writexl</code> (alternative sans CSV)</strong></a>
+  <ul class="collapse">
+  <li><a href="#en-résumé" id="toc-en-résumé" class="nav-link" data-scroll-target="#en-résumé"><strong>En résumé</strong></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#générer-des-données-dans-r" id="toc-générer-des-données-dans-r" class="nav-link" data-scroll-target="#générer-des-données-dans-r"><strong>3. Générer des données dans R</strong></a>
+  <ul class="collapse">
+  <li><a href="#générer-des-données-simples" id="toc-générer-des-données-simples" class="nav-link" data-scroll-target="#générer-des-données-simples"><strong>3.1. Générer des données simples</strong></a>
+  <ul class="collapse">
+  <li><a href="#vecteurs-avec-c" id="toc-vecteurs-avec-c" class="nav-link" data-scroll-target="#vecteurs-avec-c"><strong>Vecteurs avec <code>c()</code></strong></a></li>
+  <li><a href="#suites-de-valeurs-avec-seq" id="toc-suites-de-valeurs-avec-seq" class="nav-link" data-scroll-target="#suites-de-valeurs-avec-seq"><strong>Suites de valeurs avec <code>seq()</code></strong></a></li>
+  <li><a href="#séquence-dentiers-avec" id="toc-séquence-dentiers-avec" class="nav-link" data-scroll-target="#séquence-dentiers-avec"><strong>Séquence d’entiers avec <code>:</code></strong></a></li>
+  </ul></li>
+  <li><a href="#générer-des-données-pseudo-aléatoires" id="toc-générer-des-données-pseudo-aléatoires" class="nav-link" data-scroll-target="#générer-des-données-pseudo-aléatoires"><strong>3.2. Générer des données pseudo-aléatoires</strong></a>
+  <ul class="collapse">
+  <li><a href="#valeurs-uniformes-avec-runif" id="toc-valeurs-uniformes-avec-runif" class="nav-link" data-scroll-target="#valeurs-uniformes-avec-runif"><strong>Valeurs uniformes avec <code>runif()</code></strong></a></li>
+  <li><a href="#valeurs-normales-avec-rnorm" id="toc-valeurs-normales-avec-rnorm" class="nav-link" data-scroll-target="#valeurs-normales-avec-rnorm"><strong>Valeurs normales avec <code>rnorm()</code></strong></a></li>
+  <li><a href="#tirage-aléatoire-avec-sample" id="toc-tirage-aléatoire-avec-sample" class="nav-link" data-scroll-target="#tirage-aléatoire-avec-sample"><strong>Tirage aléatoire avec <code>sample()</code></strong></a></li>
+  </ul></li>
+  <li><a href="#entrer-manuelle-des-données-dans-r" id="toc-entrer-manuelle-des-données-dans-r" class="nav-link" data-scroll-target="#entrer-manuelle-des-données-dans-r"><strong>3.3. Entrer manuelle des données dans R</strong></a>
+  <ul class="collapse">
+  <li><a href="#avec-scan" id="toc-avec-scan" class="nav-link" data-scroll-target="#avec-scan"><strong>Avec <code>scan()</code></strong></a></li>
+  <li><a href="#avec-data.entry-éditeur-graphique" id="toc-avec-data.entry-éditeur-graphique" class="nav-link" data-scroll-target="#avec-data.entry-éditeur-graphique">** Avec <code>data.entry()</code> (éditeur graphique)**</a></li>
+  <li><a href="#manipuler-un-tableau-interactif" id="toc-manipuler-un-tableau-interactif" class="nav-link" data-scroll-target="#manipuler-un-tableau-interactif"><strong>Manipuler un tableau interactif</strong></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#lectureécriture-dans-les-bases-de-données-sql" id="toc-lectureécriture-dans-les-bases-de-données-sql" class="nav-link" data-scroll-target="#lectureécriture-dans-les-bases-de-données-sql"><strong>4. Lecture/écriture dans les bases de données SQL</strong></a>
+  <ul class="collapse">
+  <li><a href="#procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r" id="toc-procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r" class="nav-link" data-scroll-target="#procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r"><strong>4.1. Procédure générale pour se connecter aux SGBD externes (MySQL, PostgreSQL, SQL Server) avec R</strong></a>
+  <ul class="collapse">
+  <li><a href="#installer-le-package-adapté" id="toc-installer-le-package-adapté" class="nav-link" data-scroll-target="#installer-le-package-adapté"><strong>4.1.1. Installer le package adapté</strong></a></li>
+  <li><a href="#établir-la-connexion-à-la-base-de-données" id="toc-établir-la-connexion-à-la-base-de-données" class="nav-link" data-scroll-target="#établir-la-connexion-à-la-base-de-données"><strong>4.1.2. Établir la connexion à la base de données</strong></a></li>
+  <li><a href="#exécuter-une-requête-sql" id="toc-exécuter-une-requête-sql" class="nav-link" data-scroll-target="#exécuter-une-requête-sql"><strong>4.1.3. Exécuter une requête SQL</strong></a></li>
+  <li><a href="#insérer-des-données-dans-la-base" id="toc-insérer-des-données-dans-la-base" class="nav-link" data-scroll-target="#insérer-des-données-dans-la-base"><strong>4.1.4. Insérer des données dans la base</strong></a></li>
+  <li><a href="#fermer-la-connexion" id="toc-fermer-la-connexion" class="nav-link" data-scroll-target="#fermer-la-connexion"><strong>4.1.5. Fermer la connexion</strong></a></li>
+  </ul></li>
+  <li><a href="#cas-pratique-avec-sqlite" id="toc-cas-pratique-avec-sqlite" class="nav-link" data-scroll-target="#cas-pratique-avec-sqlite"><strong>4.2. Cas pratique avec SQLite</strong></a>
+  <ul class="collapse">
+  <li><a href="#installation-et-chargement-du-package-sqlite" id="toc-installation-et-chargement-du-package-sqlite" class="nav-link" data-scroll-target="#installation-et-chargement-du-package-sqlite"><strong>4.2.1. Installation et chargement du package SQLite</strong></a></li>
+  <li><a href="#création-dune-base-de-données-sqlite" id="toc-création-dune-base-de-données-sqlite" class="nav-link" data-scroll-target="#création-dune-base-de-données-sqlite"><strong>4.2.2. Création d’une base de données SQLite</strong></a></li>
+  <li><a href="#création-dune-table" id="toc-création-dune-table" class="nav-link" data-scroll-target="#création-dune-table"><strong>4.2.3. Création d’une table</strong></a></li>
+  <li><a href="#insérer-des-données-dans-sqlite" id="toc-insérer-des-données-dans-sqlite" class="nav-link" data-scroll-target="#insérer-des-données-dans-sqlite"><strong>4.2.4. Insérer des données dans SQLite</strong></a></li>
+  <li><a href="#lecture-des-données-depuis-sqlite" id="toc-lecture-des-données-depuis-sqlite" class="nav-link" data-scroll-target="#lecture-des-données-depuis-sqlite"><strong>4.2.5. Lecture des données depuis SQLite</strong></a></li>
+  <li><a href="#suppression-et-mise-à-jour-des-données" id="toc-suppression-et-mise-à-jour-des-données" class="nav-link" data-scroll-target="#suppression-et-mise-à-jour-des-données"><strong>4.2.6. Suppression et mise à jour des données</strong></a></li>
+  <li><a href="#fermeture-de-la-connexion" id="toc-fermeture-de-la-connexion" class="nav-link" data-scroll-target="#fermeture-de-la-connexion"><strong>4.2.7. Fermeture de la connexion</strong></a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Untitled</h1>
+<h1 class="title">Importation-exportation et production de données</h1>
 </div>
 
 
@@ -96,20 +172,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="manipulation-de-données" class="level1">
-<h1><strong>Manipulation de données</strong></h1>
-<ul>
-<li>Importation et exportation de données</li>
-</ul>
+<section id="importation-des-données" class="level1">
+<h1><strong>1. Importation des données</strong></h1>
 <section id="importer-des-données-depuis-un-fichier-texte-ascii" class="level2">
-<h2 class="anchored" data-anchor-id="importer-des-données-depuis-un-fichier-texte-ascii"><strong>Importer des données depuis un fichier texte ASCII</strong></h2>
+<h2 class="anchored" data-anchor-id="importer-des-données-depuis-un-fichier-texte-ascii"><strong>1.1 Importer des données depuis un fichier texte ASCII</strong></h2>
 <p>Si vous avez un fichier texte au format <strong>ASCII</strong> contenant vos données, voici comment les importer dans <strong>R</strong>.</p>
 <section id="préparer-le-fichier" class="level3">
-<h3 class="anchored" data-anchor-id="préparer-le-fichier"><strong>1. Préparer le fichier</strong></h3>
+<h3 class="anchored" data-anchor-id="préparer-le-fichier"><strong>1.1.1. Préparer le fichier</strong></h3>
 <p>Si vous ne disposez pas d’un fichier texte au format ASCII qui contient vos données, vous pouvez créer un fichier texte avec <strong>Wordpad</strong> sous <strong>Windows</strong> ou <strong>Emacs</strong> sous <strong>Linux</strong>. Si votre fichier contient un grand nombre de données, <strong>préférez un tableur</strong> pour la gestion avant l’importation.</p>
 </section>
 <section id="méthodes-dimportation-dans-r" class="level3">
-<h3 class="anchored" data-anchor-id="méthodes-dimportation-dans-r"><strong>2. Méthodes d’importation dans R</strong></h3>
+<h3 class="anchored" data-anchor-id="méthodes-dimportation-dans-r"><strong>1.1.2. Méthodes d’importation dans R</strong></h3>
 <p>R propose plusieurs fonctions pour lire des fichiers <strong>texte</strong> :</p>
 <table class="table">
 <colgroup>
@@ -139,7 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 <section id="lecture-dun-fichier-texte-avec-read.table" class="level3">
-<h3 class="anchored" data-anchor-id="lecture-dun-fichier-texte-avec-read.table"><strong>3. Lecture d’un fichier texte avec <code>read.table()</code></strong></h3>
+<h3 class="anchored" data-anchor-id="lecture-dun-fichier-texte-avec-read.table"><strong>1.1.3. Lecture d’un fichier texte avec <code>read.table()</code></strong></h3>
 <p>Voici un script permettant de <strong>charger un fichier texte</strong> sous R et de le stocker sous forme de <code>data.frame</code> :</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sélection du fichier via une fenêtre de dialogue</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -180,100 +253,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-</section>
-<section id="chargement-manuel-du-fichier" class="level3">
-<h3 class="anchored" data-anchor-id="chargement-manuel-du-fichier"><strong>4. Chargement manuel du fichier</strong></h3>
+<section id="chargement-manuel-du-fichier" class="level4">
+<h4 class="anchored" data-anchor-id="chargement-manuel-du-fichier"><strong>Chargement manuel du fichier</strong></h4>
 <p>Vous pouvez spécifier directement le chemin du fichier :</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"C:/MonDossier/mesdonnees.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Attention</strong> : Sous <strong>Windows</strong>, utilisez <code>/</code> ou <code>\\</code> au lieu de <code>\</code> dans le chemin du fichier.</p>
 </section>
-<section id="définir-le-répertoire-de-travail" class="level3">
-<h3 class="anchored" data-anchor-id="définir-le-répertoire-de-travail"><strong>5. Définir le répertoire de travail</strong></h3>
+<section id="définir-le-répertoire-de-travail" class="level4">
+<h4 class="anchored" data-anchor-id="définir-le-répertoire-de-travail"><strong>Définir le répertoire de travail</strong></h4>
 <p>Plutôt que de spécifier le chemin complet, vous pouvez <strong>définir un répertoire par défaut</strong> :</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"C:/MonDossier"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mon.fichier <span class="ot">&lt;-</span> <span class="st">"mesdonnees.txt"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> mon.fichier, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+</section>
 <section id="vérification-des-données" class="level3">
-<h3 class="anchored" data-anchor-id="vérification-des-données"><strong>6. Vérification des données</strong></h3>
+<h3 class="anchored" data-anchor-id="vérification-des-données"><strong>1.1.4. Vérification des données</strong></h3>
 <p>Une fois les données importées, vous pouvez les <strong>visualiser rapidement</strong> :</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(donnees)   <span class="co"># Afficher les premières lignes</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(donnees)   <span class="co"># Afficher les dernières lignes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Astuce</strong> : Pour accéder directement aux colonnes du <code>data.frame</code>, utilisez la commande :</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(donnees)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Si votre fichier contient des <strong>lignes vides</strong> ou <strong>incomplètes</strong>, ajoutez ces paramètres pour éviter les erreurs :</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"C:/MonDossier/mesdonnees.txt"</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">blank.lines.skip =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">"C:/MonDossier/mesdonnees.txt"</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>, <span class="at">blank.lines.skip =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="importer-des-données-depuis-un-fichier-texte-ascii-1" class="level2">
-<h2 class="anchored" data-anchor-id="importer-des-données-depuis-un-fichier-texte-ascii-1"><strong>Importer des données depuis un fichier texte ASCII</strong></h2>
-<p>Lors de l’analyse de données, il est courant d’utiliser des fichiers <strong>texte ASCII</strong> pour stocker et importer des informations dans <strong>R</strong>. Voici comment procéder efficacement.</p>
-<section id="préparation-du-fichier" class="level3">
-<h3 class="anchored" data-anchor-id="préparation-du-fichier"><strong>1. Préparation du fichier</strong></h3>
-<ul>
-<li>Créez un dossier nommé <strong>DossierData</strong> pour organiser vos fichiers.</li>
-<li>Téléchargez le fichier <strong>Intima_Media.txt</strong> à partir du lien suivant :</li>
-<li>Enregistrez ce fichier dans <strong>DossierData</strong>.</li>
-</ul>
-<hr>
-</section>
-<section id="exploration-du-fichier" class="level3">
-<h3 class="anchored" data-anchor-id="exploration-du-fichier"><strong>2. Exploration du fichier</strong></h3>
-<p>Avant de l’importer, il est utile de <strong>visualiser son contenu</strong> pour comprendre sa structure.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"chemin/vers/DossierData/"</span>)  <span class="co"># Remplacez "chemin/vers" par votre chemin réel</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">readLines</span>(<span class="st">"Intima_Media.txt"</span>, <span class="at">n =</span> <span class="dv">5</span>)  <span class="co"># Afficher les 5 premières lignes du fichier</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Vous verrez une sortie similaire :</p>
-<pre><code>[1] "SEXE AGE taille poids tabac paqan SPORT mesure alcool"
-[2] "1 33 170 70 1 1 0 0,52 1"
-[3] "2 33 177 67 2 20 0 0,42 1"
-</code></pre>
-<p>🔹 <strong>Observations</strong> : - La première ligne contient les <strong>noms des variables</strong>. - Les valeurs sont <strong>séparées par des espaces</strong>. - Le séparateur <strong>décimal est une virgule</strong>.</p>
-<hr>
-</section>
-<section id="importation-avec-read.table" class="level3">
-<h3 class="anchored" data-anchor-id="importation-avec-read.table"><strong>3. Importation avec <code>read.table()</code></strong></h3>
-<p>En tenant compte de la structure du fichier, voici le code d’importation :</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mesdonnees <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Intima_Media.txt"</span>, <span class="at">sep =</span> <span class="st">" "</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">dec =</span> <span class="st">","</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Paramètres utilisés</strong> : - <code>sep = " "</code> → Les valeurs sont séparées par des <strong>espaces</strong>. - <code>header = TRUE</code> → La première ligne contient les <strong>noms des colonnes</strong>. - <code>dec = ","</code> → Les nombres utilisent une <strong>virgule</strong> comme séparateur décimal.</p>
-<hr>
-</section>
-<section id="vérification-des-données-1" class="level3">
-<h3 class="anchored" data-anchor-id="vérification-des-données-1"><strong>4. Vérification des données</strong></h3>
-<p>Une fois importées, vérifions la structure du fichier :</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mesdonnees)  <span class="co"># Afficher les premières lignes</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mesdonnees) <span class="co"># Vérifier la structure de l'objet</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mesdonnees)   <span class="co"># Détails sur les types de colonnes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Si certaines valeurs sont absentes, elles seront marquées par <code>NA</code>.</p>
-<hr>
-</section>
-<section id="accéder-aux-variables-plus-facilement" class="level3">
-<h3 class="anchored" data-anchor-id="accéder-aux-variables-plus-facilement"><strong>5. Accéder aux variables plus facilement</strong></h3>
-<p>Plutôt que d’écrire <code>mesdonnees$AGE</code> à chaque fois, utilisez <code>attach()</code> :</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(mesdonnees)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(AGE)    <span class="co"># Moyenne de l'âge</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(taille)  <span class="co"># Variance des tailles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>⚠️ <strong>Attention</strong> : <code>attach()</code> doit être utilisé avec précaution, car il peut créer des conflits entre objets portant le même nom.</p>
-<hr>
-</section>
-<section id="importation-avec-dautres-fonctions" class="level3">
-<h3 class="anchored" data-anchor-id="importation-avec-dautres-fonctions"><strong>6. Importation avec d’autres fonctions</strong></h3>
+<section id="importation-avec-dautres-fonctions" class="level2">
+<h2 class="anchored" data-anchor-id="importation-avec-dautres-fonctions"><strong>1.2. Importation avec d’autres fonctions</strong></h2>
 <p>R propose plusieurs alternatives adaptées à différents formats :</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"mon_fichier.csv"</span>)      <span class="co"># Séparé par des virgules</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv2</span>(<span class="st">"mon_fichier.csv"</span>)     <span class="co"># Séparé par des points-virgules</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read.delim</span>(<span class="st">"mon_fichier.txt"</span>)    <span class="co"># Séparé par des tabulations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">"mon_fichier.csv"</span>)      <span class="co"># Séparé par des virgules</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read.csv2</span>(<span class="st">"mon_fichier.csv"</span>)     <span class="co"># Séparé par des points-virgules</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read.delim</span>(<span class="st">"mon_fichier.txt"</span>)    <span class="co"># Séparé par des tabulations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="importation-avancée-avec-scan" class="level3">
-<h3 class="anchored" data-anchor-id="importation-avancée-avec-scan"><strong>8. Importation avancée avec <code>scan()</code></strong></h3>
+<section id="importation-avancée" class="level2">
+<h2 class="anchored" data-anchor-id="importation-avancée"><strong>1.3. Importation avancée</strong></h2>
 <p>Lorsque les données <strong>ne sont pas sous forme de tableau</strong>, <code>scan()</code> est plus adapté :</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nom.variable <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"Intima_Media2.txt"</span>, <span class="at">skip =</span> <span class="dv">5</span>, <span class="at">nlines =</span> <span class="dv">1</span>, <span class="at">what =</span> <span class="st">""</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>donnee <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"Intima_Media2.txt"</span>, <span class="at">skip =</span> <span class="dv">9</span>, <span class="at">dec =</span> <span class="st">","</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>matable <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(donnee, <span class="at">ncol =</span> <span class="dv">9</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matable) <span class="ot">&lt;-</span> nom.variable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nom.variable <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"Intima_Media2.txt"</span>, <span class="at">skip =</span> <span class="dv">5</span>, <span class="at">nlines =</span> <span class="dv">1</span>, <span class="at">what =</span> <span class="st">""</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>donnee <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"Intima_Media2.txt"</span>, <span class="at">skip =</span> <span class="dv">9</span>, <span class="at">dec =</span> <span class="st">","</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>matable <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">matrix</span>(donnee, <span class="at">ncol =</span> <span class="dv">9</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matable) <span class="ot">&lt;-</span> nom.variable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Utilisation typique</strong> : - <code>skip=5</code> → Ignore les premières <strong>lignes descriptives</strong> du fichier. - <code>dec=","</code> → Utilise la <strong>virgule comme séparateur décimal</strong>. <strong>Astuce</strong> : <code>scan()</code> permet une <strong>lecture rapide</strong>, idéale pour les gros fichiers !</p>
-</section>
-<section id="utiliser-des-packages-spécialisés" class="level3">
-<h3 class="anchored" data-anchor-id="utiliser-des-packages-spécialisés"><strong>. Utiliser des packages spécialisés</strong></h3>
+<section id="utilisation-des-packages-spécialisés" class="level4">
+<h4 class="anchored" data-anchor-id="utilisation-des-packages-spécialisés"><strong>. Utilisation des packages spécialisés</strong></h4>
 <ul>
 <li><code>readxl</code> : <strong>Lit les fichiers <code>.xls/.xlsx</code></strong> sans dépendances externes<br>
 </li>
@@ -282,8 +302,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>foreign</code> : <strong>Lit des fichiers <code>.sav</code>, <code>.mtp</code>, <code>.xpt</code> et <code>.mat</code></strong></li>
 </ul>
 </section>
-<section id="importation-depuis-dautres-logiciels" class="level3">
-<h3 class="anchored" data-anchor-id="importation-depuis-dautres-logiciels"><strong>3. Importation depuis d’autres logiciels</strong></h3>
+</section>
+<section id="importation-depuis-dautres-logiciels" class="level2">
+<h2 class="anchored" data-anchor-id="importation-depuis-dautres-logiciels"><strong>1.4. Importation depuis d’autres logiciels</strong></h2>
 <table class="table">
 <colgroup>
 <col style="width: 18%">
@@ -332,58 +353,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>🔹 <strong>4. Gestion des gros fichiers</strong><br>
-- Définir les types de colonnes (<code>colClasses</code>) pour optimiser la lecture<br>
-- Stocker dans une base de données SQL en cas de <strong>limite RAM</strong></p>
-<p>🔹 <strong>5. Lecture de fichiers binaires</strong></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readBin</span>(<span class="st">"mon_fichier.bin"</span>, <span class="at">what =</span> <span class="st">"double"</span>, <span class="at">n =</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="gestion-des-gros-fichiers" class="level2">
+<h2 class="anchored" data-anchor-id="gestion-des-gros-fichiers"><strong>1.5. Gestion des gros fichiers</strong></h2>
+<ul>
+<li>Définir les types de colonnes (<code>colClasses</code>) pour optimiser la lecture<br>
+</li>
+<li>Stocker dans une base de données SQL en cas de <strong>limite RAM</strong></li>
+</ul>
 </section>
 </section>
-<section id="exporter-des-données-dans-r" class="level2">
-<h2 class="anchored" data-anchor-id="exporter-des-données-dans-r"><strong>Exporter des données dans R</strong></h2>
-<p>Avant d’exporter, il faut disposer d’un data.frame en R :</p>
+<section id="exportation-des-données-dans-r" class="level1">
+<h1><strong>2. Exportation des données dans R</strong></h1>
+<p>Avant d’exporter, il faut disposer des données en R :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un exemple de jeu de données</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nom =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>),</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">175</span>, <span class="dv">180</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un exemple de jeu de données</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Nom =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Charlie"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">160</span>, <span class="dv">175</span>, <span class="dv">180</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="exporter-vers-un-fichier-texte-ascii" class="level3">
-<h3 class="anchored" data-anchor-id="exporter-vers-un-fichier-texte-ascii"><strong>1. Exporter vers un fichier texte ASCII</strong></h3>
+<section id="exporter-vers-un-fichier-texte-ascii" class="level2">
+<h2 class="anchored" data-anchor-id="exporter-vers-un-fichier-texte-ascii"><strong>2.1. Exporter vers un fichier texte ASCII</strong></h2>
 <p>Utilisez la fonction <strong><code>write.table()</code></strong> pour enregistrer un <strong>data.frame</strong> dans un fichier texte.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(donnees, <span class="at">file =</span> <span class="st">"mon-fichier.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(donnees, <span class="at">file =</span> <span class="st">"mon-fichier.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Explication des paramètres :</strong><br>
 - <code>file = "mon-fichier.txt"</code> → Nom du fichier de sortie.<br>
 - <code>sep = "\t"</code> → Séparateur de colonnes (ici, tabulation).<br>
 - <code>row.names = FALSE</code> → Ne pas enregistrer les noms des lignes.</p>
 <p><strong>Autre méthode</strong> : La fonction <code>write()</code> permet d’exporter <strong>vecteurs et matrices</strong>, en précisant le nombre de colonnes :</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">file =</span> <span class="st">"data.txt"</span>, <span class="at">ncolumns =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">file =</span> <span class="st">"data.txt"</span>, <span class="at">ncolumns =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
-<section id="exporter-des-données-vers-excel-avec-write.csv-dans-r" class="level3">
-<h3 class="anchored" data-anchor-id="exporter-des-données-vers-excel-avec-write.csv-dans-r"><strong>Exporter des données vers Excel avec <code>write.csv()</code> dans R</strong></h3>
+<section id="exporter-des-données-vers-excel-avec-write.csv-dans-r" class="level2">
+<h2 class="anchored" data-anchor-id="exporter-des-données-vers-excel-avec-write.csv-dans-r"><strong>2.2. Exporter des données vers Excel avec <code>write.csv()</code> dans R</strong></h2>
+<section id="exportation-dans-excel-par-copie-coller" class="level3">
+<h3 class="anchored" data-anchor-id="exportation-dans-excel-par-copie-coller"><strong>2.2.1. Exportation dans excel par copie coller</strong></h3>
 <p>Une méthode simple consiste à <strong>copier les données dans le presse-papiers</strong> et à les coller dans un tableur :</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Poids =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">75</span>), <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">182</span>, <span class="dv">190</span>, <span class="dv">160</span>))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(X, <span class="at">file =</span> <span class="st">"clipboard"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">","</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Poids =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">75</span>), <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">182</span>, <span class="dv">190</span>, <span class="dv">160</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(X, <span class="at">file =</span> <span class="st">"clipboard"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">","</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Collez ensuite les données dans Excel ou LibreOffice avec <strong>CTRL + V</strong>. L’exportation de données vers <strong>Excel</strong> peut être réalisée efficacement à l’aide de la fonction <strong><code>write.csv()</code></strong>, qui permet de générer un fichier <strong>CSV</strong> compatible avec Excel et d’autres tableurs.</p>
 </section>
-<section id="utiliser-write.csv-pour-exporter" class="level3">
-<h3 class="anchored" data-anchor-id="utiliser-write.csv-pour-exporter"><strong>2. Utiliser <code>write.csv()</code> pour exporter</strong></h3>
+<section id="exportation-dans-un-fichier-csv" class="level3">
+<h3 class="anchored" data-anchor-id="exportation-dans-un-fichier-csv"><strong>2.2.2. Exportation dans un fichier CSV</strong></h3>
 <p>La fonction <strong><code>write.csv()</code></strong> permet de <strong>sauvegarder les données dans un fichier CSV</strong> :</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Explication des paramètres :</strong><br>
 - <code>file = "mes_donnees.csv"</code> → Nom du fichier à enregistrer.<br>
 - <code>row.names = FALSE</code> → Supprime l’ajout automatique des numéros de ligne.</p>
 <p><strong>Par défaut</strong>, <code>write.csv()</code> utilise <strong><code>,</code></strong> comme séparateur de colonnes et <strong><code>.</code></strong> pour les décimales.</p>
-</section>
-<section id="spécifier-un-séparateur-de-colonnes" class="level3">
-<h3 class="anchored" data-anchor-id="spécifier-un-séparateur-de-colonnes"><strong>3. Spécifier un séparateur de colonnes</strong></h3>
+<section id="spécifier-un-séparateur-de-colonnes" class="level4">
+<h4 class="anchored" data-anchor-id="spécifier-un-séparateur-de-colonnes"><strong>. Spécifier un séparateur de colonnes</strong></h4>
 <p>Si vous souhaitez <strong>un séparateur différent</strong>, par exemple <strong>“;”</strong>, utilisez <code>write.csv2()</code> :</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv2</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="différences-entre-write.csv-et-write.csv2" class="level4">
-<h4 class="anchored" data-anchor-id="différences-entre-write.csv-et-write.csv2"><strong>Différences entre <code>write.csv()</code> et <code>write.csv2()</code></strong> :</h4>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv2</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="différences-entre-write.csv-et-write.csv2" class="level5">
+<h5 class="anchored" data-anchor-id="différences-entre-write.csv-et-write.csv2"><strong>Différences entre <code>write.csv()</code> et <code>write.csv2()</code></strong> :</h5>
 <table class="table">
 <thead>
 <tr class="header">
@@ -408,23 +433,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Utilisez <code>write.csv2()</code></strong> si votre version d’Excel <strong>s’attend à des séparateurs de type <code>;</code> (français/européen)</strong>.</p>
 </section>
 </section>
-<section id="sauvegarde-avec-encodage-utf-8-pour-éviter-les-problèmes-de-caractères" class="level3">
-<h3 class="anchored" data-anchor-id="sauvegarde-avec-encodage-utf-8-pour-éviter-les-problèmes-de-caractères"><strong>4. Sauvegarde avec encodage UTF-8 (pour éviter les problèmes de caractères)</strong></h3>
+<section id="sauvegarde-avec-encodage-utf-8-pour-éviter-les-problèmes-de-caractères" class="level4">
+<h4 class="anchored" data-anchor-id="sauvegarde-avec-encodage-utf-8-pour-éviter-les-problèmes-de-caractères"><strong>Sauvegarde avec encodage UTF-8 (pour éviter les problèmes de caractères)</strong></h4>
 <p>Si votre fichier contient des accents ou caractères spéciaux, utilisez <strong><code>fileEncoding</code></strong> :</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">fileEncoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(X, <span class="at">file =</span> <span class="st">"mes_donnees.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">fileEncoding =</span> <span class="st">"UTF-8"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="ouvrir-le-fichier-csv-avec-excel" class="level3">
-<h3 class="anchored" data-anchor-id="ouvrir-le-fichier-csv-avec-excel"><strong>5. Ouvrir le fichier CSV avec Excel</strong></h3>
+<section id="comment-ouvrir-le-fichier-csv-exporté" class="level4">
+<h4 class="anchored" data-anchor-id="comment-ouvrir-le-fichier-csv-exporté"><strong>Comment ouvrir le fichier CSV exporté</strong></h4>
 <p>Une fois votre fichier créé, ouvrez <strong>Excel</strong>, puis : 1. Allez dans <strong>Fichier</strong> , <strong>Ouvrir</strong>. 2. Sélectionnez <strong>“mes_donnees.csv”</strong>. 3. Si les colonnes ne sont pas bien séparées, utilisez l’Assistant d’importation : Sélectionnez <strong>Délimité</strong>. Choisissez le séparateur correct (<strong><code>,</code></strong> ou <strong><code>;</code></strong>). Vérifiez l’encodage UTF-8 si des caractères sont corrompus.</p>
 </section>
-<section id="exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv" class="level3">
-<h3 class="anchored" data-anchor-id="exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv"><strong>6. Exportation vers Excel avec le package <code>writexl</code> (alternative sans CSV)</strong></h3>
-<p>Si vous préférez <strong>enregistrer directement en <code>.xlsx</code></strong>, utilisez le package <code>writexl</code> :</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"writexl"</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Exportation directe vers Excel</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(X, <span class="st">"mes_donnees.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+</section>
+<section id="exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv" class="level2">
+<h2 class="anchored" data-anchor-id="exportation-vers-excel-avec-le-package-writexl-alternative-sans-csv"><strong>2.3. Exportation vers Excel avec le package <code>writexl</code> (alternative sans CSV)</strong></h2>
+<p>Si vous préférez <strong>enregistrer directement en <code>.xlsx</code></strong>, utilisez le package <code>writexl</code> :</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"writexl"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Exportation directe vers Excel</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(X, <span class="st">"mes_donnees.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="en-résumé" class="level3">
 <h3 class="anchored" data-anchor-id="en-résumé"><strong>En résumé</strong></h3>
 <p><code>write.csv()</code> → Exportation standard en <strong>CSV</strong> avec <code>,</code> comme séparateur<br>
@@ -433,235 +459,206 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code>writexl</code> → Exportation directe en <code>.xlsx</code> sans passer par CSV</p>
 </section>
 </section>
-<section id="exporter-des-données-dans-r-1" class="level2">
-<h2 class="anchored" data-anchor-id="exporter-des-données-dans-r-1"><strong>Exporter des données dans R</strong></h2>
-<section id="exporter-vers-un-fichier-texte-ascii-1" class="level3">
-<h3 class="anchored" data-anchor-id="exporter-vers-un-fichier-texte-ascii-1"><strong>1. Exporter vers un fichier texte ASCII</strong></h3>
-<p>Utilisez la fonction <strong><code>write.table()</code></strong> pour enregistrer un <strong>data.frame</strong> dans un fichier texte.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(donnees, <span class="at">file =</span> <span class="st">"mon-fichier.txt"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Explication des paramètres :</strong><br>
-- <code>file = "mon-fichier.txt"</code> → Nom du fichier de sortie.<br>
-- <code>sep = "\t"</code> → Séparateur de colonnes (ici, tabulation).<br>
-- <code>row.names = FALSE</code> → Ne pas enregistrer les noms des lignes.</p>
-<p><strong>Autre méthode</strong> : La fonction <code>write()</code> permet d’exporter <strong>vecteurs et matrices</strong>, en précisant le nombre de colonnes :</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">3</span>), <span class="at">file =</span> <span class="st">"data.txt"</span>, <span class="at">ncolumns =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="exporter-vers-excel-ou-openoffice-calc" class="level3">
-<h3 class="anchored" data-anchor-id="exporter-vers-excel-ou-openoffice-calc"><strong>2. Exporter vers Excel ou OpenOffice Calc</strong></h3>
-<p>Une méthode simple consiste à <strong>copier les données dans le presse-papiers</strong> et à les coller dans un tableur :</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Poids =</span> <span class="fu">c</span>(<span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">75</span>), <span class="at">Taille =</span> <span class="fu">c</span>(<span class="dv">182</span>, <span class="dv">190</span>, <span class="dv">160</span>))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(X, <span class="at">file =</span> <span class="st">"clipboard"</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">","</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Collez ensuite les données</strong> dans Excel ou LibreOffice avec <strong>CTRL + V</strong>. <strong>Alternative avec un package</strong> :<br>
-Si vous utilisez <strong>Windows</strong>, le package <code>writexl</code> permet une exportation directe vers <strong>Excel</strong> :</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"writexl"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(X, <span class="st">"export.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="générer-des-données-dans-r" class="level1">
+<h1><strong>3. Générer des données dans R</strong></h1>
+<section id="générer-des-données-simples" class="level2">
+<h2 class="anchored" data-anchor-id="générer-des-données-simples"><strong>3.1. Générer des données simples</strong></h2>
+<section id="vecteurs-avec-c" class="level3">
+<h3 class="anchored" data-anchor-id="vecteurs-avec-c"><strong>Vecteurs avec <code>c()</code></strong></h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="fl">2.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="suites-de-valeurs-avec-seq" class="level3">
+<h3 class="anchored" data-anchor-id="suites-de-valeurs-avec-seq"><strong>Suites de valeurs avec <code>seq()</code></strong></h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.1</span>)  <span class="co"># Pas de 0.1</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">length =</span> <span class="dv">8</span>) <span class="co"># 8 valeurs réparties</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="séquence-dentiers-avec" class="level3">
+<h3 class="anchored" data-anchor-id="séquence-dentiers-avec"><strong>Séquence d’entiers avec <code>:</code></strong></h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>  <span class="co"># Génère 1, 2, ..., 12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="créer-des-données-dans-r" class="level2">
-<h2 class="anchored" data-anchor-id="créer-des-données-dans-r"><strong>Créer des données dans R</strong></h2>
-<section id="générer-des-données-simples" class="level3">
-<h3 class="anchored" data-anchor-id="générer-des-données-simples"><strong>1. Générer des données simples</strong></h3>
-<section id="vecteurs-avec-c" class="level4">
-<h4 class="anchored" data-anchor-id="vecteurs-avec-c"><strong>Vecteurs avec <code>c()</code></strong></h4>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="fl">2.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="générer-des-données-pseudo-aléatoires" class="level2">
+<h2 class="anchored" data-anchor-id="générer-des-données-pseudo-aléatoires"><strong>3.2. Générer des données pseudo-aléatoires</strong></h2>
+<section id="valeurs-uniformes-avec-runif" class="level3">
+<h3 class="anchored" data-anchor-id="valeurs-uniformes-avec-runif"><strong>Valeurs uniformes avec <code>runif()</code></strong></h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>, <span class="at">min =</span> <span class="dv">2</span>, <span class="at">max =</span> <span class="dv">7</span>)  <span class="co"># 5 valeurs entre 2 et 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="suites-de-valeurs-avec-seq" class="level4">
-<h4 class="anchored" data-anchor-id="suites-de-valeurs-avec-seq"><strong>Suites de valeurs avec <code>seq()</code></strong></h4>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="fl">0.1</span>)  <span class="co"># Pas de 0.1</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">4</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">length =</span> <span class="dv">8</span>) <span class="co"># 8 valeurs réparties</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="valeurs-normales-avec-rnorm" class="level3">
+<h3 class="anchored" data-anchor-id="valeurs-normales-avec-rnorm"><strong>Valeurs normales avec <code>rnorm()</code></strong></h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>)  <span class="co"># Moyenne 2, écart-type 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="séquence-dentiers-avec" class="level4">
-<h4 class="anchored" data-anchor-id="séquence-dentiers-avec"><strong>Séquence d’entiers avec <code>:</code></strong></h4>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>  <span class="co"># Génère 1, 2, ..., 12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="tirage-aléatoire-avec-sample" class="level3">
+<h3 class="anchored" data-anchor-id="tirage-aléatoire-avec-sample"><strong>Tirage aléatoire avec <code>sample()</code></strong></h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>urne <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(urne, <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># Tirage avec remise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="générer-des-données-pseudo-aléatoires" class="level3">
-<h3 class="anchored" data-anchor-id="générer-des-données-pseudo-aléatoires"><strong>2. Générer des données pseudo-aléatoires</strong></h3>
-<section id="valeurs-uniformes-avec-runif" class="level4">
-<h4 class="anchored" data-anchor-id="valeurs-uniformes-avec-runif"><strong>Valeurs uniformes avec <code>runif()</code></strong></h4>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">5</span>, <span class="at">min =</span> <span class="dv">2</span>, <span class="at">max =</span> <span class="dv">7</span>)  <span class="co"># 5 valeurs entre 2 et 7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="valeurs-normales-avec-rnorm" class="level4">
-<h4 class="anchored" data-anchor-id="valeurs-normales-avec-rnorm"><strong>Valeurs normales avec <code>rnorm()</code></strong></h4>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>)  <span class="co"># Moyenne 2, écart-type 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="tirage-aléatoire-avec-sample" class="level4">
-<h4 class="anchored" data-anchor-id="tirage-aléatoire-avec-sample"><strong>Tirage aléatoire avec <code>sample()</code></strong></h4>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>urne <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">9</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(urne, <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># Tirage avec remise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="entrer-des-données-manuellement" class="level3">
-<h3 class="anchored" data-anchor-id="entrer-des-données-manuellement"><strong>3. Entrer des données manuellement</strong></h3>
-<section id="avec-scan" class="level4">
-<h4 class="anchored" data-anchor-id="avec-scan"><strong>Avec <code>scan()</code></strong></h4>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">scan</span>()  <span class="co"># Entrée interactive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="entrer-manuelle-des-données-dans-r" class="level2">
+<h2 class="anchored" data-anchor-id="entrer-manuelle-des-données-dans-r"><strong>3.3. Entrer manuelle des données dans R</strong></h2>
+<section id="avec-scan" class="level3">
+<h3 class="anchored" data-anchor-id="avec-scan"><strong>Avec <code>scan()</code></strong></h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">scan</span>()  <span class="co"># Entrée interactive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Tapez vos nombres et <strong>appuyez sur “Entrée”</strong> pour valider. Cloturer la saisie par <strong>Entrée</strong>.</p>
 </section>
-<section id="avec-data.entry-éditeur-graphique" class="level4">
-<h4 class="anchored" data-anchor-id="avec-data.entry-éditeur-graphique">** Avec <code>data.entry()</code> (éditeur graphique)**</h4>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())  <span class="co"># Effacer les objets existants</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.entry</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="avec-data.entry-éditeur-graphique" class="level3">
+<h3 class="anchored" data-anchor-id="avec-data.entry-éditeur-graphique">** Avec <code>data.entry()</code> (éditeur graphique)**</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())  <span class="co"># Effacer les objets existants</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data.entry</span>(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Les données saisies dans <code>data.entry("")</code> sont automatiquement stockées dans l’environnement R, mais elles ne sont pas sauvegardées sur le disque.</p>
 </section>
-</section>
 <section id="manipuler-un-tableau-interactif" class="level3">
-<h3 class="anchored" data-anchor-id="manipuler-un-tableau-interactif"><strong>4. Manipuler un tableau interactif</strong></h3>
+<h3 class="anchored" data-anchor-id="manipuler-un-tableau-interactif"><strong>Manipuler un tableau interactif</strong></h3>
 <p>Si vous souhaitez entrer des <strong>données directement dans un mini-tableur</strong>, utilisez :</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">de</span>(<span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Astuce</strong> : Modifiez les noms de variables et les types (<code>numeric</code>, <code>character</code>) en cliquant sur la <strong>première ligne du tableau</strong>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">de</span>(<span class="st">""</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Modifiez les noms de variables et les types (<code>numeric</code>, <code>character</code>) en cliquant sur la <strong>première ligne du tableau</strong>.</p>
 </section>
 </section>
-<section id="résumé" class="level2">
-<h2 class="anchored" data-anchor-id="résumé"><strong>Résumé</strong></h2>
-<p><strong>Exportation</strong> : <code>write.table()</code> pour <strong>texte ASCII</strong>, <code>write_xlsx()</code> pour <strong>Excel</strong><br>
-<strong>Création</strong> : <code>c()</code>, <code>seq()</code>, <code>rep()</code> pour <strong>vecteurs et suites</strong><br>
-<strong>Données aléatoires</strong> : <code>runif()</code> pour valeurs uniformes, <code>rnorm()</code> pour loi normale<br>
-<strong>Saisie manuelle</strong> : <code>scan()</code> et <code>data.entry()</code> pour entrer des valeurs</p>
-<section id="communication-entre-r-et-sqlite-principales-opérations" class="level3">
-<h3 class="anchored" data-anchor-id="communication-entre-r-et-sqlite-principales-opérations"><strong>Communication entre R et SQLite : Principales opérations</strong></h3>
-<p>R peut interagir avec la plupart des <strong>Systèmes de Gestion de Bases de Données (SGBD)</strong>, y compris <strong>SQLite</strong>, qui est une <strong>base de données légère et intégrée</strong> ne nécessitant pas de serveur externe. Cette section présente les opérations courantes permettant d’utiliser <strong>SQLite avec R</strong>.</p>
 </section>
-</section>
-<section id="installation-et-chargement-du-package-sqlite" class="level2">
-<h2 class="anchored" data-anchor-id="installation-et-chargement-du-package-sqlite"><strong>1. Installation et chargement du package SQLite</strong></h2>
-<p>Pour communiquer avec SQLite, on utilise le package <strong><code>RSQLite</code></strong>. Si ce n’est pas encore fait, installez-le :</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RSQLite"</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="création-dune-base-de-données-sqlite" class="level2">
-<h2 class="anchored" data-anchor-id="création-dune-base-de-données-sqlite"><strong>2. Création d’une base de données SQLite</strong></h2>
-<p>La première étape consiste à <strong>créer</strong> une base de données SQLite ou à se connecter à une base existante.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Connexion à une base de données SQLite (création si elle n'existe pas)</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">"ma_base.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Explication</strong> : - <code>dbConnect(SQLite(), dbname = "ma_base.sqlite")</code> → Crée ou ouvre un fichier <strong>SQLite</strong> nommé <code>ma_base.sqlite</code>.</p>
-</section>
-<section id="création-dune-table" class="level2">
-<h2 class="anchored" data-anchor-id="création-dune-table"><strong>3. Création d’une table</strong></h2>
-<p>On peut maintenant <strong>créer une table</strong> dans cette base de données :</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">    CREATE TABLE clients (</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">        id INTEGER PRIMARY KEY,</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="st">        nom TEXT,</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="st">        age INTEGER,</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="st">        ville TEXT</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="st">    )</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Explication</strong> : - La table <code>clients</code> contient <strong>4 colonnes</strong> (<code>id</code>, <code>nom</code>, <code>age</code>, <code>ville</code>). - La colonne <code>id</code> est une <strong>clé primaire</strong>.</p>
-</section>
-<section id="insérer-des-données-dans-sqlite" class="level2">
-<h2 class="anchored" data-anchor-id="insérer-des-données-dans-sqlite"><strong>4. Insérer des données dans SQLite</strong></h2>
-<p>On peut insérer des données avec <strong>SQL</strong> directement :</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="st">    INSERT INTO clients (nom, age, ville) VALUES</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Alice', 28, 'Paris'),</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Bob', 35, 'Lyon'),</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Charlie', 40, 'Marseille')</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Alternative avec un <code>data.frame</code></strong></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un data.frame</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>clients_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nom =</span> <span class="fu">c</span>(<span class="st">"David"</span>, <span class="st">"Emma"</span>),</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">29</span>),</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ville =</span> <span class="fu">c</span>(<span class="st">"Nice"</span>, <span class="st">"Toulouse"</span>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajout des données dans SQLite</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"clients"</span>, clients_df, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="lecture-des-données-depuis-sqlite" class="level2">
-<h2 class="anchored" data-anchor-id="lecture-des-données-depuis-sqlite"><strong>5. Lecture des données depuis SQLite</strong></h2>
-<p>Pour <strong>récupérer</strong> les données stockées dans la base de données :</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM clients"</span>)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)  <span class="co"># Affichage des données récupérées</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Explication</strong> : - <code>dbGetQuery()</code> exécute une requête <strong>SELECT</strong> et retourne un <strong>data.frame</strong> en R.</p>
-</section>
-<section id="suppression-et-mise-à-jour-des-données" class="level2">
-<h2 class="anchored" data-anchor-id="suppression-et-mise-à-jour-des-données"><strong>6. Suppression et mise à jour des données</strong></h2>
-<section id="mettre-à-jour-une-entrée" class="level3">
-<h3 class="anchored" data-anchor-id="mettre-à-jour-une-entrée"><strong>🔹 Mettre à jour une entrée</strong></h3>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"UPDATE clients SET age = 30 WHERE nom = 'Alice'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="supprimer-un-enregistrement" class="level3">
-<h3 class="anchored" data-anchor-id="supprimer-un-enregistrement"><strong>🔹 Supprimer un enregistrement</strong></h3>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"DELETE FROM clients WHERE nom = 'Bob'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="fermeture-de-la-connexion" class="level2">
-<h2 class="anchored" data-anchor-id="fermeture-de-la-connexion"><strong>7. Fermeture de la connexion</strong></h2>
-<p>Une fois les opérations terminées, il est <strong>important de fermer la connexion</strong> :</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r" class="level3">
-<h3 class="anchored" data-anchor-id="procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r"><strong>Procédure générale pour se connecter aux SGBD externes (MySQL, PostgreSQL, SQL Server) avec R</strong></h3>
+<section id="lectureécriture-dans-les-bases-de-données-sql" class="level1">
+<h1><strong>4. Lecture/écriture dans les bases de données SQL</strong></h1>
 <p>R peut interagir avec plusieurs <strong>Systèmes de Gestion de Bases de Données (SGBD)</strong> via des <strong>drivers spécialisés</strong>. Voici une procédure <strong>générale</strong> applicable à <strong>MySQL, PostgreSQL et SQL Server</strong>.</p>
-</section>
-</section>
-<section id="installer-le-package-adapté" class="level2">
-<h2 class="anchored" data-anchor-id="installer-le-package-adapté"><strong>1. Installer le package adapté</strong></h2>
+<section id="procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r" class="level2">
+<h2 class="anchored" data-anchor-id="procédure-générale-pour-se-connecter-aux-sgbd-externes-mysql-postgresql-sql-server-avec-r"><strong>4.1. Procédure générale pour se connecter aux SGBD externes (MySQL, PostgreSQL, SQL Server) avec R</strong></h2>
+<section id="installer-le-package-adapté" class="level3">
+<h3 class="anchored" data-anchor-id="installer-le-package-adapté"><strong>4.1.1. Installer le package adapté</strong></h3>
 <p>Selon le SGBD utilisé, installez le package correspondant :</p>
 <p>🔹 <strong>MySQL</strong> → <code>RMySQL</code><br>
 🔹 <strong>PostgreSQL</strong> → <code>RPostgreSQL</code><br>
 🔹 <strong>SQL Server</strong> → <code>odbc</code></p>
 <p><strong>Installation du package</strong> :</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RMySQL"</span>)  <span class="co"># Pour MySQL</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RPostgreSQL"</span>)  <span class="co"># Pour PostgreSQL</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"odbc"</span>)  <span class="co"># Pour SQL Server</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RMySQL"</span>)  <span class="co"># Pour MySQL</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RPostgreSQL"</span>)  <span class="co"># Pour PostgreSQL</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"odbc"</span>)  <span class="co"># Pour SQL Server</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Puis, <strong>chargez le package</strong> :</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMySQL)  <span class="co"># Exemple pour MySQL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMySQL)  <span class="co"># Exemple pour MySQL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="établir-la-connexion-à-la-base-de-données" class="level2">
-<h2 class="anchored" data-anchor-id="établir-la-connexion-à-la-base-de-données"><strong>2. Établir la connexion à la base de données</strong></h2>
+<section id="établir-la-connexion-à-la-base-de-données" class="level3">
+<h3 class="anchored" data-anchor-id="établir-la-connexion-à-la-base-de-données"><strong>4.1.2. Établir la connexion à la base de données</strong></h3>
 <p>La connexion varie légèrement selon le SGBD, mais suit la structure générale :</p>
-<section id="connexion-à-mysql" class="level3">
-<h3 class="anchored" data-anchor-id="connexion-à-mysql"><strong>🔹 Connexion à MySQL</strong></h3>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RMySQL<span class="sc">::</span><span class="fu">MySQL</span>(),</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">"nom_base"</span>,</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">"nom_utilisateur"</span>,</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="connexion-à-mysql" class="level4">
+<h4 class="anchored" data-anchor-id="connexion-à-mysql"><strong>Connexion à MySQL</strong></h4>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RMySQL<span class="sc">::</span><span class="fu">MySQL</span>(),</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">"nom_base"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">"nom_utilisateur"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="connexion-à-postgresql" class="level3">
-<h3 class="anchored" data-anchor-id="connexion-à-postgresql"><strong>🔹 Connexion à PostgreSQL</strong></h3>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RPostgreSQL<span class="sc">::</span><span class="fu">PostgreSQL</span>(),</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">"nom_base"</span>,</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">"nom_utilisateur"</span>,</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="connexion-à-postgresql" class="level4">
+<h4 class="anchored" data-anchor-id="connexion-à-postgresql"><strong>Connexion à PostgreSQL</strong></h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RPostgreSQL<span class="sc">::</span><span class="fu">PostgreSQL</span>(),</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">"nom_base"</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">"nom_utilisateur"</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="connexion-à-sql-server-via-odbc" class="level3">
-<h3 class="anchored" data-anchor-id="connexion-à-sql-server-via-odbc"><strong>🔹 Connexion à SQL Server via ODBC</strong></h3>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(odbc<span class="sc">::</span><span class="fu">odbc</span>(),</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Driver =</span> <span class="st">"SQL Server"</span>,</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Server =</span> <span class="st">"nom_du_serveur"</span>,</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Database =</span> <span class="st">"nom_base"</span>,</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">UID =</span> <span class="st">"nom_utilisateur"</span>,</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">PWD =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>💡 <strong>Note</strong> : Pour <strong>SQL Server</strong>, vous devez installer le <strong>driver ODBC</strong> correspondant à votre version.</p>
+<section id="connexion-à-sql-server-via-odbc" class="level4">
+<h4 class="anchored" data-anchor-id="connexion-à-sql-server-via-odbc"><strong>Connexion à SQL Server via ODBC</strong></h4>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(odbc<span class="sc">::</span><span class="fu">odbc</span>(),</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Driver =</span> <span class="st">"SQL Server"</span>,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Server =</span> <span class="st">"nom_du_serveur"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Database =</span> <span class="st">"nom_base"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">UID =</span> <span class="st">"nom_utilisateur"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">PWD =</span> <span class="st">"mot_de_passe"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Note</strong> : Pour <strong>SQL Server</strong>, vous devez installer le <strong>driver ODBC</strong> correspondant à votre version.</p>
 </section>
 </section>
-<section id="exécuter-une-requête-sql" class="level2">
-<h2 class="anchored" data-anchor-id="exécuter-une-requête-sql"><strong>3. Exécuter une requête SQL</strong></h2>
+<section id="exécuter-une-requête-sql" class="level3">
+<h3 class="anchored" data-anchor-id="exécuter-une-requête-sql"><strong>4.1.3. Exécuter une requête SQL</strong></h3>
 <p>Une fois connecté, vous pouvez envoyer des requêtes <strong>SQL</strong> depuis R :</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Récupérer toutes les lignes d'une table</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM clients"</span>)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Récupérer toutes les lignes d'une table</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM clients"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="insérer-des-données-dans-la-base" class="level2">
-<h2 class="anchored" data-anchor-id="insérer-des-données-dans-la-base"><strong>4. Insérer des données dans la base</strong></h2>
+<section id="insérer-des-données-dans-la-base" class="level3">
+<h3 class="anchored" data-anchor-id="insérer-des-données-dans-la-base"><strong>4.1.4. Insérer des données dans la base</strong></h3>
 <p>Ajoutez des données directement avec SQL :</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"INSERT INTO clients (nom, age, ville) VALUES ('Alice', 30, 'Paris')"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"INSERT INTO clients (nom, age, ville) VALUES ('Alice', 30, 'Paris')"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Ou utilisez un <strong>data.frame</strong> :</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>clients_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nom =</span> <span class="fu">c</span>(<span class="st">"David"</span>, <span class="st">"Emma"</span>),</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">29</span>),</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ville =</span> <span class="fu">c</span>(<span class="st">"Nice"</span>, <span class="st">"Toulouse"</span>))</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"clients"</span>, clients_df, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>clients_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nom =</span> <span class="fu">c</span>(<span class="st">"David"</span>, <span class="st">"Emma"</span>),</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">29</span>),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ville =</span> <span class="fu">c</span>(<span class="st">"Nice"</span>, <span class="st">"Toulouse"</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"clients"</span>, clients_df, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="fermer-la-connexion" class="level2">
-<h2 class="anchored" data-anchor-id="fermer-la-connexion"><strong>5. Fermer la connexion</strong></h2>
+<section id="fermer-la-connexion" class="level3">
+<h3 class="anchored" data-anchor-id="fermer-la-connexion"><strong>4.1.5. Fermer la connexion</strong></h3>
 <p>Une fois les opérations terminées, <strong>fermez la connexion</strong> pour libérer les ressources :</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="cas-pratique-avec-sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="cas-pratique-avec-sqlite"><strong>4.2. Cas pratique avec SQLite</strong></h2>
+<p><strong>SQLite</strong> est une <strong>base de données légère et intégrée</strong> ne nécessitant pas de serveur externe. Cette section présente les opérations courantes permettant d’utiliser <strong>SQLite avec R</strong>.</p>
+<section id="installation-et-chargement-du-package-sqlite" class="level3">
+<h3 class="anchored" data-anchor-id="installation-et-chargement-du-package-sqlite"><strong>4.2.1. Installation et chargement du package SQLite</strong></h3>
+<p>Pour communiquer avec SQLite, on utilise le package <strong><code>RSQLite</code></strong>. Si ce n’est pas encore fait, installez-le :</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RSQLite"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="création-dune-base-de-données-sqlite" class="level3">
+<h3 class="anchored" data-anchor-id="création-dune-base-de-données-sqlite"><strong>4.2.2. Création d’une base de données SQLite</strong></h3>
+<p>La première étape consiste à <strong>créer</strong> une base de données SQLite ou à se connecter à une base existante.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Connexion à une base de données SQLite (création si elle n'existe pas)</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">"ma_base.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication</strong> : - <code>dbConnect(SQLite(), dbname = "ma_base.sqlite")</code> → Crée ou ouvre un fichier <strong>SQLite</strong> nommé <code>ma_base.sqlite</code>.</p>
+</section>
+<section id="création-dune-table" class="level3">
+<h3 class="anchored" data-anchor-id="création-dune-table"><strong>4.2.3. Création d’une table</strong></h3>
+<p>On peut maintenant <strong>créer une table</strong> dans cette base de données :</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="st">    CREATE TABLE clients (</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="st">        id INTEGER PRIMARY KEY,</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="st">        nom TEXT,</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="st">        age INTEGER,</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="st">        ville TEXT</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="st">    )</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication</strong> : - La table <code>clients</code> contient <strong>4 colonnes</strong> (<code>id</code>, <code>nom</code>, <code>age</code>, <code>ville</code>). - La colonne <code>id</code> est une <strong>clé primaire</strong>.</p>
+</section>
+<section id="insérer-des-données-dans-sqlite" class="level3">
+<h3 class="anchored" data-anchor-id="insérer-des-données-dans-sqlite"><strong>4.2.4. Insérer des données dans SQLite</strong></h3>
+<p>On peut insérer des données avec <strong>SQL</strong> directement :</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="st">    INSERT INTO clients (nom, age, ville) VALUES</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Alice', 28, 'Paris'),</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Bob', 35, 'Lyon'),</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ('Charlie', 40, 'Marseille')</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Alternative avec un <code>data.frame</code></strong></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Création d'un data.frame</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>clients_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">nom =</span> <span class="fu">c</span>(<span class="st">"David"</span>, <span class="st">"Emma"</span>),</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">29</span>),</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ville =</span> <span class="fu">c</span>(<span class="st">"Nice"</span>, <span class="st">"Toulouse"</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajout des données dans SQLite</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"clients"</span>, clients_df, <span class="at">append =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="lecture-des-données-depuis-sqlite" class="level3">
+<h3 class="anchored" data-anchor-id="lecture-des-données-depuis-sqlite"><strong>4.2.5. Lecture des données depuis SQLite</strong></h3>
+<p>Pour <strong>récupérer</strong> les données stockées dans la base de données :</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM clients"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)  <span class="co"># Affichage des données récupérées</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Explication</strong> : - <code>dbGetQuery()</code> exécute une requête <strong>SELECT</strong> et retourne un <strong>data.frame</strong> en R.</p>
+</section>
+<section id="suppression-et-mise-à-jour-des-données" class="level3">
+<h3 class="anchored" data-anchor-id="suppression-et-mise-à-jour-des-données"><strong>4.2.6. Suppression et mise à jour des données</strong></h3>
+<section id="mettre-à-jour-une-entrée" class="level4">
+<h4 class="anchored" data-anchor-id="mettre-à-jour-une-entrée"><strong>Mettre à jour une entrée</strong></h4>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"UPDATE clients SET age = 30 WHERE nom = 'Alice'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="supprimer-un-enregistrement" class="level4">
+<h4 class="anchored" data-anchor-id="supprimer-un-enregistrement"><strong>Supprimer un enregistrement</strong></h4>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"DELETE FROM clients WHERE nom = 'Bob'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="fermeture-de-la-connexion" class="level3">
+<h3 class="anchored" data-anchor-id="fermeture-de-la-connexion"><strong>4.2.7. Fermeture de la connexion</strong></h3>
+<p>Une fois les opérations terminées, il est <strong>important de fermer la connexion</strong> :</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 </section>
 </section>
 

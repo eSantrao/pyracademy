@@ -1,19 +1,22 @@
 ---
-title: "Untitled"
-format: html
+title: "Module 1.2: Importation-exportation et production de données"
+format: pdf
+toc: true
+author: "Togo Posit community"
+date: "05/06/2025"
 ---
+\newpage
 
-# **Manipulation de données**
--   Importation et exportation de données 
+# **1. Importation des données**
 
-## **Importer des données depuis un fichier texte ASCII**
+## **1.1 Importer des données depuis un fichier texte ASCII**
 
 Si vous avez un fichier texte au format **ASCII** contenant vos données, voici comment les importer dans **R**.
 
-### **1. Préparer le fichier**
+### **1.1.1. Préparer le fichier**
 Si vous ne disposez pas d'un fichier texte au format ASCII qui contient vos données, vous pouvez créer un fichier texte avec **Wordpad** sous **Windows** ou **Emacs** sous **Linux**. Si votre fichier contient un grand nombre de données, **préférez un tableur** pour la gestion avant l'importation.
 
-### **2. Méthodes d'importation dans R**
+### **1.1.2. Méthodes d'importation dans R**
 R propose plusieurs fonctions pour lire des fichiers **texte** :
 
 | Fonction        | Description |
@@ -23,7 +26,7 @@ R propose plusieurs fonctions pour lire des fichiers **texte** :
 | `scan()` | Plus flexible et puissante pour lire divers types de fichiers. |
 
 
-### **3. Lecture d’un fichier texte avec `read.table()`**
+### **1.1.3. Lecture d’un fichier texte avec `read.table()`**
 Voici un script permettant de **charger un fichier texte** sous R et de le stocker sous forme de `data.frame` :
 
 ```r
@@ -41,7 +44,7 @@ donnees <- read.table(file = file.choose(), header = TRUE, sep = "\t", dec = "."
 | `row.names = 1` | Si la première colonne contient les identifiants des lignes. |
 
 
-### **4. Chargement manuel du fichier**
+#### **Chargement manuel du fichier**
 Vous pouvez spécifier directement le chemin du fichier :
 
 ```r
@@ -49,7 +52,7 @@ donnees <- read.table(file = "C:/MonDossier/mesdonnees.txt", header = TRUE, sep 
 ```
 **Attention** : Sous **Windows**, utilisez `/` ou `\\` au lieu de `\` dans le chemin du fichier.
 
-### **5. Définir le répertoire de travail**
+#### **Définir le répertoire de travail**
 Plutôt que de spécifier le chemin complet, vous pouvez **définir un répertoire par défaut** :
 
 ```r
@@ -57,18 +60,12 @@ setwd("C:/MonDossier")
 mon.fichier <- "mesdonnees.txt"
 donnees <- read.table(file = mon.fichier, header = TRUE, sep = "\t", dec = ".", row.names = 1)
 ```
-### **6. Vérification des données**
+### **1.1.4. Vérification des données**
 Une fois les données importées, vous pouvez les **visualiser rapidement** :
 
 ```r
 head(donnees)   # Afficher les premières lignes
 tail(donnees)   # Afficher les dernières lignes
-```
-
-**Astuce** : Pour accéder directement aux colonnes du `data.frame`, utilisez la commande :
-
-```r
-attach(donnees)
 ```
 
 Si votre fichier contient des **lignes vides** ou **incomplètes**, ajoutez ces paramètres pour éviter les erreurs :
@@ -77,77 +74,7 @@ Si votre fichier contient des **lignes vides** ou **incomplètes**, ajoutez ces 
 donnees <- read.table(file = "C:/MonDossier/mesdonnees.txt", fill = TRUE, blank.lines.skip = FALSE)
 ```
 
-## **Importer des données depuis un fichier texte ASCII**
-
-Lors de l'analyse de données, il est courant d'utiliser des fichiers **texte ASCII** pour stocker et importer des informations dans **R**. Voici comment procéder efficacement.
-
-### **1. Préparation du fichier**
-- Créez un dossier nommé **DossierData** pour organiser vos fichiers.
-- Téléchargez le fichier **Intima_Media.txt** à partir du lien suivant : 
-- Enregistrez ce fichier dans **DossierData**.
-
----
-
-### **2. Exploration du fichier**
-Avant de l'importer, il est utile de **visualiser son contenu** pour comprendre sa structure.
-
-```r
-setwd("chemin/vers/DossierData/")  # Remplacez "chemin/vers" par votre chemin réel
-readLines("Intima_Media.txt", n = 5)  # Afficher les 5 premières lignes du fichier
-```
-
-Vous verrez une sortie similaire :
-```
-[1] "SEXE AGE taille poids tabac paqan SPORT mesure alcool"
-[2] "1 33 170 70 1 1 0 0,52 1"
-[3] "2 33 177 67 2 20 0 0,42 1"
-
-```
-🔹 **Observations** :
-- La première ligne contient les **noms des variables**.
-- Les valeurs sont **séparées par des espaces**.
-- Le séparateur **décimal est une virgule**.
----
-
-### **3. Importation avec `read.table()`**
-En tenant compte de la structure du fichier, voici le code d'importation :
-
-```r
-mesdonnees <- read.table("Intima_Media.txt", sep = " ", header = TRUE, dec = ",")
-```
-**Paramètres utilisés** :
-- `sep = " "` → Les valeurs sont séparées par des **espaces**.
-- `header = TRUE` → La première ligne contient les **noms des colonnes**.
-- `dec = ","` → Les nombres utilisent une **virgule** comme séparateur décimal.
-
----
-
-### **4. Vérification des données**
-Une fois importées, vérifions la structure du fichier :
-
-```r
-head(mesdonnees)  # Afficher les premières lignes
-class(mesdonnees) # Vérifier la structure de l'objet
-str(mesdonnees)   # Détails sur les types de colonnes
-```
-
-Si certaines valeurs sont absentes, elles seront marquées par `NA`. 
-
----
-
-### **5. Accéder aux variables plus facilement**
-Plutôt que d'écrire `mesdonnees$AGE` à chaque fois, utilisez `attach()` :
-
-```r
-attach(mesdonnees)
-mean(AGE)    # Moyenne de l'âge
-var(taille)  # Variance des tailles
-```
-⚠️ **Attention** : `attach()` doit être utilisé avec précaution, car il peut créer des conflits entre objets portant le même nom.
-
----
-
-### **6. Importation avec d'autres fonctions**
+## **1.2. Importation avec d'autres fonctions**
 R propose plusieurs alternatives adaptées à différents formats :
 ```r
 read.csv("mon_fichier.csv")      # Séparé par des virgules
@@ -157,13 +84,14 @@ read.delim("mon_fichier.txt")    # Séparé par des tabulations
 
 ---
 
-### **8. Importation avancée avec `scan()`**
+## **1.3. Importation avancée**
 Lorsque les données **ne sont pas sous forme de tableau**, `scan()` est plus adapté :
 ```r
-nom.variable <- scan("Intima_Media2.txt", skip = 5, nlines = 1, what = "")
-donnee <- scan("Intima_Media2.txt", skip = 9, dec = ",")
+nom.variable <- scan("Intima_Media.txt", skip = 5, nlines = 1, what = "")
+donnee <- scan("Intima_Media.txt", skip = 9, dec = ",")
 matable <- as.data.frame(matrix(donnee, ncol = 9, byrow = TRUE))
 colnames(matable) <- nom.variable
+
 ```
 
 **Utilisation typique** :
@@ -171,13 +99,13 @@ colnames(matable) <- nom.variable
 - `dec=","` → Utilise la **virgule comme séparateur décimal**.
 **Astuce** : `scan()` permet une **lecture rapide**, idéale pour les gros fichiers !
 
-### **. Utiliser des packages spécialisés**  
+#### **. Utilisation des packages spécialisés**  
 - `readxl` : **Lit les fichiers `.xls/.xlsx`** sans dépendances externes  
 - `gdata` : **Lit `.xls`** mais requiert **Perl**  
 - `foreign` : **Lit des fichiers `.sav`, `.mtp`, `.xpt` et `.mat`**  
 
 
-### **3. Importation depuis d'autres logiciels**  
+## **1.4. Importation depuis d'autres logiciels**  
 
 | **Logiciel** | **Package**  | **Fonction**       | **Extension** | **Format** |
 |-------------|-------------|--------------------|--------------|------------|
@@ -187,18 +115,13 @@ colnames(matable) <- nom.variable
 | **Matlab**  | `R.matlab`  | `readMat()`       | `.mat`       | `list`     |
 
 
-🔹 **4. Gestion des gros fichiers**  
+## **1.5. Gestion des gros fichiers**  
 - Définir les types de colonnes (`colClasses`) pour optimiser la lecture  
 - Stocker dans une base de données SQL en cas de **limite RAM**  
 
-🔹 **5. Lecture de fichiers binaires**  
-```r
-data <- readBin("mon_fichier.bin", what = "double", n = 1000)
-``` 
+# **2. Exportation des données dans R**
 
-## **Exporter des données dans R**
-
-Avant d'exporter, il faut disposer d'un data.frame en R :
+Avant d'exporter, il faut disposer des données en R :
 
 ```{r}
 # Création d'un exemple de jeu de données
@@ -208,7 +131,7 @@ X <- data.frame(
   Taille = c(160, 175, 180)
 )
 ```
-### **1. Exporter vers un fichier texte ASCII**
+## **2.1. Exporter vers un fichier texte ASCII**
 Utilisez la fonction **`write.table()`** pour enregistrer un **data.frame** dans un fichier texte.
 
 ```r
@@ -225,8 +148,8 @@ write.table(donnees, file = "mon-fichier.txt", sep = "\t", row.names = FALSE)
 write(matrix(1:12, nrow=3), file = "data.txt", ncolumns = 4)
 ```
 ---
-### **Exporter des données vers Excel avec `write.csv()` dans R**
-
+## **2.2. Exporter des données vers Excel avec `write.csv()` dans R**
+### **2.2.1. Exportation dans excel par copie coller**
 Une méthode simple consiste à **copier les données dans le presse-papiers** et à les coller dans un tableur :
 
 ```r
@@ -238,7 +161,7 @@ Collez ensuite les données dans Excel ou LibreOffice avec **CTRL + V**.
 L'exportation de données vers **Excel** peut être réalisée efficacement à l'aide de la fonction **`write.csv()`**, qui permet de générer un fichier **CSV** compatible avec Excel et d'autres tableurs.
 
 
-### **2. Utiliser `write.csv()` pour exporter**
+### **2.2.2. Exportation dans un fichier CSV**
 La fonction **`write.csv()`** permet de **sauvegarder les données dans un fichier CSV** :
 
 ```r
@@ -251,13 +174,13 @@ write.csv(X, file = "mes_donnees.csv", row.names = FALSE)
 
  **Par défaut**, `write.csv()` utilise **`,`** comme séparateur de colonnes et **`.`** pour les décimales.
 
-### **3. Spécifier un séparateur de colonnes**
+#### **. Spécifier un séparateur de colonnes**
 Si vous souhaitez **un séparateur différent**, par exemple **";"**, utilisez `write.csv2()` :
 
 ```r
 write.csv2(X, file = "mes_donnees.csv", row.names = FALSE)
 ```
-#### **Différences entre `write.csv()` et `write.csv2()`** :
+##### **Différences entre `write.csv()` et `write.csv2()`** :
 | Fonction       | Séparateur de colonnes | Séparateur décimal |
 |---------------|-----------------------|-------------------|
 | `write.csv()`  | `,` (virgule)         | `.` (point)       |
@@ -265,16 +188,14 @@ write.csv2(X, file = "mes_donnees.csv", row.names = FALSE)
 
  **Utilisez `write.csv2()`** si votre version d'Excel **s'attend à des séparateurs de type `;` (français/européen)**.
 
-
-
-### **4. Sauvegarde avec encodage UTF-8 (pour éviter les problèmes de caractères)**
+#### **Sauvegarde avec encodage UTF-8 (pour éviter les problèmes de caractères)**
 Si votre fichier contient des accents ou caractères spéciaux, utilisez **`fileEncoding`** :
 
 ```r
 write.csv(X, file = "mes_donnees.csv", row.names = FALSE, fileEncoding = "UTF-8")
 ```
 
-### **5. Ouvrir le fichier CSV avec Excel**
+#### **Comment ouvrir le fichier CSV exporté**
 Une fois votre fichier créé, ouvrez **Excel**, puis :
 1. Allez dans **Fichier** , **Ouvrir**.
 2. Sélectionnez **"mes_donnees.csv"**.
@@ -284,8 +205,7 @@ Choisissez le séparateur correct (**`,`** ou **`;`**).
 Vérifiez l'encodage UTF-8 si des caractères sont corrompus.
 
 
-
-### **6. Exportation vers Excel avec le package `writexl` (alternative sans CSV)**
+## **2.3. Exportation vers Excel avec le package `writexl` (alternative sans CSV)**
 Si vous préférez **enregistrer directement en `.xlsx`**, utilisez le package `writexl` :
 
 ```r
@@ -300,223 +220,71 @@ write_xlsx(X, "mes_donnees.xlsx")
  `fileEncoding = "UTF-8"` → Évite les problèmes de caractères spéciaux  
  `writexl` → Exportation directe en `.xlsx` sans passer par CSV  
 
-## **Exporter des données dans R**
 
-### **1. Exporter vers un fichier texte ASCII**
-Utilisez la fonction **`write.table()`** pour enregistrer un **data.frame** dans un fichier texte.
-
-```r
-write.table(donnees, file = "mon-fichier.txt", sep = "\t", row.names = FALSE)
-```
- **Explication des paramètres :**  
-- `file = "mon-fichier.txt"` → Nom du fichier de sortie.  
-- `sep = "\t"` → Séparateur de colonnes (ici, tabulation).  
-- `row.names = FALSE` → Ne pas enregistrer les noms des lignes.  
-
- **Autre méthode** : La fonction `write()` permet d’exporter **vecteurs et matrices**, en précisant le nombre de colonnes :
-
-```r
-write(matrix(1:12, nrow=3), file = "data.txt", ncolumns = 4)
-```
-
-
-### **2. Exporter vers Excel ou OpenOffice Calc**
-
-Une méthode simple consiste à **copier les données dans le presse-papiers** et à les coller dans un tableur :
-
-```r
-X <- data.frame(Poids = c(80, 90, 75), Taille = c(182, 190, 160))
-write.table(X, file = "clipboard", sep = "\t", dec = ",", row.names = FALSE)
-```
-**Collez ensuite les données** dans Excel ou LibreOffice avec **CTRL + V**.
-**Alternative avec un package** :  
-Si vous utilisez **Windows**, le package `writexl` permet une exportation directe vers **Excel** :
-
-```r
-install.packages("writexl")
-library(writexl)
-write_xlsx(X, "export.xlsx")
-```
-
-## **Créer des données dans R**
-### **1. Générer des données simples**
-#### **Vecteurs avec `c()`**
+# **3. Générer des données dans R**
+## **3.1. Générer des données simples**
+### **Vecteurs avec `c()`**
 ```r
 vec <- c(1, 5, 8, 2.3)
 ```
 
-#### **Suites de valeurs avec `seq()`**
+### **Suites de valeurs avec `seq()`**
 ```r
 seq(from = 4, to = 5, by = 0.1)  # Pas de 0.1
 seq(from = 4, to = 5, length = 8) # 8 valeurs réparties
 ```
 
-#### **Séquence d'entiers avec `:`**
+### **Séquence d'entiers avec `:`**
 ```r
 1:12  # Génère 1, 2, ..., 12
 ```
 
-### **2. Générer des données pseudo-aléatoires**
-#### **Valeurs uniformes avec `runif()`**
+## **3.2. Générer des données pseudo-aléatoires**
+### **Valeurs uniformes avec `runif()`**
 ```r
 runif(5, min = 2, max = 7)  # 5 valeurs entre 2 et 7
 ```
 
-#### **Valeurs normales avec `rnorm()`**
+### **Valeurs normales avec `rnorm()`**
 ```r
 rnorm(5, mean = 2, sd = 3)  # Moyenne 2, écart-type 3
 ```
-#### **Tirage aléatoire avec `sample()`**
+### **Tirage aléatoire avec `sample()`**
 ```r
 urne <- 0:9
 sample(urne, 20, replace = TRUE)  # Tirage avec remise
 ```
 
-### **3. Entrer des données manuellement**
-#### **Avec `scan()`**
+## **3.3. Entrer manuelle des données dans R**
+### **Avec `scan()`**
 ```r
 z <- scan()  # Entrée interactive
 ```
 Tapez vos nombres et **appuyez sur "Entrée"** pour valider. Cloturer la saisie par **Entrée**.
 
-#### ** Avec `data.entry()` (éditeur graphique)**
+### ** Avec `data.entry()` (éditeur graphique)**
 ```r
 rm(list = ls())  # Effacer les objets existants
 data.entry("")
 ```
 Les données saisies dans `data.entry("")` sont automatiquement stockées dans l’environnement R, mais elles ne sont pas sauvegardées sur le disque.
 
-
-
-### **4. Manipuler un tableau interactif**
+### **Manipuler un tableau interactif**
 Si vous souhaitez entrer des **données directement dans un mini-tableur**, utilisez :
 
 ```r
 X <- as.data.frame(de(""))
 ```
-**Astuce** : Modifiez les noms de variables et les types (`numeric`, `character`) en cliquant sur la **première ligne du tableau**.
-
-## **Résumé**
-**Exportation** : `write.table()` pour **texte ASCII**, `write_xlsx()` pour **Excel**  
-**Création** : `c()`, `seq()`, `rep()` pour **vecteurs et suites**  
-**Données aléatoires** : `runif()` pour valeurs uniformes, `rnorm()` pour loi normale  
-**Saisie manuelle** : `scan()` et `data.entry()` pour entrer des valeurs 
+Modifiez les noms de variables et les types (`numeric`, `character`) en cliquant sur la **première ligne du tableau**.
 
 
-### **Communication entre R et SQLite : Principales opérations**
-
-R peut interagir avec la plupart des **Systèmes de Gestion de Bases de Données (SGBD)**, y compris **SQLite**, qui est une **base de données légère et intégrée** ne nécessitant pas de serveur externe. Cette section présente les opérations courantes permettant d'utiliser **SQLite avec R**.
-
-
-
-## **1. Installation et chargement du package SQLite**
-Pour communiquer avec SQLite, on utilise le package **`RSQLite`**. Si ce n'est pas encore fait, installez-le :
-
-```r
-install.packages("RSQLite")
-library(RSQLite)
-```
-
-
-## **2. Création d'une base de données SQLite**
-La première étape consiste à **créer** une base de données SQLite ou à se connecter à une base existante.
-
-```r
-# Connexion à une base de données SQLite (création si elle n'existe pas)
-con <- dbConnect(SQLite(), dbname = "ma_base.sqlite")
-```
-
- **Explication** :
-- `dbConnect(SQLite(), dbname = "ma_base.sqlite")` → Crée ou ouvre un fichier **SQLite** nommé `ma_base.sqlite`.
-
-
-## **3. Création d'une table**
-On peut maintenant **créer une table** dans cette base de données :
-
-```r
-dbExecute(con, "
-    CREATE TABLE clients (
-        id INTEGER PRIMARY KEY,
-        nom TEXT,
-        age INTEGER,
-        ville TEXT
-    )
-")
-```
-
- **Explication** :
-- La table `clients` contient **4 colonnes** (`id`, `nom`, `age`, `ville`).
-- La colonne `id` est une **clé primaire**.
-
-
-
-## **4. Insérer des données dans SQLite**
-On peut insérer des données avec **SQL** directement :
-
-```r
-dbExecute(con, "
-    INSERT INTO clients (nom, age, ville) VALUES
-    ('Alice', 28, 'Paris'),
-    ('Bob', 35, 'Lyon'),
-    ('Charlie', 40, 'Marseille')
-")
-```
-
-
- **Alternative avec un `data.frame`**
-```r
-# Création d'un data.frame
-clients_df <- data.frame(
-    nom = c("David", "Emma"),
-    age = c(22, 29),
-    ville = c("Nice", "Toulouse")
-)
-
-# Ajout des données dans SQLite
-dbWriteTable(con, "clients", clients_df, append = TRUE, row.names = FALSE)
-```
-
-
-
-## **5. Lecture des données depuis SQLite**
-Pour **récupérer** les données stockées dans la base de données :
-
-```r
-res <- dbGetQuery(con, "SELECT * FROM clients")
-print(res)  # Affichage des données récupérées
-```
-
- **Explication** :
-- `dbGetQuery()` exécute une requête **SELECT** et retourne un **data.frame** en R.
-
-
-## **6. Suppression et mise à jour des données**
-### **🔹 Mettre à jour une entrée**
-```r
-dbExecute(con, "UPDATE clients SET age = 30 WHERE nom = 'Alice'")
-```
-
-### **🔹 Supprimer un enregistrement**
-```r
-dbExecute(con, "DELETE FROM clients WHERE nom = 'Bob'")
-```
-
-
-
-## **7. Fermeture de la connexion**
-Une fois les opérations terminées, il est **important de fermer la connexion** :
-
-```r
-dbDisconnect(con)
-```
-
-
-### **Procédure générale pour se connecter aux SGBD externes (MySQL, PostgreSQL, SQL Server) avec R**  
+# **4. Lecture/écriture dans les bases de données SQL** 
 
 R peut interagir avec plusieurs **Systèmes de Gestion de Bases de Données (SGBD)** via des **drivers spécialisés**. Voici une procédure **générale** applicable à **MySQL, PostgreSQL et SQL Server**.
 
+## **4.1. Procédure générale pour se connecter aux SGBD externes (MySQL, PostgreSQL, SQL Server) avec R**  
 
-## **1. Installer le package adapté**
+### **4.1.1. Installer le package adapté**
 Selon le SGBD utilisé, installez le package correspondant :  
 
 🔹 **MySQL** → `RMySQL`  
@@ -535,10 +303,10 @@ library(RMySQL)  # Exemple pour MySQL
 ```
 
 
-## **2. Établir la connexion à la base de données**
+### **4.1.2. Établir la connexion à la base de données**
 La connexion varie légèrement selon le SGBD, mais suit la structure générale :
 
-### **🔹 Connexion à MySQL**
+#### **Connexion à MySQL**
 ```r
 con <- dbConnect(RMySQL::MySQL(),
                  dbname = "nom_base",
@@ -547,7 +315,7 @@ con <- dbConnect(RMySQL::MySQL(),
                  password = "mot_de_passe")
 ```
 
-### **🔹 Connexion à PostgreSQL**
+#### **Connexion à PostgreSQL**
 ```r
 con <- dbConnect(RPostgreSQL::PostgreSQL(),
                  dbname = "nom_base",
@@ -556,7 +324,7 @@ con <- dbConnect(RPostgreSQL::PostgreSQL(),
                  password = "mot_de_passe")
 ```
 
-### **🔹 Connexion à SQL Server via ODBC**
+#### **Connexion à SQL Server via ODBC**
 ```r
 con <- dbConnect(odbc::odbc(),
                  Driver = "SQL Server",
@@ -566,10 +334,10 @@ con <- dbConnect(odbc::odbc(),
                  PWD = "mot_de_passe")
 ```
 
-💡 **Note** : Pour **SQL Server**, vous devez installer le **driver ODBC** correspondant à votre version.
+**Note** : Pour **SQL Server**, vous devez installer le **driver ODBC** correspondant à votre version.
 
 
-## **3. Exécuter une requête SQL**
+### **4.1.3. Exécuter une requête SQL**
 Une fois connecté, vous pouvez envoyer des requêtes **SQL** depuis R :
 
 ```r
@@ -579,7 +347,7 @@ print(result)
 ```
 
 
-## **4. Insérer des données dans la base**
+### **4.1.4. Insérer des données dans la base**
 Ajoutez des données directement avec SQL :
 
 ```r
@@ -596,9 +364,259 @@ dbWriteTable(con, "clients", clients_df, append = TRUE, row.names = FALSE)
 ```
 
 
-## **5. Fermer la connexion**
+### **4.1.5. Fermer la connexion**
 Une fois les opérations terminées, **fermez la connexion** pour libérer les ressources :
 
 ```r
 dbDisconnect(con)
 ```
+
+## **4.2. Cas pratique avec SQLite**
+**SQLite** est une **base de données légère et intégrée** ne nécessitant pas de serveur externe. Cette section présente les opérations courantes permettant d'utiliser **SQLite avec R**.
+
+### **4.2.1. Installation et chargement du package SQLite**
+Pour communiquer avec SQLite, on utilise le package **`RSQLite`**. Si ce n'est pas encore fait, installez-le :
+
+```{r}
+#install.packages("RSQLite")
+library(RSQLite)
+```
+### **4.2.2. Création d'une base de données SQLite**
+La première étape consiste à **créer** une base de données SQLite ou à se connecter à une base existante.
+
+```{r}
+# Connexion à une base de données SQLite (création si elle n'existe pas)
+con <- dbConnect(SQLite(), dbname = "ma_base.sqlite")
+#Pour un stockage de la base dans la memeoire utiliser:
+con <- dbConnect(SQLite(), dbname =  ":memory:")
+```
+
+ **Explication** :
+- `dbConnect(SQLite(), dbname = "ma_base.sqlite")` → Crée ou ouvre un fichier **SQLite** nommé `ma_base.sqlite`.
+
+
+### **4.2.3. Création d'une table**
+On peut maintenant **créer une table** dans cette base de données :
+
+```{r}
+dbExecute(con, "
+    CREATE TABLE clients (
+        id INTEGER PRIMARY KEY,
+        nom TEXT,
+        age INTEGER,
+        ville TEXT
+    )
+")
+```
+
+ **Explication** :
+- La table `clients` contient **4 colonnes** (`id`, `nom`, `age`, `ville`).
+- La colonne `id` est une **clé primaire**.
+
+
+### **4.2.4. Insérer des données dans SQLite**
+On peut insérer des données avec **SQL** directement :
+
+```{r}
+dbExecute(con, "
+    INSERT INTO clients (nom, age, ville) VALUES
+    ('Alice', 28, 'Paris'),
+    ('Bob', 35, 'Lyon'),
+    ('Charlie', 40, 'Marseille')
+")
+```
+
+ **Alternative avec un `data.frame`**
+```{r}
+# Création d'un data.frame
+clients_df <- data.frame(
+    nom = c("David", "Emma"),
+    age = c(22, 29),
+    ville = c("Nice", "Toulouse")
+)
+# Ajout des données dans SQLite
+dbWriteTable(con, "clients", clients_df, append = TRUE, row.names = FALSE)
+```
+
+### **4.2.5. Lecture des données depuis SQLite**
+Pour **récupérer** les données stockées dans la base de données :
+
+```{r}
+res <- dbGetQuery(con, "SELECT * FROM clients")
+print(res)  # Affichage des données récupérées
+```
+
+ **Explication** :
+- `dbGetQuery()` exécute une requête **SELECT** et retourne un **data.frame** en R.
+
+
+### **4.2.6. Suppression et mise à jour des données**
+#### **Mettre à jour une entrée**
+```{r}
+dbExecute(con, "UPDATE clients SET age = 90 WHERE nom = 'Alice'")
+```
+
+#### **Supprimer un enregistrement**
+```{r}
+dbExecute(con, "DELETE FROM clients WHERE nom = 'Bob'")
+res <- dbGetQuery(con, "SELECT * FROM clients")
+print(res)  # Affichage des données récupérées
+```
+
+### **4.2.7. Fermeture de la connexion**
+Une fois les opérations terminées, il est **important de fermer la connexion** :
+
+```{r}
+dbDisconnect(con)
+```
+
+
+# **Exercices et Travaux pratiques**
+## **Exercice**
+
+**1** – Quelles sont les trois fonctions principales de R permettant d’importer des données depuis un fichier texte au format ASCII ?  
+
+**2** – Une fonction couramment utilisée pour la lecture de données possède les paramètres suivants : `header`, `sep`, `dec`, `row.names`, `skip`, `nrows`.  
+- Expliquez leur rôle et donnez un exemple de valeur que peut prendre chacun d’entre eux.  
+
+**3** – À quoi sert la fonction `readLines()` ?  
+
+**4** – Quelle est l’utilité de la fonction `fix()` ?  
+
+**5** – Décrivez les particularités des fonctions `read.csv()`, `read.csv2()`, `read.delim()` et `read.delim2()`.  
+
+**6** – À quoi sert la fonction `read.ftable()` ?  
+
+**7** – En quoi les fonctions `scan()` et `read.table()` se différencient-elles ?  
+
+**8** – Expliquez en détail comment importer des données provenant d’une feuille de calcul **Excel** dans R.  
+
+**9** – Quel package contient plusieurs fonctions permettant d’importer des données depuis des logiciels commerciaux de statistique ?  
+
+**10** – Lors de la lecture de **gros fichiers de données**, quel paramètre de la fonction `read.table()` permet d’accélérer significativement la vitesse de lecture ?  
+
+**11** – Quelle fonction R permet d’écrire un jeu de données contenu dans un **data.frame** vers un fichier texte ?  
+- Citez une autre fonction ayant une fonction similaire.  
+
+**12** – Citez **quatre fonctions de base** permettant de créer des **vecteurs** en R.  
+
+**13** – Indiquez comment utiliser la fonction `seq()` pour obtenir le vecteur suivant :  
+```r
+[1] 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0
+```
+
+**14** – Donnez l’instruction R la plus concise permettant d’obtenir le vecteur suivant :  
+```r
+[1] 1 1 2 2 3 3
+```
+
+**15** – Donnez l’instruction R la plus concise permettant d’obtenir le vecteur suivant :  
+```r
+[1] 1 2 3 1 2 3
+```
+
+**16** – Citez **deux fonctions R** permettant **d’entrer des données manuellement** dans le **mini-tableur** de R.  
+
+
+Bien sûr ! Voici le texte corrigé, en éliminant les erreurs typographiques et en améliorant la lisibilité :
+
+
+
+## Travaux Pratiques: Lecture de différents jeux de données  
+### **A- Saisie des données issues d'un format papier**  
+
+#### A.1 Boutons de fièvre  
+Cinq traitements contre les boutons de fièvre, dont un placebo, ont été administrés par tirage au sort à trente patients (six patients par groupe de traitement). Le délai (en jours) entre l'apparition des boutons et la cicatrisation complète a été recueilli chez chaque patient.  
+
+**Traitements**  
+
+| Traitements | trt1 (placebo) | trt2 | trt3 | trt4 | trt5 |
+|-------------|---------------|------|------|------|------|
+| Patient 1  | 5             | 4    | 6    | 7    | 9    |
+| Patient 2  | 8             | 6    | 4    | 4    | 3    |
+| Patient 3  | 7             | 6    | 4    | 6    | 5    |
+| Patient 4  | 7             | 3    | 5    | 6    | 7    |
+| Patient 5  | 10            | 5    | 4    | 3    | 7    |
+| Patient 6  | 8             | 6    | 3    | 5    | 6    |
+
+La question que l'on se pose est de savoir s'il existe une différence entre les traitements. Il s'agit donc ici de comparer les moyennes des délais de cicatrisation observés dans cinq échantillons indépendants (groupes de traitement).  
+
+L'analyse statistique adéquate s'appelle l'**ANOVA**; elle sera présentée au chapitre 13. Nous allons voir ici comment entrer ces données dans **R** uniquement pour calculer la moyenne de l'échantillon de chaque traitement.  
+
+1. **Entrez directement les données dans R** à l'aide de la fonction `c()`.  
+2. **Utilisez la fonction `attach()` puis la fonction `mean()`** pour calculer la moyenne de chacun des traitements.  
+3. **Calculez simultanément les moyennes des traitements** au moyen de la fonction `colMeans()`.  
+4. **Enregistrez votre `data.frame` dans un fichier nommé `boutons.txt`** en utilisant la fonction `write.table()`.  
+5. **Vérifiez que tout s'est bien passé** en ouvrant le fichier au moyen d'un éditeur de texte.  
+6. **Utilisez la fonction `rm()`** pour effacer tous les objets R que vous venez de créer dans votre environnement de travail.  
+7. **Importez le fichier `boutons.txt`** en utilisant `read.table()` et affichez-le.  
+
+#### A.2 Facteurs de risque de l'athérosclérose  
+Lors d'une étude sur les facteurs de risque de l'athérosclérose, des données ont été recueillies et résumées dans le tableau de contingence suivant :  
+
+| Sexe | Tabac                | Ne boit pas | Boit occasionnellement | Boit régulièrement |
+|------|---------------------|-------------|-----------------------|------------------|
+| H    | Ne fume pas        | 6           | 19                    | 7              |
+| H    | A arrêté de fumer  | 0           | 9                     | 0              |
+| H    | Fume              | 1           | 6                     | 5              |
+| F    | Ne fume pas        | 12          | 26                    | 2              |
+| F    | A arrêté de fumer  | 3           | 5                     | 1              |
+| F    | Fume              | 1           | 6                     | 1              |
+
+Il peut être intéressant de savoir s'il y a une dépendance entre les habitudes tabagiques et alcooliques suivant le sexe. Pour entrer ce type de données dans **R**, il faut suivre plusieurs étapes.
+
+
+1. **Utilisez la fonction `scan()`** afin d'obtenir une matrice `X` de taille `6×3`, qui contiendra uniquement les données.  
+2. **Spécifiez que `X` est une table de contingence** à l’aide de l’instruction `class(X) <- "ftable"`.  
+3. **Définissez les attributs de la table** en tapant les deux instructions suivantes :  
+
+```r
+attributes(X)$col.vars <- list(alcool = c("ne boit pas", "boit occasionnellement", "boit régulièrement"))
+attributes(X)$row.vars <- list(SEXE = c("H", "F"), tabac = c("ne fume pas", "a arrêté de fumer", "fume"))
+```
+
+4. **Affichez votre tableau de contingence ainsi créé**.  
+5. **Enregistrez votre tableau de contingence** dans un fichier nommé `athero.txt` en utilisant la fonction `write.ftable()`.  
+6. **Vérifiez que l’enregistrement s’est bien déroulé** en ouvrant le fichier avec un éditeur de texte.  
+7. **Utilisez la fonction `rm()`** pour effacer tous les objets `R` que vous venez de créer dans votre environnement de travail.  
+8. **Importez le fichier `athero.txt`** en utilisant `read.ftable()` et affichez-le.  
+
+### **B- Importer des données depuis un logiciel externe**  
+
+Lors de l'étude de l'**IMC** (indice de masse corporelle) chez des enfants, un fichier de données a été recueilli sous plusieurs formats différents par une équipe de statisticiens. Nous allons nous entraîner à lire ces différents formats.  
+
+Il existe plusieurs fichiers portant le nom **imcenfant**, mais avec des extensions différentes.  
+
+1. **Importez le fichier `imcenfant.xls`** dans un `data.frame` nommé `imc.XLS`.  
+2. **Importez le fichier `imcenfant.xpt`** dans un `data.frame` nommé `imc.SAS`.  
+3. **Importez le fichier `imcenfant.sav`** dans un `data.frame` nommé `imc.SPSS`.  
+4. **Importez le fichier `imcenfant.mat`** dans un `data.frame` nommé `imc.MAT`.  
+
+Comme la procédure pour importer un fichier `.mat` est plus complexe, voici les étapes détaillées :  
+
+```r
+x <- readMat("imcenfant.mat")
+class(x) # x est une liste
+x # les données sont dans $imc[,,1]
+x <- x$imc[,,1]
+
+# Notez que les éléments de SEXE et zep sont enregistrés dans une liste
+x$SEXE
+class(x$SEXE) <- "character"
+x$SEXE
+class(x$zep) <- "character"
+
+imc.MAT <- as.data.frame(x)
+```
+
+5. **Vérifiez que l'importation s’est bien déroulée** en utilisant la fonction `summary()` sur tous ces `data.frames`. Celle-ci affichera des résumés numériques.  
+6. **Sauvegardez l’un de ces `data.frames`** dans un fichier nommé `imcenfant.txt`.  
+
+### **C- Importer des fichiers de données plus complexes**  
+
+Dans la pratique d'un Data scientist, il arrive souvent que l’on rencontre des fichiers de données ayant un format d’enregistrement non standard. Nous allons donc nous entraîner à lire plusieurs fichiers de ce type, sur lesquels nous serons amenés à réaliser des analyses statistiques.  
+
+1. **Importez le fichier `raf98.gra`** dans la structure la plus adaptée. Pour cela, consultez le fichier associé `formatgeoide.txt`, qui contient la description du format de ce fichier.  
+2. **Importez le fichier `Infarct.xls`** dans un `data.frame`, en vous assurant de bien traiter les valeurs manquantes.  
+3. **Importez le fichier `nutriage.txt`**, qui contient **treize variables mesurées sur 226 individus**, dans un `data.frame`. _(Indice : utilisez entre autres les fonctions `as.data.frame()` et `t()`)._  
+4. **Importez le fichier `Poids naissance.txt`**, qui contient **dix variables mesurées sur 189 individus**, dans un `data.frame`. Celui-ci devra contenir **le nom des variables et le nom des individus** (correspondant à la colonne **Id**). Pensez à utiliser l'aide en ligne pour vous guider.  

@@ -1,0 +1,28 @@
+Description du format des grilles de la famille RAF
+===================================================
+
+En-tete:
+-------
+6 valeurs numériques, 2 par lignes:
+   42.0000000000000     51.5000000000000
+   -5.50000000000000     8.50000000000000
+    0.0250000000000000   0.0333333333333333
+
+correspondant à:
+latitude_limite_sud         latitude_limite_nord
+longitude_limite_ouest      longitude_limite_est
+pas_en_latitude             pas_en_longitude
+
+Les valeurs sont en degrés décimaux.
+
+Grille proprement dite:
+----------------------
+par latitude du nord au sud
+pour chaque latitude, par longitude d'ouest en est.
+
+Physiquement: pour chaque latitude, 52 lignes de 8 valeurs, 1 ligne de 5 valeurs.
+Logiquement: grille de 381 lignes (latitudes) par 421 colonnes (longitude).
+
+Les valeurs (hauteur de la surface de référence d'altitude au dessus de 
+l'ellipsoïde) sont en mètres.
+
